@@ -1,0 +1,397 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>Introducción a LabVIEW, uso de estructuras y funciones básicas</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m41078</md:content-id>
+  <md:title>Introducción a LabVIEW, uso de estructuras y funciones básicas</md:title>
+  <md:abstract>Tutorial de LabVIEW. Se explica el uso de las diversas Paletas, funciones básicas y se familiariza con el entorno en general. Este tutorial es usado en la cátedra Señales y Sistemas Continuos de la UCAB, y fue realizado por la profesora Maria Gabriela Rodriguez. El tutorial se realizó con la ayuda del "Curso de LabVIEW Seis Horas" de National Instruments, y con la ayuda del tutorial ubicado en "links"</md:abstract>
+  <md:uuid>d32581ca-97dc-45ff-9f85-077d035768d6</md:uuid>
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="supplemental">
+      <link url="http://www.gte.us.es/ASIGN/IE_4T/Tutorial%20de%20Labview.pdf" strength="2">Tutorial de LabVIEW de gte</link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>
+    <para id="id1163781022117"> LabVIEW es un entorno de programación destinado al desarrollo de aplicaciones, similar a los sistemas de desarrollo comerciales que utilizan el <emphasis effect="italics">lenguaje C </emphasis>o <emphasis effect="italics">BASIC</emphasis>. Sin embargo, LabVIEW se diferencia de dichos programas en un importante aspecto: los citados lenguajes de programación se basan en líneas de texto para crear el código fuente del programa, mientras que LabVIEW emplea la programación gráfica o <emphasis effect="italics">lenguaje G </emphasis>para crear programas basados en diagramas de bloques.</para>
+    <para id="id1163781495123"> Para el empleo de LabVIEW no se requiere gran experiencia en programación, ya que se emplean iconos, términos e ideas familiares a científicos e ingenieros, y se apoya sobre símbolos gráficos en lugar de lenguaje escrito para construir las aplicaciones. Por ello resulta mucho más intuitivo que el resto de lenguajes de programación convencionales. LabVIEW posee extensas librerías de funciones y subrutinas. Además de las funciones básicas de todo lenguaje de programación, LabVIEW incluye librerías específicas para la adquisición de datos, control de instrumentación VXI, GPIB y comunicación serie, análisis presentación y guardado de datos.</para>
+    <section id="id1163781622416">
+      <title>¿Cómo trabaja LabVIEW?</title>
+      <para id="id1163791463168"> Los programas desarrollados mediante LabVIEW se denominan <emphasis effect="italics">Instrumentos Virtuales </emphasis>(<emphasis effect="italics">VIs</emphasis>), porque su apariencia y funcionamiento imitan los de un instrumento real. Sin embargo son análogos a las funciones creadas con los lenguajes de programación convencionales. Los <emphasis effect="italics">VIs </emphasis>tienen una parte interactiva con el usuario y otra parte de código fuente, y aceptan parámetros procedentes de otros <emphasis effect="italics">VIs</emphasis>.</para>
+      <para id="id1163781436886"> Cada VI contiene tres partes principales:</para>
+      <list id="id1163782720077" list-type="bulleted">
+        <item>Panel frontal: Cómo el usuario interacciona con el VI.</item>
+        <item>Diagrama de bloque: El código que controla el programa.</item>
+        <item>Icono/Conector: Medios para conectar un VI con otros VIs.</item>
+      </list>
+      
+      <section id="id1163782975828">
+        <title>Panel Frontal</title>
+        <para id="id1163781600557"> Esta interfaz recoge las entradas procedentes del usuario y representa las salidas proporcionadas por el programa. Un <emphasis effect="italics">panel frontal </emphasis>está formado por una serie de botones, pulsadores, potenciómetros, gráficos, etc. Cada uno de ellos puede estar definido como un <emphasis effect="italics">control </emphasis>(a) o un <emphasis effect="italics">indicador </emphasis>(b). Los primeros sirven para introducir parámetros al VI, mientras que los indicadores se emplean para mostrar los resultados producidos, ya sean datos adquiridos o resultados de alguna operación.</para>
+        <figure id="id1163781645426"><media id="id1163781645426_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 27.png" id="id1163781645426__onlineimage" height="320" width="592"/>
+          </media>
+        <caption>Panel frontal con controles (A) e indicadores (B)</caption></figure>
+      </section>
+      <section id="id1163781648719">
+        <title>Diagrama de bloques</title>
+        <para id="id1163783352410"> El <emphasis effect="italics">diagrama de bloques </emphasis>constituye el código fuente del <emphasis effect="italics">VI</emphasis>. En el <emphasis effect="italics">diagrama de bloques </emphasis>es donde se realiza la implementación del programa del <emphasis effect="italics">VI </emphasis>para controlar o realizar cualquier procesado de las entradas y salidas que se crearon en el <emphasis effect="italics">panel frontal</emphasis>.</para>
+        <para id="id1163782989270">El <emphasis effect="italics">diagrama de bloques </emphasis>incluye <emphasis effect="italics">funciones </emphasis>y <emphasis effect="italics">estructuras </emphasis>integradas en las librerías que incorpora LabVIEW. En el <emphasis effect="italics">lenguaje G </emphasis>las <emphasis effect="italics">funciones </emphasis>y las <emphasis effect="italics">estructuras </emphasis>son nodos elementales. Son análogas a los operadores o librerías de funciones de los lenguajes convencionales.</para>
+        <para id="id1163781133660">Los <emphasis effect="italics">controles </emphasis>e <emphasis effect="italics">indicadores </emphasis>que se colocaron previamente en el Panel Frontal, se materializan en el diagrama de bloques mediante los <emphasis effect="italics">terminales</emphasis></para>
+        <figure id="id1163781768752"><media id="id1163781768752_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 2-fbe8.png" id="id1163781768752__onlineimage" height="311" width="421"/>
+          </media>
+        <caption>Diagrama de bloques con una función (a), dos terminales (control e indicador) (b) y una estructura (c)</caption></figure>
+      </section>
+    </section>
+    <section id="id1163781249733">
+      <title>Como acceder al Programa:</title>
+      <para id="id4916468">Seleccione el botón <emphasis effect="bold">Inicio</emphasis> → <emphasis effect="bold">Todos los Programas</emphasis> → y localice el ejecutable del LabVIEW. Éste será similar al que se muestra a continuación: </para>
+      <para id="id1163783656704"><media id="id1163781884826_media" alt=""><image mime-type="image/png" src="../../media/graphics1-7f6b.png" id="id1163781884826__onlineimage" height="40" width="156"/></media><space count="3"/>Haga clic sobre el botón para iniciar el programa.</para>
+      <para id="id1163782441746">Una vez ejecutado el programa, aparecerá la siguiente pantalla:</para>
+      <para id="id1163783534214"><figure id="id1163781774366"><media id="id1163781774366_media" alt=""><image mime-type="image/png" src="../../media/Imagen 3-0e7a.png" id="id1163781774366__onlineimage" height="346" width="408"/></media><caption>Nuevo VI</caption></figure></para>
+      <para id="id1163783381300">Para entrar a las pantallas de programación, haga clic sobre el botón “<emphasis effect="bold">Blank VI”</emphasis>. Inmediatamente, aparecerán las pantallas del <emphasis effect="italics">Panel Frontal</emphasis> y del <emphasis effect="italics">Diagrama de Bloque</emphasis> en cascada; presione la combinación de teclas <emphasis effect="bold">ctrl.+T</emphasis> y ambas pantallas se colocaran una al lado de la otra como se observa en la figura 4. Revise el menú desplegable del botón <emphasis effect="italics">Window</emphasis> de la barra de tareas de cualquiera de las pantallas para cambiar la disposición de las pantallas en su monitor. </para>
+      <figure id="id1163785638692"><media id="id1163785638692_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics2-d96f.png" id="id1163785638692__onlineimage" height="160" width="632"/>
+        </media>
+      <caption>Pantallas de LabVIEW</caption></figure>
+      <para id="id4962827"/>
+      <para id="id1163783462637">El <emphasis effect="bold">panel frontal</emphasis> es la interfaz del usuario con el VI. El panel frontal se construye con controles e indicadores, que son las entradas y salidas que interactúan con las terminales del VI, respectivamente. Los controles son botones, botones de empuje, marcadores y otros componentes de entradas. Los indicadores son las graficas, luces y otros dispositivos. Los controles simulan instrumentos de entradas de equipos y suministra datos al diagrama de bloques del VI. Los indicadores simulan salidas de instrumentos y suministra datos que el diagrama de bloques adquiere o genera.</para>
+      <para id="id1163781942742">El <emphasis effect="bold">diagrama de bloques</emphasis> contiene el código fuente grafico. Los objetos del panel frontal aparecen como terminales en el diagrama de bloques. Adicionalmente, el diagrama de bloques contiene funciones y estructuras incorporadas en las bibliotecas de LabVIEW VI. Los cables conectan cada uno de los nodos en el diagrama de bloques, incluyendo controles e indicadores de terminal, funciones y estructuras.</para>
+    </section>
+    <section id="id1163783756531">
+      <title>Paletas</title>
+      <para id="id1163781482697">Las paletas de LabVIEW proporcionan las herramientas que se requieren para crear y modificar tanto el panel frontal como el diagrama de bloques. Existen las siguientes paletas:</para>
+      <section id="id1163783682990">
+        <title>Paleta de controles </title>
+        <para id="id1163783465702">La <emphasis effect="bold">paleta de controles</emphasis> (<emphasis effect="italics">Controls</emphasis>) se usa para colocar los controles e indicadores en el panel frontal. La paleta de controles esta disponible solamente en el panel frontal. Seleccionando <emphasis effect="italics">View</emphasis> → <emphasis effect="italics">Controls palette</emphasis> o haciendo clic derecho en el espacio de trabajo en el panel frontal se despliega esta paleta. También puede desplegarse la paleta de controles haciendo un clic derecho en un área abierta del panel frontal. Para desaparecer esta paleta se hace clic izquierdo en cualquier área abierta del panel</para>
+        <figure id="id1163783368528"><media id="id1163783368528_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 5-414a.png" id="id1163783368528__onlineimage" height="321" width="176"/>
+          </media>
+        <caption>Controls Palette</caption></figure>
+      </section>
+      <section id="id1163781682079">
+        <title>Paleta de funciones </title>
+        <para id="id1163782769191">Se usa la <emphasis effect="bold">paleta de funciones</emphasis> (<emphasis effect="italics">Functions</emphasis>), para construir un diagrama de bloques. La paleta de funciones esta disponible solamente en el diagrama de bloques. Seleccionando <emphasis effect="italics">View</emphasis> → <emphasis effect="italics">Functions Palette</emphasis> o haciendo clic derecho en el espacio de trabajo del diagrama de bloques se despliega esta paleta. También puede desplegarse la paleta de funciones haciendo un clic derecho en un área abierta del diagrama de bloques. Para desaparecer la paleta se hace clic izquierdo en cualquier área abierta del panel</para>
+        <figure id="id1163781924030"><media id="id1163781924030_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 6.png" id="id1163781924030__onlineimage" height="460" width="176"/>
+          </media>
+        <caption>Functions Palette</caption></figure>
+        <para id="id4988898">Dependiendo de la versión de LabVIEW de la que se disponga, se tendrá un mayor o menor número de controles y funciones disponibles.</para>
+        <para id="id1163781218086">Se puede cambiar el formato de presentación de cada una de las paletas, para ello se selecciona el botón <emphasis effect="italics">View </emphasis>→ <emphasis effect="italics">View This Palette As</emphasis> en cada una de las paletas y se escoje la opción que le sea más cómoda para trabajar. Se Recomienda explorar el resto de los botones que se encuentran dentro del botón <emphasis effect="italics">View</emphasis> para ajustar cada paleta como resulte más cómodo.</para>
+      </section>
+      <section id="id1163782404972">
+        <title>Paleta de Herramientas</title>
+        <para id="id1163782996377">Esta paleta puede ser accedida desde cualquiera de las áreas de trabajo, seleccionando <emphasis effect="italics">View</emphasis> → <emphasis effect="italics">Tools Palette</emphasis>. Dispone de un botón de selección automática, si se encuentra seleccionado y se mueve el cursor sobre un objeto en el panel frontal o en el diagrama de bloque, LabVIEW automáticamente selecciona la herramienta correspondiente de la paleta de controles. En caso contrario, se deberá hacer la selección apropiada manualmente.</para>
+        <para id="id1163784554478">
+          <figure id="id1163781784221"><media id="id1163781784221_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics3-8ffa.png" id="id1163781784221__onlineimage" height="218" width="340"/>
+            </media>
+          <caption>Tools Palette</caption></figure>
+        </para>
+        
+        <para id="id1163783987414">Para mayor comodidad, asegúrese que se encuentre seleccionado.</para>
+      </section>
+    </section>
+    <section id="id1163781466948">
+      <title>La “Ayuda” de LabVIEW.</title>
+      <para id="id1163783080955"> Como en cualquier otro programa, es muy importante obtener información de cómo operan las funciones y cuál es la sintaxis que debe seguirse para la programación. </para>
+      <para id="id1163781880620"> Existen dos maneras básicas de obtener ayuda del programa, la primera es haciendo clic en <emphasis effect="italics">Help</emphasis> → <emphasis effect="italics">Show Context Help</emphasis>, a lo cual aparecerá la siguiente ventana:</para>
+      <figure id="id1163782262905"><media id="id1163782262905_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics4-7faf.png" id="id1163782262905__onlineimage" height="165" width="272"/>
+        </media>
+      <caption>Ayuda Contextual</caption></figure>
+      <para id="id1163784499882">Cuando se pase el cursor sobre cualquier VI, el contenido de la ventana <emphasis effect="italics">Context Help</emphasis> cambiará y dará una ayuda rápida acerca del instrumento virtual sobre el cual esté el cursor.</para>
+      <figure id="id1163782338300"><media id="id1163782338300_media" alt="">
+          <image mime-type="image/png" src="../../media/Imagen 7-8592.png" id="id1163782338300__onlineimage" height="263" width="367"/>
+        </media>
+      <caption>Ayuda Contextual para un elemento </caption></figure>
+      <para id="id1163782878512">La otra manera de tener acceso a la ayuda es haciendo clic derecho sobre el VI del cual quiere obtener información; se desplegará una ventada en la cual debe seleccionar en botón que corresponde a <emphasis effect="italics">Help</emphasis>. Casi de inmediato se abrirá una nueva ventana donde aparecerá de maneta detallada la información relacionada con el VI que está buscando junto con el nombre y utilidad de cada uno de los terminales de los que dispone el instrumento.</para>
+      
+    </section>
+    <section id="id1163781829841">
+      <title>Tipos de Datos que emplea LabVIEW</title>
+      <para id="id1163796807115">Al igual que en otros lenguajes de programación, debe tenerse cuidado con el tipo de dato con el que se está trabajando; es decir, de acuerdo con el control o VI con el que se trabaje, éste podrá operar con datos del tipo: <emphasis effect="italics">Boolean</emphasis>, <emphasis effect="italics">single</emphasis>, <emphasis effect="italics">double</emphasis>, binarios del tipo <emphasis effect="italics">byte</emphasis>, <emphasis effect="italics">Word</emphasis>, etc. LabVIEW hace la distinción asigna un color y un tipo de “cable” a cada estructura de datos; así éstos se pueden ver de la siguiente manera:</para>
+      <para id="id1163783707083">
+        <figure id="id1163781349349"><media id="id1163781349349_media" alt="">
+            <image mime-type="image/png" src="../../media/Ima 8.png" id="id1163781349349__onlineimage" height="194" width="465"/>
+          </media>
+        <caption>Nótense los diferentes tipos de cable</caption></figure>
+      </para>
+      <para id="id1163781806614">Por ejemplo, la línea delgada de color naranja representa datos de un solo tipo con valores decimales en los cuales se pueden encontrar los datos de precisión simple, doble o extendida. Las líneas delgadas de color azul son datos con o sin signo tipo <emphasis effect="italics">byte</emphasis>, <emphasis effect="italics">Word</emphasis> o <emphasis effect="italics">Long</emphasis>. Las líneas más gruesas representan datos compuestos a los que se les llama <emphasis effect="italics">Cluster</emphasis>, estos pueden estar compuestos con datos de diferente índole, para lo cual el programa se encarga de mantenerlos separados y organizados.</para>
+      <para id="id1163783009248">Una ventaja que ofrece LabVIEW es que al hacer conexiones entre VI con datos diferentes, en la mayoría de los casos, el programa se encarga de hacer la adaptación del tipo de dato simplificando, al usuario, la operación de conversión entre ellos. Por el contrario, si al programa se le hace imposible realizar la adaptación de los datos, entonces se presentará la conexión como un cable interrumpido.</para>
+    </section>
+    <section id="id1163782236424">
+      <title>Conexiones entre los diferentes controles e instrumentos </title>
+      <para id="id1163782096019">En la sección de Paleta de Herramientas, se indicó la conveniencia de mantener habilitado el botón de selección automática, esto permitirá ahorrar tiempo a la hora de manipular y hacer conexiones entre VI y/o controles.</para>
+      <para id="id1163782236994"> En la pantalla del <emphasis effect="bold">Panel Frontal</emphasis>, desde la Paleta de Controles haga clic hasta conseguir un control del tipo <emphasis effect="bold">Numeric Control</emphasis>: <emphasis effect="italics">Modern</emphasis> → <emphasis effect="italics">Numeric</emphasis></para>
+      <figure id="id1163783047770"><media id="id1163783047770_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics5-4d7e.png" id="id1163783047770__onlineimage" height="392" width="239"/>
+        </media>
+      <caption>Numeric control. No debe mantener presionado el botón del <emphasis effect="italics">Mouse</emphasis> para ubicarlo, sólo presione una vez y libere el botón.</caption></figure>
+      
+      
+      <para id="id1163783460224">El cursor, que antes era tipo puntero, ahora será tipo mano. Lleve el cursor hasta el panel frontal y haga clic en el sitio que desea colocar el control numérico que acaba de seleccionar (podrá colocar el nombre que desee a este control en este momento o en cualquier momento en el futuro). </para>
+      <figure id="id1163783605855"><media id="id1163783605855_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics6-70ad.png" id="id1163783605855__onlineimage" height="185" width="291"/>
+        </media>
+      <caption>Controles numéricos en el Panel de Control y en el Diagrama de Bloques </caption></figure>
+      <para id="id1163785171723">A la izquierda se muestra la manera en la que se verán los controles numéricos en el panel frontal. A la derecha se muestra la contraparte de los mismos controles que aparecerán simultáneamente en el diagrama de bloques. <emphasis effect="bold">Las conexiones sólo podrán realizarse en el diagrama de bloques.</emphasis></para>
+      <para id="id1163782981706"> Para familiarizarse con las propiedades de estos controles, haga clic derecho sobre cualquiera de los controles numéricos y selecciones <emphasis effect="italics">Properties</emphasis>. Explore las funciones de cada una de las pestañas de la ventana de propiedades.</para>
+      <para id="id1163783209067">Realice el mismo procedimiento para colocar, esta vez, indicadores numéricos, los mismos se encuentran en <emphasis effect="italics">Modern</emphasis> → <emphasis effect="italics">Numeric</emphasis> → <emphasis effect="italics">Numeric Indicator</emphasis>. Coloque dos, uno con el nombre de <emphasis effect="bold">Suma</emphasis> y el otro con el nombre de <emphasis effect="bold">Resta</emphasis>.</para>
+      
+      <para id="id1163782096381">Ahora seleccione la pantalla del Diagrama de Bloques. En la Paleta de Funciones seleccione <emphasis effect="italics">Programming</emphasis> → <emphasis effect="italics">Numeric</emphasis> → <emphasis effect="italics">Add</emphasis>, arrastre el sumador hasta el lugar en la pantalla del diagrama de bloque donde desea colocarlo y haga clic para depositarlo. Consulte la Ayuda para revisar su funcionamiento. </para>
+      
+      <para id="id1163783261060">Realice la misma operación pero esta vez para colocar un restador. Consulte la Ayuda para revisar su funcionamiento.</para>
+      <para id="id4995936">Una vez hecho todo lo anterior, deberá tenerse la siguiente programación en la pantalla de diagrama de bloques:</para>
+      <figure id="id1163783512089"><media id="id1163783512089_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics7-6ef3.png" id="id1163783512089__onlineimage" height="194" width="264"/>
+        </media>
+      <caption>Diagrama de bloques sin cablear </caption></figure>
+      <para id="id1163784851840">Para realizar las conexiones coloque el cursor sobre el triángulo e inmediatamente éste cambiará a la forma de herramienta de cableado; haga clic sobre el terminal y mueva el cursor hasta uno de los terminales de la izquierda del sumador.</para>
+      <figure id="id1163783357908"><media id="id1163783357908_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics8.png" id="id1163783357908__onlineimage" height="160" width="279"/>
+        </media>
+      <caption>Realizando el cableado </caption></figure>
+      
+      <para id="eip-375">Haga lo mismo con los demás terminales hasta obtener un resultado parecido al siguiente: </para><para id="id1163783008550"><figure id="id1163781168063"><media id="id1163781168063_media" alt=""><image mime-type="image/png" src="../../media/graphics9.png" id="id1163781168063__onlineimage" height="161" width="440"/></media><caption>Diagrama de Bloques hechas las conexiones y Panel Frontal </caption></figure></para>
+    </section>
+    <section id="id1163781472426">
+      <title>Cómo correr el programa</title>
+      <para id="id1163781188165">Este proceso se logra a través de la Barra de Herramientas de Estados, la cual esta disponible desde cualquiera de las dos pantallas del programa.</para>
+      <figure id="id1163781745816"><media id="id1163781745816_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics10.png" id="id1163781745816__onlineimage" height="24" width="407"/>
+        </media>
+      <caption>Vista desde el Panel frontal</caption></figure>
+      
+      <figure id="id1163783428670"><media id="id1163783428670_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics11.png" id="id1163783428670__onlineimage" height="22" width="495"/>
+        </media>
+      <caption>Vista desde el Diagrama de Bloques</caption></figure>
+      
+      <para id="id1163781807793">
+        <figure id="id1163782949193"><media id="id1163782949193_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics12.png" id="id1163782949193__onlineimage" height="193" width="608"/>
+          </media>
+        <caption>Botones en la barra de herramientas</caption></figure>
+      </para>
+      <para id="id1163781366517">Desde el Panel Frontal, asigne valores diferentes a los controles numéricos haciendo clic dentro del control y escribiendo un número a través del teclado. Presione el botón de ejecución <emphasis effect="italics">Run</emphasis> y observe el resultado en los indicadores.</para>
+      <figure id="id1163781608158"><media id="id1163781608158_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics13.png" id="id1163781608158__onlineimage" height="145" width="189"/>
+        </media>
+      <caption>Panel frontal de ejemple anterior</caption></figure>
+      
+      
+      <para id="id1163782013702">Pruebe cada una de las modalidades de ejecución y observe los resultados. Para el caso de ejecución continua, podrán cambiarse los valores de los números de manera dinámica y los resultados cambiaran de forma inmediata. Otra manera de cambiar el valor del control numérico es colocando el cursor sobre la parte izquierda, donde se encuentran las flechas, el cursor cambiará a tipo mano, haciendo clic sobre alguna de las flechas el valor del número se incrementará o disminuirá dependiendo del caso.</para>
+    </section>
+    <section id="id1163784892314">
+      <title>Estructuras </title>
+      <para id="id1163781850042">En la paleta de funciones la primera opción es la de las estructuras. Éstas controlan el flujo del programa, bien sea mediante la secuenciación de acciones, ejecución de bucles, etc.</para>
+      <figure id="id1163782917904"><media id="id1163782917904_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics14.png" id="id1163782917904__onlineimage" height="331" width="219"/>
+        </media>
+      <caption>Estructuras </caption></figure>
+      <para id="id1163781776737">Las estructuras se comportan como cualquier otro nodo en el diagrama de bloques, ejecutando automáticamente lo que está programado en su interior una vez tiene disponibles los datos de entrada, y una vez ejecutadas las instrucciones requeridas, suministran los correspondientes valores a los cables unidos a sus salidas. Sin embargo, cada estructura ejecuta su subdiagrama de acuerdo con las reglas específicas que rigen su comportamiento, y que se especifican a continuación.</para>
+      <para id="id1163784034050">Un subdiagrama es una colección de nodos, cables y terminales situados en el interior del rectángulo que constituye la estructura. El <emphasis effect="italics">For Loop</emphasis> y el <emphasis effect="italics">While Loop</emphasis> únicamente tienen un subdiagrama. El <emphasis effect="italics">Case Structure </emphasis>y<emphasis effect="italics"/>el <emphasis effect="italics">Stacked Sequence Structure</emphasis>, sin embargo, pueden tener múltiples subdiagramas, superpuestos como si se tratara de cartas en una baraja, por lo que en el diagrama de bloques únicamente será posible visualizar al tiempo uno de ellos. El <emphasis effect="italics">Flat Sequence Structure </emphasis>posee varios subdiagramas colocados unos al lado de otros. Pueden agregarse más subdiagramas para las estructuras que lo permitan pulsando el botón derecho sobre el borde de la estructura y seleccionando la opción <emphasis effect="italics">Add Frame After </emphasis>o <emphasis effect="italics">Add Frame Before</emphasis> según donde se desee el nuevo subdiagrama. Los subdiagramas se construyen del mismo modo que el resto del programa</para>
+      <para id="id1163783137450">Las siguientes estructuras se hallan disponibles en el lenguaje G:</para>
+      <section id="id1163782275482">
+        <title>Case Structure</title>
+        <para id="id1163782263252">Al igual que otras estructuras posee varios subdiagramas, que se superponen como si de una baraja de cartas se tratara. En la parte superior del subdiagrama aparece el identificador del que se está representando en pantalla. A ambos lados de este identificador aparecen unas flechas que permiten pasar de un subdiagrama<emphasis effect="italics"/>a otro.</para>
+        <para id="id1163784074884">En este caso el identificador es un valor que selecciona el subdiagrama que se debe ejecutar en cada momento.</para>
+        <figure id="id1163783342203"><media id="id1163783342203_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 13-16d0.png" id="id1163783342203__onlineimage" height="225" width="334"/>
+          </media>
+        <caption> Case Structure</caption></figure>
+        <para id="id4948474">La estructura <emphasis effect="italics">Case </emphasis>tiene al menos dos subdiagramas<emphasis effect="italics"/>(<emphasis effect="italics">True </emphasis>y <emphasis effect="italics">False</emphasis>). Únicamente se ejecutará el contenido de uno de ellos, dependiendo del valor de lo que se conecte al selector<emphasis effect="italics">.</emphasis></para>
+      </section>
+      <section id="id1163781807762">
+        <title>Stacked Sequence Structure</title>
+        <para id="id1163782930795">De nuevo, este tipo de estructuras presenta varios subdiagramas, superpuestos como en una baraja de cartas, de modo que únicamente se puede visualizar una en pantalla. También poseen un identificador del subdiagrama<emphasis effect="italics"/>mostrado en su parte superior, con posibilidad de avanzar o retroceder a otros subdiagramas<emphasis effect="italics"/>gracias a las flechas situadas a ambos lados del mismo.</para>
+        <para id="id1163782837978">
+          <figure id="id1163781497191"><media id="id1163781497191_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 14-a384.png" id="id1163781497191__onlineimage" height="222" width="421"/>
+            </media>
+          <caption>Stacked Sequence Structure</caption></figure>
+        </para>
+        <para id="id1163782754289">Esta estructura secuencia la ejecución del programa. Primero ejecutará el subdiagrama<emphasis effect="italics"/>de la hoja (<emphasis effect="italics">frame</emphasis>) nº0, después el de la nº 1, y así sucesivamente.</para>
+        <para id="id1163783275792">Para pasar datos de una hoja a otra se pulsará el botón derecho del ratón sobre el borde de la estructura, seleccionando la opción <emphasis effect="italics">Add sequence local</emphasis>.</para>
+        <figure id="id1163782367463"><media id="id1163782367463_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 15-670e.png" id="id1163782367463__onlineimage" height="204" width="418"/>
+          </media>
+        <caption>Datos de subdiagrama a subdiagrama en Stacked Sequence Structure</caption></figure>
+      </section>
+      <section id="id1163783074602">
+        <title>Flat Sequence Structure</title>
+        <para id="id1163781787108">Su funcionamiento es similar al de la <emphasis effect="italics">Stacked Sequence Structure</emphasis>, esta estructura tiene varios subdiagramas colocados uno al lado de otro, su orden de ejecución es de izquierda a derecha.</para>
+        <figure id="id1163781494548"><media id="id1163781494548_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 24-718b.png" id="id1163781494548__onlineimage" height="98" width="266"/>
+          </media>
+        <caption>Flat Sequence Structure
+</caption></figure>
+      </section>
+      <section id="id1163784649848">
+        <title>For Loop</title>
+        <para id="id1163783691501">Es el equivalente al bucle <emphasis effect="italics">for</emphasis> en los lenguajes de programación convencionales. Ejecuta el código dispuesto en su interior un número determinado de veces.</para>
+        <para id="id1163782908165">
+          <figure id="id1163783729887"><media id="id1163783729887_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 16-db6f.png" id="id1163783729887__onlineimage" height="191" width="327"/>
+            </media>
+          <caption> For Loop</caption></figure>
+        </para>
+        <para id="id1163784305692">Ejecutar el bucle <emphasis effect="italics">for</emphasis> es equivalente al siguiente fragmento de código:</para>
+        <figure id="id1163782767243"><media id="id1163782767243_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 17-e181.png" id="id1163782767243__onlineimage" height="52" width="476"/>
+          </media>
+        <caption>Código de For Loop</caption></figure>
+        <para id="id1163783451842">Para pasar valores de una iteración a otra se emplean los llamador <emphasis effect="italics">shift registers</emphasis>. Para crear uno, se pulsará el botón derecho del ratón mientras éste se halla situado sobre el borde del bucle, seleccionando la opción <emphasis effect="italics">Add Shift Register</emphasis>. El <emphasis effect="italics">shift register</emphasis> consta de dos terminales, situados en los bordes laterales del bloque. El terminal izquierdo almacena el valor obtenido en la iteración anterior. El terminal derecho guardará el dato correspondiente a la iteración en ejecución. Dicho dato aparecerá, por tanto, en el terminal izquierdo durante la iteración posterior.</para>
+        <figure id="id1163781730734"><media id="id1163781730734_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 18-f3a0.png" id="id1163781730734__onlineimage" height="359" width="495"/>
+          </media>
+        <caption>Datos de iteración a iteración en For Loop</caption></figure>
+        <para id="id1163782207369">Se puede configurar un <emphasis effect="italics">shift register</emphasis> para memorizar valores de varias iteraciones previas. Para ello, con el ratón situado sobre el terminal izquierdo del <emphasis effect="italics">shift register</emphasis> se pulsará el botón derecho, seleccionando a continuación la opción <emphasis effect="italics">Add Element</emphasis>.</para>
+        <para id="id1163781281895">
+          <figure id="id1163783453997"><media id="id1163783453997_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 19-d69d.png" id="id1163783453997__onlineimage" height="224" width="381"/>
+            </media>
+          <caption>Valores previos de variables en For Loop</caption></figure>
+        </para>
+      </section>
+      <section id="id1163781672163">
+        <title>While Loop</title>
+        <para id="id1163782171082">Es el equivalente al bucle <emphasis effect="italics">while </emphasis>empleado en los lenguajes convencionales de programación. Su funcionamiento es similar al del bucle <emphasis effect="italics">for.</emphasis></para>
+        <figure id="id1163782165789"><media id="id1163782165789_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 20-9b12.png" id="id1163782165789__onlineimage" height="156" width="495"/>
+          </media>
+        <caption>Bucle While (While Loop)</caption></figure>
+        <para id="id1163782995221">El bucle <emphasis effect="italics">while </emphasis>es equivalente al código siguiente:</para>
+        <figure id="id1163781602469"><media id="id1163781602469_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 21.png" id="id1163781602469__onlineimage" height="112" width="477"/>
+          </media>
+        <caption>Código de While Loop
+</caption></figure>
+        <para id="id1163784017395">El programa comprueba el valor de lo que se halle conectado al terminal condicional al finalizar el bucle. Por lo tanto, el bucle siempre se ejecuta al menos una vez.</para>
+        <para id="id1163781057491">Con esta estructura también se pueden emplear los <emphasis effect="italics">shift registers </emphasis>para tener disponibles los datos obtenidos en iteraciones anteriores (es decir, para memorizar valores obtenidos). Su empleo es análogo al de los bucles <emphasis effect="italics">for</emphasis>, por lo que se omite su explicación.</para>
+      </section>
+      <section id="id1163783603727">
+        <title>Formula Node</title>
+        <para id="id1163781629920">La estructura denominada <emphasis effect="italics">Formula Node </emphasis>se emplea para introducir en el diagrama de bloques fórmulas de un modo directo. Resulta de gran utilidad cuando la ecuación tiene muchas variables o es relativamente compleja. Por ejemplo, se desea implementar la ecuación: <emphasis effect="italics">y = x</emphasis><emphasis effect="italics">2</emphasis><emphasis effect="italics"> + x + 1</emphasis></para>
+        <para id="id1163782689365">Empleando bloques pertenecientes al <emphasis effect="italics">lenguaje G </emphasis>quedaría:</para>
+        <para id="id4951993"><figure id="sss"><media id="id1163781167602_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics15.png" id="id1163781167602__onlineimage" height="53" width="226"/>
+            </media>
+
+
+<caption>Ecuación con lenguaje G</caption></figure></para>
+        <para id="id1163782805557">Si se utiliza <emphasis effect="italics">formula node</emphasis>, se obtiene:</para>
+        <figure id="id1163783309441"><media id="id1163783309441_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics16.png" id="id1163783309441__onlineimage" height="69" width="234"/>
+          </media>
+        <caption>Ecuación con Formula Node</caption></figure>
+        <para id="id1163783464506">Para definir una fórmula mediante este estructura, se actuará del siguiente modo:</para>
+        <list id="id1163781249642" list-type="bulleted">
+          <item>En primer lugar, se deben definir las variables de entrada y las de salida. Para ello, se pulsa con el botón derecho del ratón sobre el borde de la <emphasis effect="italics">formula node</emphasis>. A continuación se seleccionará <emphasis effect="italics">Add Input </emphasis>o <emphasis effect="italics">Add Output</emphasis>, según se trate de una entrada o una salida, respectivamente. Aparecerá un rectángulo, en el que se debe escribir el nombre de la variable (se distingue entre mayúsculas y minúsculas). Todas las variables que se empleen deben estar declaradas como entradas o salidas. Las que se empleen como variables intermedias se declararán como salidas, aunque posteriormente no se unan a ningún bloque posterior.</item>
+          <item>Una vez definidas las variables a emplear, se escribirán la o las fórmulas en el interior del recuadro. Cada fórmula debe finalizar con un “<emphasis effect="italics">;</emphasis>”.</item>
+          <item>Los operadores y funciones que se pueden emplear se explican en la ayuda de LabVIEW, y son los que se muestran a continuación:</item>
+        </list>
+        <figure id="id1163781344457"><media id="id1163781344457_media" alt="">
+            <image mime-type="image/png" src="../../media/auxx-1ff2.png" id="id1163781344457__onlineimage" height="289" width="504"/>
+          </media>
+        <caption>Operadores aplicables en Formula Node</caption></figure>
+      </section>
+    </section>
+    <section id="id1163797010071">
+      <title>Elaboración de un programa con LabVIEW</title>
+      <para id="id1163782336140">En secciones anteriores se hizo un pequeño ejemplo de un programa que suma y resta dos números. Para la siguiente parte se construirá un Generador de Funciones con un Osciloscopio para visualizar la señal generada y para finalizar un Analizador de Espectro.</para>
+      <para id="id1163782502065">Para acercarnos los más posible a la realidad, se incluirá en este programa un botón de encendido y apagado, con lo cual se ilustrará el concepto de estructuras (ciclo <emphasis effect="italics">Case</emphasis>).</para>
+      <para id="id1163782846982">Para el Generador de Funciones se requiere:</para>
+      <para id="id1163782829089"> Un VI de nombre: <emphasis effect="bold">Basic Funtion Generator.vi</emphasis>, el cual será ubicado desde la Paleta de Funciones del Diagrama de Bloque.</para>
+      <para id="id1163783557244">En <emphasis effect="italics">Programming</emphasis><emphasis effect="italics"/>→ <emphasis effect="italics">Waveform </emphasis>→ <emphasis effect="italics">Analog Waveform </emphasis>→ <emphasis effect="italics">Waveform Generation</emphasis> Seleccione el VI <emphasis effect="bold">Basic FuncGen</emphasis> y arrástrelo hasta la pantalla.</para>
+      
+      <para id="id1163781195663"> Coloque el cursor sobre el Generador que acaba de crear y explore los nombres de todos los terminales disponibles. Para poner a funcionar este instrumento no será necesario conectar todos los terminales. </para>
+      <figure id="id1163783024544"><media id="id1163783024544_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics17.png" id="id1163783024544__onlineimage" height="167" width="333"/>
+        </media>
+      <caption>Imagen del Generador de Funciones vista desde la “Ayuda Contextual” </caption></figure>
+      
+      <para id="id1163781630455">En un Generador de Funciones real, pueden controlarse cosas básicas como el tipo de señal, la amplitud o la frecuencia; y obtenerse cosas como la señal generada o de salida.</para>
+      <para id="id1163782602762">Para crear los controles de una manera rápida y sin riesgos de cometer errores haga clic derecho sobre el terminal <emphasis effect="italics">amplitude</emphasis> del <emphasis effect="bold">Basic Function Genrator.vi</emphasis> y seleccione <emphasis effect="italics">Create</emphasis>→<emphasis effect="italics">Control</emphasis></para>
+      <figure id="id1163781475082"><media id="id1163781475082_media" alt="">
+          <image mime-type="image/png" src="../../media/Ima 1.png" id="id1163781475082__onlineimage" height="336" width="516"/>
+        </media>
+      <caption>Método alternativo para crear un control </caption></figure>
+      <para id="id1163782190871"> Realice el mismo procedimiento para crear el control de Frecuencia y el selector para el Tipo de Señal. Se deben crear de manera automática los correspondientes controles en el Panel Frontal.</para>
+      <figure id="id1163781435644">
+        <media id="id1163781435644_media" alt="">
+          <image mime-type="image/png" src="../../media/Imagen 12-63cd.png" id="id1163781435644__onlineimage" height="229" width="609"/>
+        </media>
+      </figure>
+      <para id="id1163783973617">Para colocar el Osciloscopio seleccione desde la Paleta de Controles en el Panel Frontal <emphasis effect="italics">Modern</emphasis> → <emphasis effect="italics">Graph</emphasis>, seleccione y arrastre el indicador gráfico <emphasis effect="bold">Wareform Graph</emphasis>, coloque el nombre de Osciloscopio.</para>
+      
+      <figure id="id1163781730615"><media id="id1163781730615_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics18.png" id="id1163781730615__onlineimage" height="299" width="551"/>
+        </media>
+      <caption>Localización de Waveform Graph</caption></figure>
+      
+      <para id="id1163781495975">Revise la lista de operaciones que puede realizar haciendo clic botón derecho sobre el indicador gráfico que acaba de crear (tendrá diferentes opciones dependiendo el sitio donde ubique el cursor). Revise específicamente las etiqueta <emphasis effect="italics">Visible Ítems, X Scale, Y Scale </emphasis>y<emphasis effect="italics"> Properties</emphasis>. También pruebe hacer clic botón derecho en la parte superior derecho del indicador, en el área de nombre <emphasis effect="bold">Plot 0</emphasis>, explore todos los atributos disponibles. </para>
+      <para id="id1163784524713">En el Diagrama de Bloques, conecte el terminal de salida <emphasis effect="italics">signal out</emphasis> del <emphasis effect="bold">Basic FuncGen</emphasis> al <emphasis effect="bold"/>Osciloscopio. Ahora se colocará un botón de encendido y apagado para todo el circuito, incluye al Generador de Funciones y el Osciloscopio. En la Paleta de Controles seleccione y arrastre un botón del tipo <emphasis effect="bold">Push Button </emphasis>desde <emphasis effect="italics">Modern</emphasis>→ <emphasis effect="italics">Boolean </emphasis>hasta el Panel Frontal<emphasis effect="italics">.</emphasis></para>
+      <para id="id1163785168003">Este control maneja datos de tipo Bolean: Verdadero/Falso, se emplea para controlar estructuras del tipo <emphasis effect="italics">Case</emphasis>, entre otras. Para obtener la estructura tipo <emphasis effect="italics">Case</emphasis> vaya al Diagrama de Bloque, en la Paleta de Funciones siga la secuencia <emphasis effect="italics">Programming </emphasis>→ <emphasis effect="italics">Structures</emphasis> y seleccione <emphasis effect="bold">Case Structure. </emphasis></para>
+      
+      <para id="id1163781675994">Cuando se encuentre sobre la pantalla del Diagrama de Bloque, el cursor tendrá la forma de un pequeño cuadrado con líneas segmentadas con la esquina superior izquierda rellena. Seleccione arrastrando todos los elementos del Diagrama de Bloque que desea estén controlados por la estructura <emphasis effect="italics">Case.</emphasis></para>
+      <figure id="id1163781199749"><media id="id1163781199749_media" alt="">
+          <image mime-type="image/png" src="../../media/Imagen 107.png" id="id1163781199749__onlineimage" height="228" width="447"/>
+        </media>
+      <caption>Vista previa a la colocación de las estructura <emphasis effect="italics">Case</emphasis></caption></figure>
+      
+      <para id="id1163781695447">
+        <figure id="id1163781614629"><media id="id1163781614629_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 108.png" id="id1163781614629__onlineimage" height="219" width="468"/>
+          </media>
+        <caption>Vista luego de colocar la estructura <emphasis effect="italics">Case.</emphasis></caption></figure>
+      </para>
+      
+      
+      <para id="id1163783284071">Conecte el botón On/Off a la estructura, cableando desde el triángulo del <emphasis effect="bold">Push Button</emphasis> hasta el signo de interrogación que encuentra al lado izquierdo de la estructura. Note que el <emphasis effect="italics">Case</emphasis> tiene un rectángulo en la parte superior, éste le permite ver el programa que se ha de ejecutar si la condición del botón es Verdadero (True) o Falso (False). La estructura también podría ser controlada por variables diferentes a la Boolean, si tiene un control de tipo numérico, entonces las condiciones del <emphasis effect="italics">Case</emphasis> cambiarán automáticamente a las nuevas condiciones. Revise la Ayuda para obtener mayor información.</para>
+      <para id="id1163782204525"> Así se verán las diferentes pantallas:</para>
+      <figure id="id1163783569947"><media id="id1163783569947_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics19.png" id="id1163783569947__onlineimage" height="275" width="611"/>
+        </media>
+      <caption>Diagrama de Bloques</caption></figure>
+      
+      <para id="id1163781498448">
+        <figure id="id1163781968383"><media id="id1163781968383_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics20.png" id="id1163781968383__onlineimage" height="398" width="607"/>
+          </media>
+        <caption>Panel Frontal</caption></figure>
+      </para>
+      
+      <para id="id1163781815089">Desde el Panel Frontal presione el botón de ejecución continua, luego el botón On/Off. Ahora puede interactuar con el Generador de Funciones cambiando el tipo de Señal, la amplitud y/o la Frecuencia. Pruebe cambiar la escala, de amplitud y tiempo, del Osciloscopio.</para>
+      <para id="id1163784302809">El próximo paso será colocar el Analizador de Espectro, repita el procedimiento empleado para colocar un indicador gráfico (figura 37), pero esta vez asígnele el nombre de “Analizador de Espectro”. Asegúrese que el control en la pantalla del Diagrama de Bloques quede dentro de la estructura <emphasis effect="italics">Case.</emphasis></para>
+      <para id="id1163781954152">Desde la Paleta de Funciones localice el VI <emphasis effect="bold">FFT Power Spectrum.vi</emphasis> a través de <emphasis effect="italics">Signal Processing</emphasis> → <emphasis effect="italics">Waveform Measurements</emphasis>. Selecciónelo y arrástrelo dentro de la estructura <emphasis effect="italics">Case</emphasis>. Tome nota de las propiedades de este VI, especialmente de la unidad en que está expresada la salida <emphasis effect="italics">power spectrum.</emphasis> Conecte el terminal de entrada <emphasis effect="italics">time signal</emphasis> del <emphasis effect="bold">FFT Power Spectrum </emphasis>al cable de conexión del Osciloscopio. Conecte, también, el terminal de salida <emphasis effect="italics">power spectrum</emphasis> al control del Analizador de Espectro, note como cambia automáticamente de color el control del analizador.</para>
+      <para id="id1163782030776">
+        <figure id="id1163782887401"><media id="id1163782887401_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics21.png" id="id1163782887401__onlineimage" height="134" width="367"/>
+          </media>
+        <caption>FFT Power Spectrum</caption></figure>
+      </para>
+      <para id="id1163782822051">Vuelva a correr el programa y note la señal en tiempo y en frecuencia para cada tipo de función: Sinusoidal, Diente de Sierra, Señal de onda Cuadrada y Señal de onda Triangular. Para cada una de ellas varíe la frecuencia y la Amplitud.</para>
+      <para id="id1163784941832"> Por último, investigue cómo reemplazar los controles de Amplitud y Frecuencia del Generador de Funciones por controles tipo Perilla (Sugerencia: en el Panel Frontal haga clic botón derecho sobre los controles que desea reemplazar y explore el menú que se despliega).</para>
+      <para id="id1163784540549">Al realizar los pasos anteriores debe obtenerse un producto como el que se presenta a continuación:</para>
+      <figure id="id1163782517301"><media id="id1163782517301_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics22.png" id="id1163782517301__onlineimage" height="269" width="607"/>
+        </media>
+      <caption>Imagen del Panel Frontal</caption></figure>
+      
+      <para id="id1163783682930">
+        <figure id="id1163785695587"><media id="id1163785695587_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics23.png" id="id1163785695587__onlineimage" height="314" width="608"/>
+          </media>
+        <caption>Imagen del Diagrama de Bloques</caption></figure>
+      </para>
+      
+      
+    </section>
+  </content>
+</document>

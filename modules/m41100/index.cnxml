@@ -1,0 +1,190 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Filtraje Óptimo para detección de eventos inmersos en ruido</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m41100</md:content-id>
+  <md:title>Filtraje Óptimo para detección de eventos inmersos en ruido</md:title>
+  <md:abstract>Señales completamente inmersas en ruido son rescatadas por medio de sistemas conocidos como Filtros Óptimos. Se incluye un programa en MATLAB y otro en LabVIEW, cada uno aplica el filtraje optimo para recuperar información en diversos tipos de señales, entre ellas una señal electrocardiográfica.</md:abstract>
+  <md:uuid>3d2a4ed9-5ff5-4813-895d-f174433edd22</md:uuid>
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="example">
+      <link url="http://cnx.org/content/m41094/latest/" strength="3">Señales </link>
+      <link url="http://cnx.org/content/m41096/latest/" strength="3">Sistemas </link>
+      <link url="http://cnx.org/content/m41085/latest/" strength="3">Convolución </link>
+      <link url="http://cnx.org/content/m41083/latest/" strength="3">MATLAB</link>
+      <link url="http://cnx.org/content/m41078/latest/" strength="3">LabVIEW</link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>
+
+      <para id="id1170671384898">Se tiene una forma de onda básica p(t) existente entre 0 y un valor D definido como la duración de dicha forma de onda, la misma se repite en el tiempo y se contamina con ruido en el canal de transmisión, la expresión para cada repetición de p(t) viene dada por:</para>
+      <equation id="id1170677063952">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>p</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mrow>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">−</m:mo>
+                      <m:msub>
+                        <m:mi>t</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>0</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                    </m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                    <m:mo stretchy="false">→</m:mo>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>t</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>0</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">≤</m:mo>
+                        <m:mi>t</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">≤</m:mo>
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>t</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>0</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mi>D</m:mi>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{p \( t - t rSub { size 8{0} }  \)  rightarrow t rSub { size 8{0} }  &lt;= t &lt;= t rSub { size 8{0} } +D} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1170673534098">La <term document="m41094" window="replace">señal</term> resultante se definirá como una sumatoria de ruido más expresiones semejantes a la ecuación 1 pero con diferentes valores de t<sub>0</sub>, adicionalmente algunas de las repeticiones podrían estar multiplicadas por alguna constante. Esta señal se puede filtrar con un <term document="m41096" window="replace">sistema</term> cuya respuesta impulsiva toma la siguiente forma:</para>
+      <equation id="eip-116"><m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>h</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>p</m:mi>
+                    </m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:mi>t</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">+</m:mo>
+                      <m:mi>D</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                    <m:mo stretchy="false">→</m:mo>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mn>0</m:mn>
+                        <m:mo stretchy="false">≤</m:mo>
+                        <m:mi>t</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">≤</m:mo>
+                      <m:mi>D</m:mi>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{h \( t \) =p \(  - t+D \)  rightarrow 0 &lt;= t &lt;= D} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1170668624617">Nótese que la variable t tiene signo negativo, esto se traduce en que dicha respuesta impulsiva está invertida con respecto al eje de las ordenadas.</para>
+      <para id="id1170673835513">Es necesario recordar que una forma de encontrar la señal de salida de un sistema en el dominio del tiempo es <term document="m41085" window="replace">convolucionando</term> la señal de entrada en el dominio del tiempo con la respuesta impulsiva del sistema. De esta forma se obtiene a la salida una señal con valores máximos situados en los puntos de ocurrencia de cada repetición.</para>
+      <para id="id1170673784518">Supóngase como señal de entrada la presente en la figura 1:</para>
+      <figure id="id1170677737697"><label>Figura</label><media id="id1170677737697_media" alt="">
+          <image mime-type="image/png" src="../../media/Imagen 2-32a6.png" id="id1170677737697__onlineimage" height="235" width="613"/>
+        </media>
+      <caption>Señal de entrada</caption></figure>
+      
+      <para id="id1170673851526">En vista de las formas de onda presentes, para las cuales el valor D es de 0.2, el filtro óptimo tendrá una respuesta impulsiva como la siguiente:</para>
+ 
+        <figure id="id1170675564597"><label>Figura</label><media id="id1170675564597_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 3-e056.png" id="id1170675564597__onlineimage" height="232" width="223"/>
+          </media>
+        <caption>Respuesta impulsiva del filtro óptimo</caption></figure>
+
+      
+      <para id="id1170668450067">Al realizar la convolución entre la señal y el filtro, se obtendrá como resultado una señal parecida a la mostrada en verde en la figura 3:</para>
+      <figure id="id1170668494557"><label>Figura</label><media id="id1170668494557_media" alt="">
+          <image mime-type="image/png" src="../../media/auxx-151f.png" id="id1170668494557__onlineimage" height="358" width="613"/>
+        </media>
+      <caption>Proceso de convolución y señal resultante aproximada.</caption></figure>
+      
+      <para id="id1170674945621">Esto se ha aplicado en diversas áreas, desde detección de señales digitales, ubicación de complejos QRS en un electrocardiograma, detección de capas geológicas para descubrir posibles yacimientos petroleros, etc.</para>
+      <section id="id1170675006839">
+        <title>Autoevaluación </title>
+        <exercise id="eip-175"><label>Ejercicio</label><problem id="eip-59">
+  <para id="eip-391">¿Cómo debe ser la respuesta impulsiva del filtro óptimo para una señal digital binaria formada por pulsos rectangulares de duración Tbit? </para>
+</problem>
+
+<solution id="eip-75">
+  <para id="eip-475">La respuesta impulsiva será igual al pulso rectangular y tendrá una duración de Tbit, esto se debe a que si se invierte un pulso rectangular con respecto al eje vertical la forma de onda no cambiará (aplica para cualquier forma de onda horizontalmente simétrica). </para>
+</solution>
+</exercise><exercise id="eip-15"><label>Ejercicio</label><problem id="eip-970">
+  <para id="eip-703">¿Cómo varía la señal de salida si el filtro óptimo no toma su valor inicial en t=0? </para>
+</problem>
+
+<solution id="eip-554">
+  <para id="eip-664">Si el valor inicial del filtro óptimo se sitúa en t=0.3, por ejemplo, la única diferencia en la señal de salida será que la misma tendrá un desplazamiento hacia la izquierda de 0.3. Si esto ocurre en una aplicación de la vida real, es importante conocer el mencionado tiempo y tomar en cuenta el desplazamiento.</para>
+</solution>
+</exercise>
+        
+        
+        
+      </section>
+      <section id="id1170671590020"><title>Simuladores </title><para id="id1170668640461"><link url="FiltrajeMATLAB.rar">ESTE VINCULO</link> contiene una carpeta con un programa realizado en <term document="m41083" target-id="eip-678" window="replace">MATLAB</term> que aplica el Filtraje Óptimo a señales contaminadas con ruido. La carpeta incluye el .m y todos los archivos necesarios para su funcionamiento, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 4 contiene un video explicativo acerca del uso del programa.</para>
+<figure id="VideoMATLAB"><title>Filtraje Óptimo en MATLAB</title><media id="yt-media" display="block" alt="Ecualizador MATLAB">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/_DlQJvRkyVI?fs=1&amp;hl=es_ES" width="900" height="745">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+<caption>Video explicativo de la utilización del programa realizado en MATLAB</caption></figure>
+<para id="eip-158">Puede obtenerse también un programa realizado en <term document="m41078" window="replace">LabVIEW</term> acerca del mismo tema por medio de <link url="FiltrajeOptimo_LabVIEW.rar">ESTE VINCULO</link>. La carpeta incluye el .vi y todos los archivos necesarios para su funcionamiento. Igualmente, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 5 contiene un video explicativo acerca del uso del programa.</para><figure id="VideoLV"><title>Filtraje Óptimo en LabVIEW</title><media id="yt-media2" display="block" alt="Ecualizador MATLAB">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/2if80OBWN2Q?fs=1&amp;hl=es_ES" width="900" height="725">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+<caption>Video explicativo de la utilización del programa realizado en LabVIEW</caption></figure>
+      </section>
+
+  </content>
+</document>

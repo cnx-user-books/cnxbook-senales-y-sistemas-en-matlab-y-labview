@@ -1,0 +1,156 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>Introducción a MATLAB, comandos básicos y uso de GUIDE</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m41083</md:content-id>
+  <md:title>Introducción a MATLAB, comandos básicos y uso de GUIDE</md:title>
+  <md:abstract>Tutorial de MATLAB. Se incluye un tutorial acerca comandos y funciones básicas. Los tutoriales acerca de MATLAB y GUIDE en este módulo son los usados en la cátedra Señales y Sistemas Continuos de la UCAB, y fueron realizados por la profesora Trina Adrian, al igual que los archivos tutor1Trina.m y TutorialPractica1.m</md:abstract>
+  <md:uuid>fed722dd-b3b2-4015-ad60-847afec45cc1</md:uuid>
+</metadata>
+
+<content>
+    <para id="id1167646907702"> MATLAB (MATrix LABoratory) es un entorno de programación basado en matrices, ampliamente utilizado en el ámbito de la ingeniería por su versatilidad en la resolución de cálculos numéricos sin importar cuán complejos sean. Se caracteriza también por permitir visualizar los resultados fácilmente y de distintas formas. </para>
+    <para id="eip-627">El uso de MATLAB está bastante extendido en la rama de Comunicaciones, debido a que permite el modelado de cualquier tipo de señales por medio de funciones, las cuales, al igual que todas las variables definidas, son representadas por matrices numéricas, que pueden incluir elementos complejos. MATLAB además incorpora ciertas librerías denominadas <emphasis effect="italics">toolboxes</emphasis>, que no son más que conjuntos de funciones diseñados para la resolución de problemas específicos; en particular el <emphasis effect="italics">Communications Toolbox</emphasis> y el  <emphasis effect="italics">Signal Processing Toolbox</emphasis> son muy útiles para simular la generación, procesamiento, transmisión y recepción de señales. </para><para id="eip-860">La ventana de comandos <emphasis effect="italics">(command window)</emphasis>, ventana principal de MATLAB, guarda cierta semejanza con el Shell de un sistema operativo ya que, al igual que éste, permite ejecutar instrucciones, moverse entre directorios y gestionar el software en general. Para obtener ayuda sobre el uso de funciones predefinidas puede utilizarse la instrucción <emphasis>help [comando]</emphasis>. Siempre que una instrucción cree una variable, la misma se almacena en el <emphasis effect="italics">workspace</emphasis>. Las variables se pueden guardar para futuras sesiones y se almacenarán en formato .mat, utilizando el comando <emphasis>save</emphasis>, y pueden ser cargadas de nuevo utilizando el comando <emphasis>load</emphasis>. </para><para id="eip-579">MATLAB permite el almacenamiento de secuencias de instrucciones en archivos por medio del editor de texto. Dichos archivos reciben el nombre de <emphasis>archivos .m</emphasis> debido a que se guardan con esta extensión. Al ejecutar un archivo .m, se ejecutarán una por una las instrucciones almacenadas por el mismo, lo que permite que se creen programas y funciones capaces de cumplir tareas específicas. </para><para id="eip-745">Se incluye en <link url="IntroduccionMatlab.doc">ESTE VINCULO</link> un documento que incluye una explicación rápida acerca de los <emphasis>principales comandos y bloques utilizados en MATLAB</emphasis>. <link url="tutor1Trina.m">ESTE VINCULO</link> contiene un archivo para ejecutarse con MATLAB (de extensión .m) en el que se ponen en práctica algunos de los <emphasis>comandos y operaciones básicas</emphasis>. Por último, <link url="TutorialPractica1.m">ESTE VINCULO</link> contiene otro archivo .m en el que se pone en práctica la <emphasis>generación de funciones y las distintas formas de graficarlas.</emphasis> </para><para id="eip-769">Si se es principiante en MATLAB, es recomendable revisar previamente el documento y los archivos antes de aprender a trabajar con GUIDE.</para><section id="eip-678"><title>EJECUTAR PROGRAMAS EN MATLAB</title><para id="eip-655">El entorno de programación MATLAB cuenta con un editor en el que se construye el script de cada programa. En la parte superior del editor se pueden apreciar los menús de la figura 1; el botón indicado con la flecha azul sirve para ejecutar el programa.</para>
+<figure id="eip-533"><media id="correr" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 17-9c2c.png" id="correr1" height="90" width="467"/>
+            </media>
+          <caption>Botón para correr el archivo de extensión .m</caption></figure><para id="eip-214">Cuando un programa se descarga, o simplemente es guardado en otro sitio que no es la carpeta por defecto de MATLAB, al instante de correrlo aparecerá un aviso como el mostrado en la figura 2, la opción más recomendada es la de Cambiar Directorio, señalada con la flecha azul:</para>
+<figure id="changedirectory"><media id="path" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 18-f9c9.png" id="path__onlineimage" height="196" width="507"/>
+            </media>
+          <caption>Aviso para cambio de directorio</caption></figure></section><section id="id1167629815255">
+      <title>GUIDE</title>
+      <para id="id1167643300603">GUIDE es un ambiente de desarrollo que permite crear interfaces gráficas con el usuario, que contengan elementos tales como botones y ventanas de selección, ventanas gráficas, menús, ejes para graficar, etc.</para>
+      <para id="id1167646936708">Cuando en el ´command window´ se escribe guide, se ofrece la posibilidad de abrir hojas de trabajo ya creadas (p.ej. &gt;&gt;guide archivo.fig) o una nueva sobre la cual se irán agregando componentes. Lo que se cree aquí se guardará con la extensión .fig.</para>
+      <para id="id1167639290434">La primera vez que uno salva la interfaz que está diseñando se crea también un archivo .m sobre el cual habrá que programar lo que se quiere ver o controlar desde el GUI</para>
+      <para id="id1167609927206">Una vez que se diseña la interfaz gráfica (GUI) que uno desea fijando las características de botones, ventanas, etc. que la conforman, se puede entonces programar dicha interfaz con el editor de archivos .m</para>
+      <section id="id1167615933431"><title>Herramientas:</title><para id="id1167610543842">Se selecciona una hoja en blanco (Blank GUI)</para>
+        <figure id="id1167643171173"><media id="id1167643171173_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 5-25f9.png" id="id1167643171173__onlineimage" height="267" width="381"/>
+          </media>
+        <caption>GUIDE Quick Start</caption></figure>
+        <para id="id1167628809498">Aparecerá de inmediato una hoja de trabajo como la que sigue:</para>
+
+          <figure id="id1167627724147"><media id="id1167627724147_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 4-618c.png" id="id1167627724147__onlineimage" height="297" width="451"/>
+            </media>
+          <caption>Espacio de trabajo aún sin elementos </caption></figure>
+
+        <para id="id1167622813032">A la izquierda están las herramientas disponibles. Si en este momento se salva el GUI debe seleccionarse un nombre. Se almacenarán en el directorio que se seleccione los archivos nombre.fig y nombre.m </para>
+        <para id="id1167617249957">Para utilizar una herramienta se selecciona y arrastra a la posición deseada en la hoja de trabajo; se puede modificar su tamaño tal y como se hace con cualquier figura. </para>
+        <figure id="id1167640564536"><media id="id1167640564536_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 3-7754.png" id="id1167640564536__onlineimage" height="370" width="498"/>
+          </media>
+        <caption>Espacio de trabajo con un solo elemento de tipo "Edit Text"</caption></figure>
+        <para id="id1167629238642">Otras características se pueden modificar haciendo doble click. Aparecerá un editor de propiedades como el que sigue: </para>
+
+<figure id="id1167609125050"><media id="id1167609125050_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 2-8f09.png" id="id1167609125050__onlineimage" height="377" width="397"/>
+            </media>
+          <caption>Property Inspector</caption></figure>
+
+        <para id="id1167653785775">Al hacer una modificación en el editor de propiedades también cambiará el código relacionado a cada botón en el archivo .m </para>
+        <para id="id1167610025844">Una propiedad importante es el Tag (ver Property Inspector) el cual es el nombre que aparecerá en el Callback que no es más que una especie de “rutina” en el .m que se ejecutará cuando el elemento al que corresponde es manejado o cambiado su valor. Se recomienda que se coloque al tag un nombre correspondiente o alusivo a la acción del elemento.</para>
+        <para id="id1167626998756">El archivo nombre.m tiene toda una estructura de handles (manejadores) que alimentarán a la GUI. La estructura de handles es pasada como una entrada a cada callback (llamada a una parte de un programa).</para>
+        <para id="id1167630030610">Puede usarse la estructura de handles para:</para>
+        <list id="id1167608122397" list-type="bulleted">
+          <item>Compartir datos entre callbacks</item>
+          <item>Acceder la data en el GUI</item>
+        </list>
+        <para id="id1167607278155">Para almacenar los datos contenidos en una variable X, se fija un campo de la estructura de handles igual a X y se salva la estructura de handles con guidata como se muestra a continuación:</para>
+        <para id="id1167611742732">handles.x=X<newline count="1"/>guidata(hObject, handles)</para>
+        
+        <para id="id1167626920289">En cualquier momento se puede recuperar la data en cualquier callback con el comando:</para>
+        <para id="id1167647257062">X=handles.x</para>
+      </section>
+      <section id="id1167622854584"><title>Código asociado a cada elemento del GUI</title><para id="id1167627047563">Automáticamente al crear el GUI y salvarlo aparece en el archivo .m una cantidad de líneas de código fijas.</para>
+        <para id="id1167629841862">En la primera parte del script aparece una cantidad de líneas de código fijo. La primera instrucción "function varargout = untitled(varargin)" indica que se está creando un GUI de nombre “untitled” con argumentos de salida “varargout” y argumentos de entrada “varagin”. Solo se muestran las dos primeras y la última línea.</para>
+        
+        <figure id="id1167649089372"><media id="id1167649089372_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 7-992f.png" id="id1167649089372__onlineimage" height="131" width="385"/>
+          </media>
+        <caption>Código generado al crear y guardar el GUI</caption></figure>
+        <para id="id1167627392709">Aquí comienza un código de inicialización que se pide no se edite. También se muestra solo la primera y última línea.</para>
+        <figure id="id1167631048903"><media id="id1167631048903_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 8.png" id="id1167631048903__onlineimage" height="122" width="373"/>
+          </media>
+        <caption>Código fijo de inicialización </caption></figure>
+        <para id="id1167639289216">Hasta aquí llega el código de inicialización. Comienza entonces lo que se desea que ocurra antes de que el GUI se haga visible. </para>
+        <figure id="id1167612338219"><media id="id1167612338219_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 9.png" id="id1167612338219__onlineimage" height="148" width="651"/>
+          </media>
+        <caption>Función OpeningFCN para un programa de nombre "untitled"</caption></figure>
+        <para id="id1167621337371">Luego de esto aparecen callback dependiendo de las herramientas que se han incorporado al GUI. Por ejemplo:</para>
+
+          <figure id="id1167648829551"><media id="id1167648829551_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 1-875c.png" id="id1167648829551__onlineimage" height="380" width="455"/>
+            </media>
+          <caption>Espacio de trabajo ya con varios elementos </caption></figure>
+
+        <para id="id4313399">Aquí se han colocado 3 Radio Button, 1 Push Button, un Pop-Up menú y 1 eje para graficar.</para>
+        <para id="id1167628235132">A continuación se describen brevemente las herramientas disponibles, el código automático asociado a cada una de ellas y como interactuar con las mismas.</para>
+        <section id="id1167629785323">
+          <title>Botón pushbutton</title>
+          <para id="id1167629295306">Se ejecuta una determinada acción cuando son presionados. En el archivo .m aparecen automáticamente un grupo de instrucciones asociadas a él. </para>
+          <figure id="id1167627841869"><media id="id1167627841869_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 10.png" id="id1167627841869__onlineimage" height="165" width="608"/>
+            </media>
+          <caption>Callback para elemento de tag "pushbutton1"</caption></figure>
+        </section>
+        <section id="id1167627245074">
+          <title>Listas de selección</title>
+          <para id="id1167638730478">Aquí se puede colocar una lista de elementos para que el usuario pueda seleccionar alguno. En el archivo .m aparecen automáticamente un grupo de instrucciones asociadas a él. </para>
+          <figure id="id1167627397766"><media id="id1167627397766_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 11.png" id="id1167627397766__onlineimage" height="90" width="467"/>
+            </media>
+          <caption>Parte del código generado por elemento de tag "listbox1"</caption></figure>
+          <figure id="id1167654716330"><media id="id1167654716330_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 12-e237.png" id="id1167654716330__onlineimage" height="136" width="585"/>
+            </media>
+          <caption>Callback para elemento de tag "listbox1"</caption></figure>
+          <para id="id1167610373852">Como se observa en la ayuda (Hint) que aparece en las dos últimas líneas, si dentro del callback de este elemento se coloca la instrucción “A=get(hObject,'String')”, se obtendrá un número que indica que selección se hizo. Por ejemplo si se seleccionó el tercer elemento de la lista, A valdrá 3. Lo mismo puede lograrse con la instrucción “A=get(handles.listbox1,'Value')”, donde “listbox1” es el tag de este elemento. La ventaja de esta instrucción es que no tiene obligatoriamente que ser llamada desde el callback del elemento.</para>
+        </section>
+        <section id="id1167609095062">
+          <title>Botón edit</title>
+          <para id="id1167639336327">Permite a los usuarios ingresar o modificar parámetros que se quieren introducir. </para>
+          <figure id="id1167642286267"><media id="id1167642286267_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 13-297a.png" id="id1167642286267__onlineimage" height="110" width="559"/>
+            </media>
+          <caption>Callback para elemento de tag "edit1"</caption></figure>
+          <para id="id1167643690310">Obsérvese la ayuda (HINT). Si dentro del callback de este elemento se coloca la instrucción “A=str2double(get(hObject,'String'))”, entonces, se podrá tener en A el valor del número que se escribió en la casilla</para>
+          <para id="id1167618171064">Si dentro del callback se coloca la instrucción “A= get(hObject,'String')”, se podrá almacenar en A los caracteres escritos</para>
+          <para id="id1167608322934">Una forma más recomendable de almacenar en una variable A el contenido de la casilla es con la instrucción “A= get(handles.edit1,'String')”, donde “edit1” es el tag del botón. Esta instrucción puede ser colocada en otro callback que no sea el del botón o incluso en la función OpeningFCN de la figura 9. Si se desea acceder al valor numérico escrito en la casilla, se hace uso de la instrucción “A=str2double(get(handles.edit1,'String'))”.</para>
+          <para id="id1167616488906">Si se desea colocar el valor de la variable A en la casilla, se hace uso de la instrucción “set(handles.edit1,'String',A)”</para>
+        </section>
+        <section id="id1167624246458">
+          <title>Botón RadioButton</title>
+          <para id="id1167629775330">Son botones de selección. Si hay varios generalmente son mutuamente excluyentes. Para seleccionarlo basta ubicarse y presionar el ratón.</para>
+          <figure id="id1167613949954"><media id="id1167613949954_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 14-5a2a.png" id="id1167613949954__onlineimage" height="101" width="440"/>
+            </media>
+          <caption>Callback para elemento de tag "radiobutton1"</caption></figure>
+          <para id="id1167614111479">Colocándose dentro de callback del elemento la instrucción “A=get(hObject,'Value')”, A valdrá 1 si el botón fue seleccionado, y 0 en caso contrario. Lo mismo puede lograrse con la instrucción “A=get(handles.radiobutton1,'Value')”, donde “radiobutton1” es el tag de este elemento. La ventaja de esta instrucción es que no tiene obligatoriamente que ser llamada desde el callback del elemento.</para>
+        </section>
+        <section id="id1167613879500">
+          <title>Ejes para graficar </title>
+          <para id="id1167611556863">Aquí no se genera nada especial en el archivo .m, pero uno debe fijar las condiciones de la gráfica y activarla o desactivarla según convenga.</para>
+          <para id="id1167631570036">Por ejemplo si la gráfica tiene asociado el nombre de axes1 (tag) y se quiere mostrar algo a través de la misma por medio de la instrucción "plot(...)" se debe agregar primero el comando "axes" como se muestra a continuación: </para>
+          <para id="id1167611689218">axes(handles.axes1);<newline count="1"/>
+plot(...)</para>
+        </section>
+        <section id="id1167637238504"><title>PopUp menú </title><para id="id1167640839742">Cuando se hace click despliega opciones. Para agregar elementos a la lista, en el editor de propiedades se busca el elemento string y allí se coloca la lista de las opciones.</para>
+      
+            <figure id="id1167632338448"><media id="id1167632338448_media" alt="">
+                <image mime-type="image/png" src="../../media/Imagen 15-d537.png" id="id1167632338448__onlineimage" height="100" width="498"/>
+              </media>
+            <caption>Parte del código generado por elemento de tag "popupmenu1"</caption></figure>
+
+          <figure id="id1167637213587"><media id="id1167637213587_media" alt="">
+              <image mime-type="image/png" src="../../media/Imagen 16-9bae.png" id="id1167637213587__onlineimage" height="147" width="620"/>
+            </media>
+          <caption>Callback para elemento de tag "popupmenu1"</caption></figure>
+          <para id="id1167628161705">Si se coloca dentro del callback de este elemento la instrucción “A=get(hObject,'Value')”, se obtendrá un número que indica que selección se hizo. Por ejemplo si se seleccionó el tercer elemento de la lista, A valdrá 3. Lo mismo puede lograrse con la instrucción “A=get(handles.popupmenu1,'Value')”, donde “popupmenu1” es el tag de este elemento. La ventaja de esta instrucción es que no tiene obligatoriamente que ser llamada desde el callback del elemento.</para>
+        </section>
+      </section>
+    </section>
+  </content>
+</document>

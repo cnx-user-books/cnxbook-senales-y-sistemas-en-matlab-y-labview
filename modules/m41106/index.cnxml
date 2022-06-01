@@ -1,0 +1,77 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>Receptor Superheterodino para detectar emisoras AM</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m41106</md:content-id>
+  <md:title>Receptor Superheterodino para detectar emisoras AM</md:title>
+  <md:abstract>Receptor superheterodino y detección coherente. Se incluye un programa en MATLAB y otro en LabVIEW, cada uno simula un sistema que modula varias señales de voz y las recupera por medio de un receptor superheterodino.</md:abstract>
+  <md:uuid>c3b1ece8-0c58-48dd-aeb6-b609b9102f27</md:uuid>
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="example">
+      <link url="http://cnx.org/content/m41094/latest/" strength="3">Señales </link>
+      <link url="http://cnx.org/content/m41096/latest/" strength="3">Sistemas </link>
+      <link url="http://cnx.org/content/m41083/latest/" strength="2">MATLAB</link>
+      <link url="http://cnx.org/content/m41078/latest/" strength="2">LabVIEW</link>
+      <link url="http://cnx.org/content/m41102/latest/" strength="3">Modulación AM</link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>
+<para id="id1167065604443">Cuando se transmiten <term document="m41094" window="replace">señales</term> usando un mismo medio, el receptor debe seleccionar la banda específica que corresponde a la señal que quiere rescatarse del canal. Un ejemplo de esta situación está en la radiodifusión comercial de señales AM. Los radios comerciales (tanto AM como FM) utilizan la estructura de un Receptor Superheterodino, un <term document="m41096" window="replace">sistema</term> cuyo esquema se observa en la figura 1:</para> 
+      <figure id="id1167060725978"><label>Figura</label><media id="id1167060725978_media" alt=""><image mime-type="image/png" src="../../media/Imagen 1-9d05.png" id="id1167060725978__onlineimage" height="174" width="590"/></media><caption>Esquema de un receptor superheterodino</caption></figure> 
+      <para id="id1167064617970">En algunos de ellos se sustituyen los dos últimos bloques de detección coherente por bloques de detección no coherente, dichos bloques corresponden con un detector de envolvente como el mostrado en la figura 2 y por en eliminador de DC</para>
+      <figure id="id1167058522848"><label>Figura</label><media id="id1167058522848_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics1-6b60.png" id="id1167058522848__onlineimage" height="113" width="226"/>
+        </media>
+      <caption> Detector de envolvente</caption></figure>
+      
+      <para id="id1167064813007">A la entrada del receptor superheterodino se consigue la parte del espectro electromagnético conformado por la suma de todos los canales posibles de escuchar:</para>
+
+        <figure id="id1167056333590"><label>Figura</label><media id="id1167056333590_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics2-981a.png" id="id1167056333590__onlineimage" height="346" width="382"/>
+          </media>
+        <caption>Espectro de frecuencias que incluye todas las emisoras </caption></figure>
+
+      
+      <para id="id1167061079216">El filtro RF es un BPF de un orden no muy alto y con un ancho de banda no tan estrecho como para dejar pasar un solo canal, sino que deja pasar más señal de la deseada. El mezclador (multiplicador por un coseno) efectúa el producto de la señal que está a la salida del filtro RF (punto B en la figura 1) y una sinusoide proveniente del oscilador local de frecuencia <emphasis effect="bold">f</emphasis><sub><emphasis effect="bold">L</emphasis></sub>; si la entrada fuese una señal centrada en <emphasis effect="bold">f</emphasis><sub><emphasis effect="bold">IN</emphasis></sub>, la frecuencia del oscilador local se elige como <emphasis effect="bold">f</emphasis><sub><emphasis effect="bold">L</emphasis></sub><emphasis effect="bold">= f</emphasis><sub><emphasis effect="bold">IN</emphasis></sub><emphasis effect="bold"> + f</emphasis><sub><emphasis effect="bold">IF</emphasis></sub>, en un radio comercial, la frecuencia central del filtro RF y el oscilador local están lógica o mecánicamente conectados para que esto se cumpla. <emphasis effect="bold">f</emphasis><sub><emphasis effect="bold">IF</emphasis></sub> es un valor de frecuencia conocido como frecuencia intermedia menor a la mínima frecuencia entre los posibles canales a escuchar que coincide con la frecuencia central del filtro IF. El tener una baja frecuencia de operación, permite a este filtro ser muy selectivo y así, poder tomar un solo canal.</para>
+      <para id="id1167055867140">Al mezclar <emphasis effect="bold">f</emphasis><emphasis effect="bold"><sub>IN</sub></emphasis> con <emphasis effect="bold">f</emphasis><emphasis effect="bold"><sub>L</sub></emphasis><emphasis effect="bold">= f</emphasis><emphasis effect="bold"><sub>IN</sub></emphasis><emphasis effect="bold"> + f</emphasis><emphasis effect="bold"><sub>IF</sub></emphasis> aparecerán dos valores de frecuencia, una frecuencia suma centrada en <emphasis effect="bold">2f</emphasis><emphasis effect="bold"><sub>IN</sub></emphasis><emphasis effect="bold"> + f</emphasis><emphasis effect="bold"><sub>IF</sub></emphasis><sub/> que no pasará por el filtro IF, y una frecuencia resta centrada en <emphasis effect="bold">f</emphasis><emphasis effect="bold"><sub>IF</sub></emphasis> que claramente si pasará. Lo que se ha conseguido con todo esto es “mover” el canal que estaba centrado en <emphasis effect="bold">f</emphasis><emphasis effect="bold"><sub>IN</sub></emphasis><sub/> a una frecuencia más baja llamada <emphasis effect="bold">f</emphasis><emphasis effect="bold"><sub>IF</sub></emphasis><sub/> para lograr hacer un mejor procesamiento y filtraje a la señal recuperada, además de ser el mismo para cada canal o emisora que se desee escuchar. </para>
+      <para id="id1167050924076">Por último viene un demodulador para extraer de la señal, el cual puede ser un detector coherente o no coherente. El detector coherente está formado por un oscilador de frecuencia <emphasis effect="bold">f</emphasis><emphasis effect="bold"><sub>IF</sub></emphasis><emphasis effect="bold"/> que al multiplicarse por la señal la lleva a banda base, el mismo está seguido por un filtro pasabajo encargado de evitar la frecuencia imagen para lo cual debe tener un ancho de banda menor a <emphasis effect="bold">2f</emphasis><emphasis effect="bold"><sub>IF</sub></emphasis>, lo normal es que el ancho de banda coincida con el del mensaje. </para>
+      <section id="id1167063265561">
+        <title>Autoevaluación </title>
+        <exercise id="eip-438"><label>Ejercicio</label><problem id="eip-243">
+  <para id="eip-172">¿Qué sucede si se escoge un valor de frecuencia intermedia menor al ancho de banda del canal?</para>
+</problem>
+
+<solution id="eip-620">
+  <para id="eip-55">Si esto ocurre, al trasladarse el canal a esta frecuencia, una porción del mismo quedará en el eje negativo de las frecuencias y una porción de diferente tamaño en el eje positivo, lo cual dañaría la señal.</para>
+</solution>
+</exercise><exercise id="eip-772"><label>Ejercicio</label><problem id="eip-774">
+  <para id="eip-715">¿Puede escogerse un valor de frecuencia intermedia igual a la frecuencia en la que originalmente se centra una de las emisoras?</para>
+</problem>
+
+<solution id="eip-341">
+  <para id="eip-779">Podría escogerse un valor de frecuencia intermedia ubicado en cualquier punto del espectro mostrado en la figura 3 sin problema alguno, aunque lo mismo no suele hacerse cuando lo que se busca es bajar la frecuencia para facilitar el procesamiento de la señal.</para>
+</solution>
+</exercise>
+        
+        
+        
+      </section>
+      <section id="id1167061681061"><title>Simuladores </title><para id="eip-721"><link url="SuperheterodinoMATLAB.rar">ESTE VINCULO</link> contiene una carpeta con un programa realizado en <term document="m41083" target-id="eip-678" window="replace">MATLAB</term> que simula un Receptor Superheterodino para detectar emisoras AM. La carpeta incluye el .m y todos los archivos necesarios para su funcionamiento, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 4 contiene un video explicativo acerca del uso del programa.</para><figure id="moonlanding-youtube"><title>Receptor Superheterodino MATLAB</title><media id="yt-media" display="block" alt="Heterodino MATLAB">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/xIZQnQrLsQY?fs=1&amp;hl=es_ES" width="900" height="785">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media><caption>Video explicativo de la utilización del programa realizado en MATLAB</caption></figure><para id="eip-224">Puede obtenerse también un programa realizado en <term document="m41078" window="replace">LabVIEW</term> acerca del mismo tema por medio de <link url="Heterodino_LabVIEW.rar">ESTE VINCULO</link>. La carpeta incluye el .vi y todos los archivos necesarios para su funcionamiento. Igualmente, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 5 contiene un video explicativo acerca del uso del programa.</para><figure id="videolabview"><title>Receptor Superheterodino LabVIEW</title><media id="yt-media1" display="block" alt="Ecualizador LabVIEW">
+  <flash id="yt-video1" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/v12Yd0Bw0wM?fs=1&amp;hl=es_ES" width="900" height="745">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media><caption>Video explicativo de la utilización del programa realizado en LabVIEW</caption></figure>
+      </section>
+ 
+  </content>
+</document>

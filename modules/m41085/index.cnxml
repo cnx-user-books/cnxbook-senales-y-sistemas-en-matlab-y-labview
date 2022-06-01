@@ -1,0 +1,1083 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Convolución</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m41085</md:content-id>
+  <md:title>Convolución</md:title>
+  <md:abstract>La convolución y sus propiedades</md:abstract>
+  <md:uuid>b8960b85-8cd5-41d4-a708-344dc5d298a0</md:uuid>
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="example">
+      <link url="http://cnx.org/content/m41093/latest/" strength="3">Transformada de Fourier </link>
+      <link url="http://cnx.org/content/m41094/latest/" strength="3">Señales </link>
+      <link url="http://cnx.org/content/m41096/latest/" strength="3">Sistemas </link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>
+    <para id="id1165464353085">Es una herramienta temporal para la resolución del problema del paso de <term document="m41094" window="replace">señales</term> por <term document="m41096" window="replace">sistemas</term> que aplica para el caso específico en el que el sistema sea Lineal e Invariante en el Tiempo. Si se tiene la señal en el dominio del tiempo y la respuesta impulsiva del sistema, se puede aplicar la operación convolución entre ambos y se obtiene la salida del sistema en el dominio del tiempo.</para>
+    <para id="id1165434651515">Se define la convolución entre dos funciones f(t) y g(t) como el área bajo la curva formada por el producto de las mismas luego de invertir una de ellas y desplazarla una cantidad de tiempo que varía entre –infinito e infinito; la expresión para la convolución viene dada por la ecuación 1: </para>
+    <equation id="eip-64"><m:math>
+        <m:semantics>
+          <m:mrow>
+            <m:mstyle fontsize="12pt">
+              <m:mrow>
+                <m:mrow>
+                  <m:mi>y</m:mi>
+                  <m:mo stretchy="false">(</m:mo>
+                  <m:mi>t</m:mi>
+                  <m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                    <m:mo stretchy="false">=</m:mo>
+                    <m:mi>f</m:mi>
+                  </m:mrow>
+                  <m:mo stretchy="false">(</m:mo>
+                  <m:mi>t</m:mi>
+                  <m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                    <m:mo stretchy="false">∗</m:mo>
+                    <m:mi>g</m:mi>
+                  </m:mrow>
+                  <m:mo stretchy="false">(</m:mo>
+                  <m:mi>t</m:mi>
+                  <m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                    <m:mo stretchy="false">=</m:mo>
+                    <m:mrow>
+                      <m:munderover>
+                        <m:mo stretchy="false">∫</m:mo>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mo stretchy="false">∞</m:mo>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:munderover>
+                      <m:mrow>
+                        <m:mi>f</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>τ</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mi>g</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mrow>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">−</m:mo>
+                          <m:mi>τ</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mi fontstyle="italic">dτ</m:mi>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mrow>
+            </m:mstyle>
+            <m:mrow/>
+          </m:mrow>
+          <m:annotation encoding="StarMath 5.0"> size 12{y \( t \) =f \( t \)  * g \( t \) = Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  {f \( τ \) g \( t - τ \) dτ} } {}</m:annotation>
+        </m:semantics>
+      </m:math>
+    </equation>
+    <para id="id5276401">Una mejor forma de entender este proceso es haciendo el análisis gráfico del mismo, para ello supónganse las dos funciones f(t) y g(t) mostradas en la figura 1:</para>
+    <figure id="id1165440299977"><media id="id1165440299977_media" alt="">
+        <image mime-type="image/png" src="../../media/Imagen 12-27e8.png" id="id1165440299977__onlineimage" height="212" width="467"/>
+      </media>
+    <caption>Funciones a convolucionar</caption></figure>
+    
+    <para id="id1165435031135">Las ecuaciones para cada uno de los pulsos de la figura 1 son:</para>
+    <equation id="id1165425792060">
+      <m:math>
+        <m:semantics>
+          <m:mrow>
+            <m:mstyle fontsize="12pt">
+              <m:mrow>
+                <m:mrow>
+                  <m:mi>f</m:mi>
+                  <m:mo stretchy="false">(</m:mo>
+                  <m:mi>t</m:mi>
+                  <m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                    <m:mo stretchy="false">=</m:mo>
+                    <m:mn>2</m:mn>
+                  </m:mrow>
+                  <m:mo stretchy="false">⇒</m:mo>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mn>0</m:mn>
+                      <m:mo stretchy="false">≤</m:mo>
+                      <m:mi>t</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">≤</m:mo>
+                    <m:mn>5</m:mn>
+                  </m:mrow>
+                </m:mrow>
+              </m:mrow>
+            </m:mstyle>
+            <m:mrow/>
+          </m:mrow>
+          <m:annotation encoding="StarMath 5.0"> size 12{f \( t \) =2 drarrow 0 &lt;= t &lt;= 5} {}</m:annotation>
+        </m:semantics>
+      </m:math>
+    </equation>
+    <equation id="id1165427699810">
+      <m:math>
+        <m:semantics>
+          <m:mrow>
+            <m:mstyle fontsize="12pt">
+              <m:mrow>
+                <m:mrow>
+                  <m:mi>g</m:mi>
+                  <m:mo stretchy="false">(</m:mo>
+                  <m:mi>t</m:mi>
+                  <m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                    <m:mo stretchy="false">=</m:mo>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:mi>t</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">+</m:mo>
+                      <m:mn>3</m:mn>
+                    </m:mrow>
+                  </m:mrow>
+                  <m:mo stretchy="false">⇒</m:mo>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mn>0</m:mn>
+                      <m:mo stretchy="false">≤</m:mo>
+                      <m:mi>t</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">≤</m:mo>
+                    <m:mn>3</m:mn>
+                  </m:mrow>
+                </m:mrow>
+              </m:mrow>
+            </m:mstyle>
+            <m:mrow/>
+          </m:mrow>
+          <m:annotation encoding="StarMath 5.0"> size 12{g \( t \) = - t+3 drarrow 0 &lt;= t &lt;= 3} {}</m:annotation>
+        </m:semantics>
+      </m:math>
+    </equation>
+    <para id="id1165440413746">Para comenzar se debe crear una función similar a f(t) pero expresada en términos de la variable τ presente en la ecuación , también se debe crear una función similar a g(t) pero con la variable τ negativa, además desplazada una cantidad t, tal como se indica en la figura 2:</para>
+
+      <figure id="id1165457406439"><media id="id1165457406439_media" alt="">
+          <image mime-type="image/png" src="../../media/Imagen 13-dbc4.png" id="id1165457406439__onlineimage" height="230" width="465"/>
+        </media>
+      <caption> funciones similares en términos de τ</caption></figure>
+
+    
+    <para id="id2280825">La cantidad t irá tomando valores desde –infinito hasta infinito, lo que causará que la función g haga un recorrido completo por el eje τ, en dicho recorrido se multiplican ambas funciones y se toma el área bajo el producto, por lo que la convolución valdrá 0 en todos los puntos donde las funciones no se intersecten, como sucede en la figura 2. Con esto ya se puede concluir que, para este caso:</para>
+    <equation id="id1165433949408">
+      <m:math>
+        <m:semantics>
+          <m:mrow>
+            <m:mstyle fontsize="12pt">
+              <m:mrow>
+                <m:mrow>
+                  <m:mi>y</m:mi>
+                  <m:mo stretchy="false">(</m:mo>
+                  <m:mi>t</m:mi>
+                  <m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                    <m:mo stretchy="false">=</m:mo>
+                    <m:mn>0</m:mn>
+                  </m:mrow>
+                  <m:mo stretchy="false">⇒</m:mo>
+                  <m:mrow>
+                    <m:mi>t</m:mi>
+                    <m:mo stretchy="false">&lt;</m:mo>
+                    <m:mn>0</m:mn>
+                  </m:mrow>
+                </m:mrow>
+              </m:mrow>
+            </m:mstyle>
+            <m:mrow/>
+          </m:mrow>
+          <m:annotation encoding="StarMath 5.0"> size 12{y \( t \) =0 drarrow t&lt;0} {}</m:annotation>
+        </m:semantics>
+      </m:math>
+    </equation>
+    <para id="id1165430210769">Desde el instante en el que t es igual a 0 hasta que es igual a 3 se dará la situación descrita en la figura 3:</para>
+    <figure id="id1165435124814"><media id="id1165435124814_media" alt="">
+        <image mime-type="image/png" src="../../media/Imagen 14-b8be.png" id="id1165435124814__onlineimage" height="230" width="445"/>
+      </media>
+    <caption>Convolución para t entre 0 y 3</caption></figure>
+    
+    <para id="id1165430214210">Para este intervalo se cumple que:</para>
+    <equation id="eip-861"><m:math>
+        <m:semantics>
+          <m:mrow>
+            <m:mstyle fontsize="12pt">
+              <m:mrow>
+                <m:mrow>
+                  <m:mi>y</m:mi>
+                  <m:mo stretchy="false">(</m:mo>
+                  <m:mi>t</m:mi>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∫</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>0</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>t</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:mn>2</m:mn>
+                          <m:mfenced open="(" close=")">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>τ</m:mi>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mi>t</m:mi>
+                              </m:mrow>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mn>3</m:mn>
+                            </m:mrow>
+                          </m:mfenced>
+                          <m:mi fontstyle="italic">dτ</m:mi>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                    <m:mo stretchy="false">=</m:mo>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:msup>
+                          <m:mi>t</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>2</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                      </m:mrow>
+                      <m:mo stretchy="false">+</m:mo>
+                      <m:mn>6t</m:mn>
+                    </m:mrow>
+                  </m:mrow>
+                  <m:mo stretchy="false">⇒</m:mo>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mn>0</m:mn>
+                      <m:mo stretchy="false">≤</m:mo>
+                      <m:mi>t</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">≤</m:mo>
+                    <m:mn>3</m:mn>
+                  </m:mrow>
+                </m:mrow>
+              </m:mrow>
+            </m:mstyle>
+            <m:mrow/>
+          </m:mrow>
+          <m:annotation encoding="StarMath 5.0"> size 12{y \( t \) = Int cSub { size 8{0} }  cSup { size 8{t} }  {2 left (τ - t+3 right )dτ} = - t rSup { size 8{2} } +6t drarrow 0 &lt;= t &lt;= 3} {}</m:annotation>
+        </m:semantics>
+      </m:math>
+    </equation>
+    <para id="id1165442463608">Una vez las dos funciones se solapan completamente como se observa en la figura 4, la expresión para la convolución será como la descrita en la ecuación , esto ocurre para valores de t situados entre 3 y 5:</para>
+    <figure id="id1165458896050"><media id="id1165458896050_media" alt="">
+        <image mime-type="image/png" src="../../media/Imagen 15-b95e.png" id="id1165458896050__onlineimage" height="228" width="427"/>
+      </media>
+    <caption> Convolución para t entre 3 y 5</caption></figure>
+    
+    <equation id="eip-451"><m:math>
+        <m:semantics>
+          <m:mrow>
+            <m:mstyle fontsize="12pt">
+              <m:mrow>
+                <m:mrow>
+                  <m:mi>y</m:mi>
+                  <m:mo stretchy="false">(</m:mo>
+                  <m:mi>t</m:mi>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∫</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>t</m:mi>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mn>3</m:mn>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>t</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:mn>2</m:mn>
+                          <m:mfenced open="(" close=")">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>τ</m:mi>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mi>t</m:mi>
+                              </m:mrow>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mn>3</m:mn>
+                            </m:mrow>
+                          </m:mfenced>
+                          <m:mi fontstyle="italic">dτ</m:mi>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                    <m:mo stretchy="false">=</m:mo>
+                    <m:mn>9</m:mn>
+                  </m:mrow>
+                  <m:mo stretchy="false">⇒</m:mo>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mn>3</m:mn>
+                      <m:mo stretchy="false">&lt;</m:mo>
+                      <m:mi>t</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">≤</m:mo>
+                    <m:mn>5</m:mn>
+                  </m:mrow>
+                </m:mrow>
+              </m:mrow>
+            </m:mstyle>
+            <m:mrow/>
+          </m:mrow>
+          <m:annotation encoding="StarMath 5.0"> size 12{y \( t \) = Int cSub { size 8{t - 3} }  cSup { size 8{t} }  {2 left (τ - t+3 right )dτ} =9 drarrow 3&lt;t &lt;= 5} {}</m:annotation>
+        </m:semantics>
+      </m:math>
+    </equation>
+    <para id="id1165448416747">El siguiente intervalo es el ocurrido para valores de t entre 5 y 8, el mismo se observa en la figura 5 y se describe con la ecuación :</para>
+    <figure id="id1165438661885"><media id="id1165438661885_media" alt="">
+        <image mime-type="image/png" src="../../media/Imagen 16-0b4c.png" id="id1165438661885__onlineimage" height="220" width="428"/>
+      </media>
+    <caption>Convolución para t entre 5 y 8</caption></figure>
+    
+    
+    <equation id="eip-671"><m:math>
+        <m:semantics>
+          <m:mrow>
+            <m:mstyle fontsize="12pt">
+              <m:mrow>
+                <m:mrow>
+                  <m:mi>y</m:mi>
+                  <m:mo stretchy="false">(</m:mo>
+                  <m:mi>t</m:mi>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∫</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>t</m:mi>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mn>3</m:mn>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>5</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:mn>2</m:mn>
+                          <m:mfenced open="(" close=")">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>τ</m:mi>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mi>t</m:mi>
+                              </m:mrow>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mn>3</m:mn>
+                            </m:mrow>
+                          </m:mfenced>
+                          <m:mi fontstyle="italic">dτ</m:mi>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                    <m:mo stretchy="false">=</m:mo>
+                    <m:msup>
+                      <m:mfenced open="(" close=")">
+                        <m:mrow>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">−</m:mo>
+                          <m:mn>8</m:mn>
+                        </m:mrow>
+                      </m:mfenced>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mn>2</m:mn>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msup>
+                  </m:mrow>
+                  <m:mo stretchy="false">⇒</m:mo>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mn>5</m:mn>
+                      <m:mo stretchy="false">&lt;</m:mo>
+                      <m:mi>t</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">≤</m:mo>
+                    <m:mn>8</m:mn>
+                  </m:mrow>
+                </m:mrow>
+              </m:mrow>
+            </m:mstyle>
+            <m:mrow/>
+          </m:mrow>
+          <m:annotation encoding="StarMath 5.0"> size 12{y \( t \) = Int cSub { size 8{t - 3} }  cSup { size 8{5} }  {2 left (τ - t+3 right )dτ} = left (t - 8 right ) rSup { size 8{2} }  drarrow 5&lt;t &lt;= 8} {}</m:annotation>
+        </m:semantics>
+      </m:math></equation><para id="id1165442183372">Para valores de t mayores a 8 las funciones no volverán a intersectarse como puede observarse en la figura 6:</para>
+
+      <figure id="id7667955"><media id="id7667955_media" alt="">
+          <image mime-type="image/png" src="../../media/Imagen 17-ac5b.png" id="id7667955__onlineimage" height="227" width="427"/>
+        </media>
+      <caption>Convolución para t mayor que 8</caption></figure>
+
+    
+    <para id="id1165435900495">Como se explicó antes, la convolución vale 0 en los puntos donde las funciones no se intersectan:</para>
+    
+    <equation id="eip-687"><m:math>
+        <m:semantics>
+          <m:mrow>
+            <m:mstyle fontsize="12pt">
+              <m:mrow>
+                <m:mrow>
+                  <m:mi>y</m:mi>
+                  <m:mo stretchy="false">(</m:mo>
+                  <m:mi>t</m:mi>
+                  <m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                    <m:mo stretchy="false">=</m:mo>
+                    <m:mn>0</m:mn>
+                  </m:mrow>
+                  <m:mo stretchy="false">⇒</m:mo>
+                  <m:mrow>
+                    <m:mi>t</m:mi>
+                    <m:mo stretchy="false">&gt;</m:mo>
+                    <m:mn>8</m:mn>
+                  </m:mrow>
+                </m:mrow>
+              </m:mrow>
+            </m:mstyle>
+            <m:mrow/>
+          </m:mrow>
+          <m:annotation encoding="StarMath 5.0"> size 12{y \( t \) =0 drarrow t&gt;8} {}</m:annotation>
+        </m:semantics>
+      </m:math></equation><para id="id1165443462971">Con los resultados obtenidos para cada intervalo, mostrados en las ecuaciones anteriores puede construirse la función resultante y(t) = f(t)<sub> *</sub>g(t):</para>
+    <figure id="id1165446125309"><media id="id1165446125309_media" alt="">
+        <image mime-type="image/png" src="../../media/Imagen 18-1895.png" id="id1165446125309__onlineimage" height="203" width="249"/>
+      </media>
+    <caption>Resultado de la Convolución</caption></figure>
+    
+    <section id="id1165427213032">
+      <title>Propiedades de la convolución </title>
+      <para id="id1165451624420">Propiedad conmutativa:</para>
+      <equation id="id1165456462313">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>f</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">∗</m:mo>
+                      <m:mi>g</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>g</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">∗</m:mo>
+                      <m:mi>f</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mo stretchy="false">)</m:mo>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{f \( t \)  * g \( t \) =g \( t \)  * f \( t \) } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1165431252138">De esta propiedad puede concluirse que es indiferente cuál de las dos funciones será la que se invierta y traslade, y cuál se queda fija.</para>
+      <para id="id1165459022055">Propiedad asociativa:</para>
+      
+      <equation id="eip-800"><m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>f</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">∗</m:mo>
+                        <m:mfenced open="[" close="]">
+                          <m:mrow>
+                            <m:mi>g</m:mi>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">∗</m:mo>
+                              <m:mi>h</m:mi>
+                            </m:mrow>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mo stretchy="false">)</m:mo>
+                          </m:mrow>
+                        </m:mfenced>
+                      </m:mrow>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:mfenced open="[" close="]">
+                          <m:mrow>
+                            <m:mi>f</m:mi>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">∗</m:mo>
+                              <m:mi>g</m:mi>
+                            </m:mrow>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mo stretchy="false">)</m:mo>
+                          </m:mrow>
+                        </m:mfenced>
+                        <m:mo stretchy="false">∗</m:mo>
+                        <m:mi>h</m:mi>
+                      </m:mrow>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mo stretchy="false">)</m:mo>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{f \( t \)  *  left [g \( t \)  * h \( t \)  right ]= left [f \( t \)  * g \( t \)  right ] * h \( t \) } {}</m:annotation>
+          </m:semantics>
+        </m:math></equation><para id="id1165459854743">Propiedad distributiva:</para>
+      <equation id="id1165444101966">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>f</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">∗</m:mo>
+                        <m:mfenced open="[" close="]">
+                          <m:mrow>
+                            <m:mi>g</m:mi>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mi>h</m:mi>
+                            </m:mrow>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mo stretchy="false">)</m:mo>
+                          </m:mrow>
+                        </m:mfenced>
+                      </m:mrow>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:mfenced open="[" close="]">
+                          <m:mrow>
+                            <m:mi>f</m:mi>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">∗</m:mo>
+                              <m:mi>g</m:mi>
+                            </m:mrow>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mo stretchy="false">)</m:mo>
+                          </m:mrow>
+                        </m:mfenced>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mfenced open="[" close="]">
+                          <m:mrow>
+                            <m:mi>f</m:mi>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">∗</m:mo>
+                              <m:mi>h</m:mi>
+                            </m:mrow>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mo stretchy="false">)</m:mo>
+                          </m:mrow>
+                        </m:mfenced>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{f \( t \)  *  left [g \( t \) +h \( t \)  right ]= left [f \( t \)  * g \( t \)  right ]+ left [f \( t \)  * h \( t \)  right ]} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1165439646042">Multiplicación por escalar:</para>
+      <equation id="id1165436043548">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mstyle fontstyle="italic">
+                      <m:mrow>
+                        <m:mtext>af</m:mtext>
+                      </m:mrow>
+                    </m:mstyle>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">∗</m:mo>
+                      <m:mi>g</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>f</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">∗</m:mo>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>ag</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>a</m:mi>
+                    </m:mrow>
+                    <m:mfenced open="[" close="]">
+                      <m:mrow>
+                        <m:mi>f</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mo stretchy="false">∗</m:mo>
+                          <m:mi>g</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                      </m:mrow>
+                    </m:mfenced>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ ital "af" \( t \)  * g \( t \) =f \( t \)  *  ital "ag" \( t \) =a left [f \( t \)  * g \( t \)  right ]} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1165425142974">Siendo a cualquier número real o complejo.</para>
+      <para id="id1165435431435">Derivación:</para>
+      <equation id="id1165435236276">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mfrac>
+                        <m:mrow>
+                          <m:mo stretchy="false">∂</m:mo>
+                          <m:mfenced open="(" close=")">
+                            <m:mrow>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mfenced>
+                        </m:mrow>
+                        <m:mrow>
+                          <m:mo stretchy="false">∂</m:mo>
+                          <m:mi>t</m:mi>
+                        </m:mrow>
+                      </m:mfrac>
+                      <m:mo stretchy="false">∗</m:mo>
+                      <m:mi>g</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>f</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">∗</m:mo>
+                        <m:mfrac>
+                          <m:mrow>
+                            <m:mo stretchy="false">∂</m:mo>
+                            <m:mfenced open="(" close=")">
+                              <m:mrow>
+                                <m:mi>g</m:mi>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mi>t</m:mi>
+                                <m:mo stretchy="false">)</m:mo>
+                              </m:mrow>
+                            </m:mfenced>
+                          </m:mrow>
+                          <m:mrow>
+                            <m:mo stretchy="false">∂</m:mo>
+                            <m:mi>t</m:mi>
+                          </m:mrow>
+                        </m:mfrac>
+                      </m:mrow>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mrow>
+                          <m:mo stretchy="false">∂</m:mo>
+                          <m:mfenced open="[" close="]">
+                            <m:mrow>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">∗</m:mo>
+                                <m:mi>g</m:mi>
+                              </m:mrow>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mfenced>
+                        </m:mrow>
+                        <m:mrow>
+                          <m:mo stretchy="false">∂</m:mo>
+                          <m:mi>t</m:mi>
+                        </m:mrow>
+                      </m:mfrac>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ {  { partial  left (f \( t \)  right )}  over  { partial t} }  * g \( t \) =f \( t \)  *  {  { partial  left (g \( t \)  right )}  over  { partial t} } = {  { partial  left [f \( t \)  * g \( t \)  right ]}  over  { partial t} } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1165434939923"><term document="m41093" target-id="id1166487790242" window="replace">Transformada de Fourier</term> de la convolución:</para>
+      
+      <equation id="eip-775"><m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>F</m:mi>
+                    <m:mrow>
+                      <m:mfenced open="[" close="]">
+                        <m:mrow>
+                          <m:mi>g</m:mi>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:mo stretchy="false">∗</m:mo>
+                            <m:mi>h</m:mi>
+                          </m:mrow>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                      </m:mfenced>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>F</m:mi>
+                    </m:mrow>
+                    <m:mrow>
+                      <m:mfenced open="[" close="]">
+                        <m:mrow>
+                          <m:mi>f</m:mi>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                      </m:mfenced>
+                      <m:mo stretchy="false">⋅</m:mo>
+                      <m:mi>F</m:mi>
+                    </m:mrow>
+                    <m:mfenced open="[" close="]">
+                      <m:mrow>
+                        <m:mi>g</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                      </m:mrow>
+                    </m:mfenced>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{F left [g \( t \)  * h \( t \)  right ]=F left [f \( t \)  right ] cdot F left [g \( t \)  right ]} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation><para id="id1165441841438">Con esta propiedad puede demostrarse la propiedad de la Convolución por delta de Dirac: </para>
+      
+      <equation id="eip-336"><m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>f</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">∗</m:mo>
+                      <m:mi>δ</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>f</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mo stretchy="false">)</m:mo>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{f \( t \)  * δ \( t \) =f \( t \) } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation><para id="id1165445040434">Si se aplica la transformada de Fourier a la expresión 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>f</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">∗</m:mo><m:mi>δ</m:mi></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f \( t \)  * δ \( t \) } {}</m:annotation></m:semantics></m:math> se obtendrá el producto de las transformadas; la transformada de Fourier de la función Delta de Dirac es igual a 1, por lo que sólo quedará la transformada de la función 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>f</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f \( t \) } {}</m:annotation></m:semantics></m:math>. Generalizando la ecuación 15 se obtiene que:</para>
+      <equation id="id1165426834534">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>f</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">∗</m:mo>
+                      <m:mi>δ</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mrow>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">−</m:mo>
+                      <m:msub>
+                        <m:mi>t</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                    </m:mrow>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>f</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mrow>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">−</m:mo>
+                      <m:msub>
+                        <m:mi>t</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                    </m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{f \( t \)  * δ \( t - t rSub { size 8{1} }  \) =f \( t - t rSub { size 8{1} }  \) } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <equation id="id1165425976100">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>f</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mrow>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">−</m:mo>
+                      <m:msub>
+                        <m:mi>t</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>2</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                    </m:mrow>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">∗</m:mo>
+                      <m:mi>δ</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mrow>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">−</m:mo>
+                      <m:msub>
+                        <m:mi>t</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                    </m:mrow>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>f</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:msub>
+                          <m:mi>t</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>1</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                      <m:mo stretchy="false">−</m:mo>
+                      <m:msub>
+                        <m:mi>t</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>2</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                    </m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{f \( t - t rSub { size 8{2} }  \)  * δ \( t - t rSub { size 8{1} }  \) =f \( t - t rSub { size 8{1} }  - t rSub { size 8{2} }  \) } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+    </section>
+  </content>
+</document>

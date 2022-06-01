@@ -1,0 +1,501 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Ecualizador y Sintetizador Musical</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m41060</md:content-id>
+  <md:title>Ecualizador y Sintetizador Musical</md:title>
+  <md:abstract>Incluye programas en MATLAB y LabVIEW que simulan un ecualizador gráfico y sintetizador musical. Fórmulas para calcular frecuencias de las notas musicales por octavas</md:abstract>
+  <md:uuid>82931e48-5444-445b-b080-41fda0e4ee5d</md:uuid>
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="example">
+      <link url="http://cnx.org/content/m41094/latest/" strength="3">Señales </link>
+      <link url="http://cnx.org/content/m41096/latest/" strength="3">Sistemas </link>
+      <link url="http://cnx.org/content/m41078/latest/" strength="3">LabVIEW</link>
+      <link url="http://cnx.org/content/m41083/latest/" strength="3">MATLAB</link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>
+
+      <para id="id1172748443356">Un ecualizador es un <term document="m41096" window="replace">sistema</term> electrónico utilizado para modificar las características de alguna <term document="m41094" window="replace">señal</term> auditiva, resaltando o atenuando la intensidad de cada una de las bandas de frecuencia que componen la señal; un ecualizador puede ser utilizado para comprimir señales auditivas atenuando completamente las bandas de frecuencia muy con poco aporte. Este dispositivo está constituido por una cantidad determinada de filtros colocados en paralelo a los cuales entra la señal original, la salida del ecualizador se constituye por la suma de la señal de salida de cada uno de los filtros. En la figura 1 se muestra un ecualizador de 4 bandas uniformes, cada filtro está seguido de un amplificador/atenuador para luego sumarse con la señal proveniente de los demás filtros:</para>
+      <figure id="id8499410"><media id="id8499410_media" alt="">
+          <image mime-type="image/png" src="../../media/ec.png" id="id8499410__onlineimage" height="323" width="503"/>
+        </media>
+      <caption>Ecualizador de 4 bandas</caption></figure>
+      <para id="id1172747103284">En la figura 2 se muestra una señal muestreada a 8KHz pasada por un ecualizador de 10 bandas uniformes, nótese como la banda de menor frecuencia ha sido totalmente atenuada y las dos bandas de mayor frecuencia han sido resaltadas:</para>
+      <figure id="id4670932"><media id="id4670932_media" alt="">
+          <image mime-type="image/png" src="../../media/Imagen 1-dfeb.png" id="id4670932__onlineimage" height="185" width="655"/>
+        </media>
+      <caption>Señal ecualizada </caption></figure>
+      <section id="id1172747834963">
+        <title>Sintetizador Musical</title>
+        <para id="id8444066">Un sintetizador es un dispositivo electrónico utilizado para generar música de forma artificial, puede definirse como un instrumento musical electrónico. Algunos de ellos son capaces de generar sonidos exactamente iguales a los de ciertos instrumentos musicales; una modalidad sencilla de estos dispositivos es capaz de generar tonos auditivos logrados por medio de la reproducción de ondas sinusoidales de cierta duración y frecuencia, las notas musicales reproducidas vienen dadas por la frecuencia de cada sinusoide. Los valores de frecuencia para las octavas de cada nota musical están presentes en la siguiente tabla:</para>
+        <table id="id2257102" summary=""><tgroup cols="6">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" colname="c2"/>
+            <colspec colnum="3" colname="c3"/>
+            <colspec colnum="4" colname="c4"/>
+            <colspec colnum="5" colname="c5"/>
+            <colspec colnum="6" colname="c6"/>
+            <tbody>
+              <row>
+                <entry>
+                  <emphasis effect="bold">Notas</emphasis>
+               
+                </entry>
+                <entry namest="c2" nameend="c6">
+                  <emphasis effect="bold">Frecuencia</emphasis>
+                  <emphasis effect="bold">por octavas (Hz)</emphasis>
+                </entry>
+              </row>
+              <row>
+                <entry>La</entry>
+                <entry>55.00</entry>
+                <entry>110.00</entry>
+                <entry>220.00</entry>
+                <entry>440.00</entry>
+                <entry>880.00</entry>
+              </row>
+              <row>
+                <entry>
+                  <emphasis effect="bold">La</emphasis>
+                  <emphasis effect="bold">#</emphasis>
+                </entry>
+                <entry>58.27</entry>
+                <entry>116.54</entry>
+                <entry>233.08</entry>
+                <entry>466.16</entry>
+                <entry>932.32</entry>
+              </row>
+              <row>
+                <entry>Si</entry>
+                <entry>61.74</entry>
+                <entry>123.48</entry>
+                <entry>246.96</entry>
+                <entry>493.92</entry>
+                <entry>987.84</entry>
+              </row>
+              <row>
+                <entry>Do</entry>
+                <entry>65.41</entry>
+                <entry>130.82</entry>
+                <entry>261.64</entry>
+                <entry>523.28</entry>
+                <entry>1046.56</entry>
+              </row>
+              <row>
+                <entry>
+                  <emphasis effect="bold">Do</emphasis>
+                  <emphasis effect="bold">#</emphasis>
+                </entry>
+                <entry>69.30</entry>
+                <entry>138.60</entry>
+                <entry>277.20</entry>
+                <entry>554.40</entry>
+                <entry>1108.80</entry>
+              </row>
+              <row>
+                <entry>Re</entry>
+                <entry>73.42</entry>
+                <entry>146.84</entry>
+                <entry>293.68</entry>
+                <entry>587.36</entry>
+                <entry>1174.72</entry>
+              </row>
+              <row>
+                <entry>
+                  <emphasis effect="bold">Re</emphasis>
+                  <emphasis effect="bold">#</emphasis>
+                </entry>
+                <entry>77.78</entry>
+                <entry>155.56</entry>
+                <entry>311.12</entry>
+                <entry>622.24</entry>
+                <entry>1244.48</entry>
+              </row>
+              <row>
+                <entry>Mi</entry>
+                <entry>82.41</entry>
+                <entry>164.82</entry>
+                <entry>329.64</entry>
+                <entry>659.28</entry>
+                <entry>1318.56</entry>
+              </row>
+              <row>
+                <entry>
+                  <emphasis effect="bold">F</emphasis>
+                  <emphasis effect="bold">a</emphasis>
+                </entry>
+                <entry>87.31</entry>
+                <entry>174.62</entry>
+                <entry>349.24</entry>
+                <entry>698.48</entry>
+                <entry>1396.96</entry>
+              </row>
+              <row>
+                <entry>
+                  <emphasis effect="bold">F</emphasis>
+                  <emphasis effect="bold">a#</emphasis>
+                </entry>
+                <entry>92.50</entry>
+                <entry>185.00</entry>
+                <entry>370.00</entry>
+                <entry>740.00</entry>
+                <entry>1480.00</entry>
+              </row>
+              <row>
+                <entry>Sol</entry>
+                <entry>98.00</entry>
+                <entry>196.00</entry>
+                <entry>392.00</entry>
+                <entry>784.00</entry>
+                <entry>1568.00</entry>
+              </row>
+              <row>
+                <entry>Sol#</entry>
+                <entry>103.83</entry>
+                <entry>207.66</entry>
+                <entry>415.32</entry>
+                <entry>830.64</entry>
+                <entry>1661.28</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        <caption>Valores de frecuencia para las notas musicales. El sintetizador realizado en MATLAB es capaz de reproducir los valores entre 261.64 y 554.40Hz y el sintetizador realizado en LabVIEW reproduce los valores entre 261.64 y 987.84Hz. Los sintetizadores se pueden descargar en la sección “Simuladores”</caption></table>
+        
+        <para id="id1172749351192">Cada valor de frecuencia se obtiene al multiplicar el valor anterior por 2<sup>1/12</sup>:</para>
+        <equation id="id1172748378814">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:msub>
+                            <m:mtext>frec</m:mtext>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                  <m:mo stretchy="false">+</m:mo>
+                                  <m:mn>1</m:mn>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msub>
+                              <m:mtext>frec</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">⋅</m:mo>
+                        <m:msup>
+                          <m:mn>2</m:mn>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mn>1</m:mn>
+                                <m:mo stretchy="false">/</m:mo>
+                                <m:mtext>12</m:mtext>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "frec" rSub { size 8{n+1} } = ital "frec" rSub { size 8{n} }  cdot 2 rSup { size 8{1/"12"} } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1172748441998">Aplicando la ecuación 1 al valor para la primera octava de “Fa#” se obtiene el valor de frecuencia de “Sol”:</para>
+        <equation id="eip-971"><m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mtext>92</m:mtext>
+                      <m:mtext>.</m:mtext>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mtext>50</m:mtext>
+                          <m:mo stretchy="false">⋅</m:mo>
+                          <m:msup>
+                            <m:mn>2</m:mn>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mn>1</m:mn>
+                                  <m:mo stretchy="false">/</m:mo>
+                                  <m:mtext>12</m:mtext>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mtext>98</m:mtext>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{"92" "." "50" cdot 2 rSup { size 8{1/"12"} } ="98"} {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1172747359985">Generalizando la ecuación 1 se obtiene:</para>
+        <equation id="id1172747486677">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:msub>
+                            <m:mtext>frec</m:mtext>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                  <m:mo stretchy="false">+</m:mo>
+                                  <m:mi>N</m:mi>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msub>
+                              <m:mtext>frec</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">⋅</m:mo>
+                        <m:msup>
+                          <m:mn>2</m:mn>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>N</m:mi>
+                                <m:mo stretchy="false">/</m:mo>
+                                <m:mtext>12</m:mtext>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "frec" rSub { size 8{n+N} } = ital "frec" rSub { size 8{n} }  cdot 2 rSup { size 8{N/"12"} } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1172747507586">Si se aplica la ecuación 3 al valor para la primera octava de “La” con N=7 se obtiene el valor de frecuencia de “Mi”:</para>
+        <equation id="id1172748048709">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mtext>55</m:mtext>
+                          <m:mo stretchy="false">⋅</m:mo>
+                          <m:msup>
+                            <m:mn>2</m:mn>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mn>7</m:mn>
+                                  <m:mo stretchy="false">/</m:mo>
+                                  <m:mtext>12</m:mtext>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mtext>82</m:mtext>
+                      </m:mrow>
+                      <m:mtext>.</m:mtext>
+                      <m:mtext>41</m:mtext>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{"55" cdot 2 rSup { size 8{7/"12"} } ="82" "." "41"} {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1172747086196">Como puede observarse en la tabla 1, si se duplica el valor de frecuencia de una nota musical, se obtendrá el valor de frecuencia de la misma nota pero para la siguiente octava, esto se demuestra por medio de la ecuación 3 con N=12:</para>
+        <equation id="id1172747402272">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msub>
+                              <m:mtext>frec</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mi>n</m:mi>
+                                    <m:mo stretchy="false">+</m:mo>
+                                    <m:mtext>12</m:mtext>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mrow>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:msub>
+                                <m:mtext>frec</m:mtext>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>n</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mo stretchy="false">⋅</m:mo>
+                          <m:msup>
+                            <m:mn>2</m:mn>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mtext>12</m:mtext>
+                                  <m:mo stretchy="false">/</m:mo>
+                                  <m:mtext>12</m:mtext>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                      </m:mrow>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:mn>2</m:mn>
+                        <m:mo stretchy="false">⋅</m:mo>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msub>
+                              <m:mtext>frec</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "frec" rSub { size 8{n+"12"} } = ital "frec" rSub { size 8{n} }  cdot 2 rSup { size 8{"12"/"12"} } =2 cdot  ital "frec" rSub { size 8{n} } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1172748352192">Para lograr generar y escuchar un tono de duración 0.5 segundos y con frecuencia de 440Hz en el software <term document="m41083" window="replace">MATLAB</term> basta con las siguientes instrucciones:</para>
+        <figure id="id1172747861544"><media id="id1172747861544_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 5-67b2.png" id="id1172747861544__onlineimage" height="76" width="180"/>
+          </media>
+        <caption>Instrucciones para la reproducción de un tono de 440Hz de frecuencia en MATLAB</caption></figure>
+        <para id="id1172747507729">Y para lograr generar en <term document="m41078" window="replace">LabVIEW</term> este mismo tono basta con el siguiente diagrama:</para>
+        <figure id="id1172748249682"><media id="id1172748249682_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 4-df01.png" id="id1172748249682__onlineimage" height="67" width="178"/>
+          </media>
+        <caption>Diagrama de bloques para la reproducción de un tono de 440Hz de frecuencia en LabVIEW</caption></figure>
+      </section>
+      <section id="id1172747484462">
+        <title>Autoevaluación </title>
+        <exercise id="eip-558"><label>Ejercicio</label><problem id="eip-461">
+  <para id="eip-764">Si una señal musical es procesada con un ecualizador, ¿qué frecuencias deben acentuarse si se desea resaltar el sonido de una guitarra eléctrica? ¿y cuáles deben atenuarse si desea suprimir la voz del cantante?</para>
+</problem>
+
+<solution id="eip-10">
+  <para id="eip-353">Instrumentos como la guitarra eléctrica tienen un sonido agudo, por lo cual son asociados con frecuencias altas. Para suprimir la voz del cantante basta con suprimir las frecuencias por debajo de 2KHz; si el ecualizador lo permite, pueden conservarse las frecuencias por debajo de 150Hz para evitar suprimir sonidos de instrumentos graves. </para>
+</solution>
+</exercise><exercise id="eip-574"><label>Ejercicio</label><problem id="eip-158">
+  <para id="eip-571">¿Es posible eliminar el nivel DC de una señal con un ecualizador?</para>
+</problem>
+
+<solution id="eip-536">
+  <para id="eip-334">Sí es posible eliminar el nivel DC atenuando al máximo la primera banda, el problema es que también se estarían atenuando las componentes AC de esa gama de frecuencias.</para>
+</solution>
+</exercise><exercise id="eip-793"><label>Ejercicio</label><problem id="eip-40">
+  <para id="eip-42">Se tiene una señal cuadrada periódica, la misma se hace pasar por un ecualizador cuyos filtros son muy estrechos y están centrados alrededor de cada una de las armónicas impares. ¿Podría conseguirse a la salida una sinusoide pura?</para>
+</problem>
+
+<solution id="eip-996">
+  <para id="eip-460">Sí. Atenuándose al máximo todas las bandas excepto una se tendrá a la salida sólo una delta, lo que corresponde con el comportamiento en frecuencia de una sinusoide.</para>
+</solution>
+</exercise>
+        
+      </section>
+      <section id="id1172747771235">
+        <title>Simuladores </title>
+        <para id="eip-721"><link url="EcualizadorMATLAB.rar">ESTE VINCULO</link> contiene una carpeta con un programa realizado en <term document="m41083" target-id="eip-678" window="replace">MATLAB</term> que simula un Ecualizador Gráfico y un sintetizador Musical. La carpeta incluye el .m y todos los archivos necesarios para su funcionamiento, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 5 contiene un video explicativo acerca del uso del programa.</para><figure id="moonlanding-youtube"><title>Ecualizador/Sintetizador MATLAB</title><media id="yt-media" display="block" alt="Ecualizador MATLAB">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/WDdXFHnvDwo?fs=1&amp;hl=es_ES" width="900" height="745">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media><caption>Video explicativo de la utilización del programa realizado en MATLAB</caption></figure><para id="eip-224">Puede obtenerse también un programa realizado en <term document="m41078" window="replace">LabVIEW</term> acerca del mismo tema por medio de <link url="Ecualizador_LabVIEW.rar">ESTE VINCULO</link>. La carpeta incluye el .vi y todos los archivos necesarios para su funcionamiento. Igualmente, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 6 contiene un video explicativo acerca del uso del programa.</para><figure id="videolabview"><title>Ecualizador/Sintetizador LabVIEW</title><media id="yt-media1" display="block" alt="Ecualizador LabVIEW">
+  <flash id="yt-video1" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/MvaQH2BteCQ?fs=1&amp;hl=es_ES" width="900" height="745">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media><caption>Video explicativo de la utilización del programa realizado en LabVIEW</caption></figure>
+      </section>
+
+  </content>
+</document>

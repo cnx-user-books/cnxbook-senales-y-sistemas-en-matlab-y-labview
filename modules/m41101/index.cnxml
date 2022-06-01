@@ -1,0 +1,141 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>La Transformada Ondícula y sus aplicaciónes</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m41101</md:content-id>
+  <md:title>La Transformada Ondícula y sus aplicaciónes</md:title>
+  <md:abstract>En este módulo se explica el concepto y el proceso de la transformada ondícula, además de algunas aplicaciones. Se incluye un programa hecho en el software MATLAB y un programa hecho en el software LabVIEW, cada uno muestra las aplicaciones de esta transformada. Se incluyen también videos explicativos para el uso de los programas</md:abstract>
+  <md:uuid>eae87221-f810-48a9-9275-15119f1d26bb</md:uuid>
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="example">
+      <link url="http://cnx.org/content/m41094/latest/" strength="3">Señales </link>
+      <link url="http://cnx.org/content/m41093/latest/" strength="3">Transformada de Fourier </link>
+      <link url="http://cnx.org/content/m41078/latest/" strength="3">LabVIEW</link>
+      <link url="http://cnx.org/content/m41083/latest/" strength="3">MATLAB</link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>
+
+      <para id="id1171789107446">La <term document="m41093" target-id="id1166487790242" window="replace">Transformada de Fourier</term> puede ser vista como la proyección de la <term document="m41094" window="replace">señal</term> x(t) sobre las<emphasis effect="bold"> bases</emphasis> ortogonales exponenciales (senos y cosenos). También puede verse como el análisis de la señal en bandas de frecuencias uniformes:</para>
+      <equation id="eip-971"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mo stretchy="false">∞</m:mo></m:mrow></m:mstyle></m:munderover><m:mrow><m:mi>x  </m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi fontstyle="italic">jωt</m:mi></m:mrow></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( ω \) = Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  {x \( t \) e rSup { size 8{ - jωt} }  ital "dt"} } {}</m:annotation></m:semantics></m:math> </equation>
+      
+      <figure id="id1171786269608"><label>Figura</label><media id="id1171786269608_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics1-d5aa.png" id="id1171786269608__onlineimage" height="233" width="298"/>
+        </media>
+      <caption>Ondícula de Morlet</caption></figure>
+      
+      <para id="id1171795486183">La Transformada Continua de Ondícula (<emphasis effect="italics">Continuos Wavelet Transform</emphasis>) se define como:</para>
+      <equation id="eip-33"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>CWT</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">(</m:mo><m:mi>a</m:mi><m:mi>,</m:mi><m:mi>b</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mo stretchy="false">∞</m:mo></m:mrow></m:mstyle></m:munderover><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi/><m:msub><m:mi>w*    </m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>ab</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub><m:mfenced open="(" close=")"><m:mi>t</m:mi></m:mfenced></m:mrow></m:mrow></m:mrow><m:mi/><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle><m:mrow><m:mi/><m:mo stretchy="false">=</m:mo><m:mi/></m:mrow><m:mfrac><m:mn>1</m:mn><m:msqrt><m:mrow><m:mo stretchy="false">∣</m:mo><m:mi>a</m:mi><m:mo stretchy="false">∣</m:mo></m:mrow></m:msqrt></m:mfrac><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mo stretchy="false">∞</m:mo></m:mrow></m:mstyle></m:munderover><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi/><m:mi>w*   </m:mi><m:mfenced open="(" close=")"><m:mfrac><m:mrow><m:mi>t</m:mi><m:mo stretchy="false">−</m:mo><m:mi>b</m:mi></m:mrow><m:mi>a</m:mi></m:mfrac></m:mfenced></m:mrow></m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ ital "CWT" \( a,b \) = Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  {x \( t \) `w rSub { size 8{ ital "ab"} }  left (t right )}  ital "dt"`=` {  {1}  over  { sqrt { lline a rline } } }  Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  {x \( t \) `w left ( {  {t - b}  over  {a} }  right )}  ital "dt"} {}</m:annotation></m:semantics></m:math> </equation>
+      <para id="id1171799000954">Se observa que se hace la proyección de la señal x(t) sobre versiones escaladas y desplazadas de una ondícula madre llamada w(t). Basado en el ejemplo anterior se puede inferir que la transformada ondícula parece más apropiada que la de Fourier para señales abruptas, cambiantes, no repetitivas, en fin casi todas las señales del mundo real. </para>
+      <para id="id1171796477794">Si en vez de pensar en una transformada continua se plantea una discreta limitando los valores de a y b a potencias de 2, aparece la Transformada Ondícula Discreta o DWT la cual, en el dominio de la frecuencia se plantea como:</para>
+      <equation id="eip-548"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>DWT </m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mi>,</m:mi><m:mi>k</m:mi></m:mrow></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mo stretchy="false">=</m:mo><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow/></m:mstyle></m:msup></m:mrow><m:msup><m:mi>F</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msup><m:msub><m:mfenced open="[" close="]"><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>f</m:mi><m:mo stretchy="false">)</m:mo><m:mi>W*</m:mi><m:mfenced open="(" close=")"><m:mfrac><m:mi>f</m:mi><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msup></m:mfrac></m:mfenced></m:mrow></m:mfenced><m:mstyle fontsize="8pt"><m:mrow><m:mfenced open="(" close=")"><m:mfrac><m:mi>k</m:mi><m:msup><m:mn>2</m:mn><m:mstyle fontsize="6pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msup></m:mfrac></m:mfenced></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ ital "DWT" rSub { size 8{n,k} } =2 rSup { size 8{ {n} wideslash {2} } } F rSup { size 8{ - 1} }  left [X \( f \) W left ( {  {f}  over  {2 rSup { size 8{n} } } }  right ) right ] rSub { size 8{ left ( {  {k}  over  {2 rSup { size 6{n} } } }  right )} } } {}</m:annotation></m:semantics></m:math>  </equation>
+      <para id="id1171819118136">Una técnica utilizada para realizar la Transformada Ondícula Discreta es la descomposición en bandas no uniformes (descomposición en octavas), utilizando filtros pasabajos y pasaaltos específicos que dividen toda la gama de frecuencias en bandas no uniformes. Por ejemplo, si se usa una descomposición de <emphasis effect="bold">profundidad 3</emphasis> el <term document="m41096" window="replace">sistema</term> luciría como muestra la figura 2. Se incluyen diezmadores (el ‘2’ en el recuadro) que eliminan una de cada dos muestras, esto es para no aumentar el número de puntos a la salida. </para>
+      <figure id="id1171798986079"><label>Figura</label><media id="id1171798986079_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics2-a30a.png" id="id1171798986079__onlineimage" height="202" width="426"/>
+        </media>
+      <caption>Sistema de la DWT</caption></figure>
+      
+      <para id="id1171794550840">Para ilustrar la labor de los diezmadores, supóngase que la señal original x(n) tiene 1000 puntos, la señal en la banda 4 es diezmada una vez, por lo que su longitud será de 500 puntos; la señal en la banda 3 se diezma 2 veces por lo que su longitud será de 250 puntos (1000/2<sup>2</sup>), y las señales en las bandas 1 y 2 se diezman 3 veces, quedando con una longitud de 125 (1000/2<sup>3</sup>).</para>
+      <para id="id1171785105327">Utilizando este esquema no uniforme se puede reconstruir la señal invirtiendo el proceso de filtraje, es decir, utilizando filtros de reconstrucción apropiados, se filtran las señales de salida de cada rama pasaaltos, y la salida de la última rama pasabajos, para obtener la señal original. Esquemáticamente para hacer la descomposición en ondículas se usa un árbol como el siguiente:</para>
+      <figure id="id1171822440906"><label>Figura</label><media id="id1171822440906_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics3-604f.png" id="id1171822440906__onlineimage" height="200" width="474"/>
+        </media>
+      <caption>Esquema de la descomposición en ondículas</caption></figure>
+      
+      <para id="id1171787721637">La señal S se pasa por filtros pasaaltos y pasabajos; las salidas de los pasaaltos reciben el nombre de detalles (cD<sub>1</sub>, cD<sub>2</sub>, etc...), a las de los pasabajos se les llama cA<sub>k</sub>.</para>
+      <para id="id1171802509519">Por ejemplo. Una señal S se descompone usando un árbol como el anterior y las salidas serían:</para>
+  
+        <figure id="id7689922"><label>Figura</label><media id="id7689922_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 13-bda7.png" id="id7689922__onlineimage" height="390" width="794"/>
+          </media>
+        <caption>Señal descompuesta</caption></figure>
+  
+      
+      <para id="id1171789108251">Este tipo de análisis permite hacer algún procesamiento en la salida de los filtros de descomposición (por ejemplo, eliminar un detalle que no aporte información relevante o con mucho ruido ruido, o simplemente analizarlo para identificar un evento determinado), para una vez invertido el proceso simplificar el análisis. De esta misma forma, se puede realizar <term document="m41093" window="replace">compresión</term>  de datos y supresión de ruido.</para>
+      <para id="id1171790120871">Las ondículas madres más usadas son las Daubechies y se identifican como: 'db1', ‘db2’...’db10’... 'db45', en la figura 5 se muestran algunas de ellas. Obsérvese que unas son más abruptas que otras, por lo tanto se adaptarán mejor a señales que tengan parecido con ellas.</para>
+    
+        <figure id="id1171807394314"><label>Figura</label><media id="id1171807394314_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 3-286e.png" id="id1171807394314__onlineimage" height="388" width="483"/>
+          </media>
+        <caption>Ondículas madre tipo Daubechies</caption></figure>
+ 
+      
+      <section id="id1171800866016">
+        <title>La transformada Ondícula para reducción de ruido (denoising)</title>
+        <para id="id1171804448524">Este método es mejor que simplemente filtrar la señal contaminada con un filtro pasabajos ya que esto puede eliminar los cambios abruptos que aparecen en la señal y que son importantes en ella; el filtraje pasabajos también es incapaz de eliminar ruido que está en la misma banda de frecuencia de la señal; en la transformada ondícula la separación entre ruido y señal no es por frecuencia.</para>
+        <para id="id1171787704633">Se tiene una señal x contaminada con ruido blanco gaussiano de media cero. Esto produce una señal que será llamada Y. La idea es recobrar x lo mejor posible. El procedimiento sería el siguiente: Se descompone la señal Y usando una determinada ondícula madre y un determinado nivel de descomposición. Para cada uno de los Detalles resultantes de la descomposición se le aplica una eliminación de coeficientes por umbral; los detalles así procesados se utilizan para reconstruir la señal de nuevo que debiera estar más limpia. Hay dos formas de aplicar la eliminación por umbral una Suave (soft) y una Dura (hard). Dado un umbral T, la Soft funciona de la siguiente forma a la salida del proceso se tendrá una señal Z tal que:</para>
+        <equation id="eip-396"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>Z</m:mi><m:mo stretchy="false">=</m:mo><m:mfenced open="{" close="}"><m:mrow><m:mtable><m:mtr><m:mtd><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>sign</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">(</m:mo><m:mi>x</m:mi><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">(</m:mo><m:mrow><m:mrow><m:mo stretchy="false">∣</m:mo><m:mi>x</m:mi><m:mo stretchy="false">∣</m:mo></m:mrow><m:mo stretchy="false">−</m:mo><m:mi>T</m:mi></m:mrow><m:mo stretchy="false">)</m:mo><m:mi/><m:mstyle fontstyle="italic"><m:mrow><m:mtext> → </m:mtext></m:mrow></m:mstyle><m:mi/><m:mrow><m:mrow><m:mo stretchy="false">∣</m:mo><m:mi>x</m:mi><m:mo stretchy="false">∣</m:mo></m:mrow><m:mo stretchy="false">≥</m:mo><m:mi>T</m:mi></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr><m:mtr><m:mtd><m:mrow><m:mn>0</m:mn><m:mi/><m:mstyle fontstyle="italic"><m:mrow><m:mtext> →   </m:mtext></m:mrow></m:mstyle><m:mi/><m:mrow><m:mo stretchy="false">∣</m:mo><m:mi>x</m:mi><m:mo stretchy="false">∣</m:mo></m:mrow><m:mi>≺</m:mi><m:mi>T</m:mi></m:mrow></m:mtd></m:mtr></m:mtable><m:mi/></m:mrow></m:mfenced></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{Z= left lbrace  matrix {
+ ital "sign" \( x \)  \(  lline x rline  - T \) ~~ ital "cuando"` lline x rline  &gt;= T {} ##
+0~~~~~~~ ital "cuando"` lline x rline  ≺ T
+} ` right rbrace } {}</m:annotation></m:semantics></m:math> </equation>
+        <para id="id1171793182762">En cambio la Hard produce la señal Z tal que: </para>
+        <equation id="eip-950"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>Z</m:mi><m:mo stretchy="false">=</m:mo><m:mfenced open="{" close="}"><m:mrow><m:mtable><m:mtr><m:mtd><m:mrow><m:mi>x </m:mi><m:mi/><m:mstyle fontstyle="italic"><m:mrow><m:mtext> → </m:mtext></m:mrow></m:mstyle><m:mi/><m:mrow><m:mrow><m:mo stretchy="false">∣</m:mo><m:mi>x</m:mi><m:mo stretchy="false">∣</m:mo></m:mrow><m:mo stretchy="false">≥</m:mo><m:mi>T</m:mi></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr><m:mtr><m:mtd><m:mrow><m:mn>0</m:mn><m:mi/><m:mstyle fontstyle="italic"><m:mrow><m:mtext> → </m:mtext></m:mrow></m:mstyle><m:mi/><m:mrow><m:mo stretchy="false">∣</m:mo><m:mi>x</m:mi><m:mo stretchy="false">∣</m:mo></m:mrow><m:mi>≺</m:mi><m:mi>T</m:mi></m:mrow></m:mtd></m:mtr></m:mtable><m:mi/></m:mrow></m:mfenced></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{Z= left lbrace  matrix {
+x~~~~~~~ ital "cuando"` lline x rline  &gt;= T {} ##
+0~~~~~~~ ital "cuando"` lline x rline  ≺ T
+} ` right rbrace } {}</m:annotation></m:semantics></m:math> </equation>
+        <para id="id1171792437986">Para elegir el nivel de umbral más apropiado existen diferentes métodos. El software MATLAB incluye algunos de ellos: ‘rigrsure’, ‘heursure’, ‘sqtwolog’, ’minimaxi’. </para>
+      </section>
+      <section id="id1171791414752">
+        <title>Autoevaluación </title>
+        <exercise id="eip-709"><label>Ejercicio</label>
+<problem id="eip-991">
+  <para id="eip-666">Aplicando la transformada ondícula de profundad 5 a una señal, la componente cA<sub>5</sub> tiene una longitud de 500 puntos, ¿Qué longitud tiene la componente cD<sub>1</sub>?
+  </para>
+</problem>
+
+<solution id="eip-233">
+
+  <para id="eip-857">La longitud de la componente resulta cA<sub>5 </sub>de dividir la longitud total entre 2<sup>5</sup>, despejando se obtiene una longitud total de 500x32=16000 puntos, el primer detalle tiene la mitad de la longitud total, es decir, 8000 puntos.</para>
+</solution>
+</exercise><exercise id="eip-440"><label>Ejercicio</label>
+<problem id="eip-210">
+  <para id="eip-640">Aplicando la transformada ondícula de profundidad 4 a una señal muestreada a 8000Hz, ¿en qué componente se puede apreciar mejor la presencia de un tono de 440Hz?</para>
+</problem>
+
+<solution id="eip-333">
+
+  <para id="eip-609">Si la señal ha sido muestreada a 8000Hz la gama de frecuencias irá desde 0 hasta la mitad de la frecuencia de muestreo: 4000Hz. De la descomposición de profundidad 4 se obtendrán las siguientes bandas: cD<sub>1</sub>→2000-4000Hz, cD<sub>2</sub>→1000-2000Hz, cD<sub>3</sub>→500-1000Hz, cD<sub>4</sub>→250-500Hz, cA<sub>4</sub>→0-250Hz. El tono de 440Hz será mejor apreciado en el detalle cD<sub>4</sub>.</para>
+</solution>
+</exercise><exercise id="eip-798"><label>Ejercicio</label>
+<problem id="eip-51">
+  <para id="eip-610">¿Cuántas componentes será necesario conservar al comprimir un señal electrocardiográfica, si la única información requerida es el instante de ocurrencia de cada ciclo?</para>
+</problem>
+
+<solution id="eip-629">
+
+  <para id="eip-995">Sólo bastaría con conservar una componente, específicamente la que contiene la frecuencia de repetición de cada ciclo.</para>
+</solution>
+</exercise><exercise id="eip-126"><label>Ejercicio</label>
+<problem id="eip-34">
+  <para id="eip-284">¿Cuál de las 4 ondículas madre en la figura 5 será más recomendable al aplicar la transformada ondícula a una señal de la cual desea observarse más detalladamente la componente con mayor frecuencia?</para>
+</problem>
+
+<solution id="eip-910">
+
+  <para id="eip-855">La ondícula madre cuadrada (db1) es la que presenta el cambio más abrupto. Los cambios abruptos se asocian con altas frecuencias, lo que hace a esta ondícula madre la más recomendable para detallar la componente de mayor frecuencia (cD<sub>1</sub>).</para>
+</solution>
+</exercise>
+        
+        
+        
+        
+      </section>
+      <section id="id1171793229212"><title>Simuladores </title><para id="eip-721"><link url="OndiculasMATLAB.rar">ESTE VINCULO</link> contiene una carpeta con un programa realizado en <term document="m41083" target-id="eip-678" window="replace">MATLAB</term> que muestra varias aplicaciones de la Transformada Ondícula. La carpeta incluye el .m y todos los archivos necesarios para su funcionamiento, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 6 contiene un video explicativo acerca del uso del programa.</para><figure id="moonlanding-youtube"><title>Transformada Ondícula MATLAB</title><media id="yt-media" display="block" alt="Ecualizador MATLAB">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/BjNXtMmg19w?fs=1&amp;hl=es_ES" width="900" height="745">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media><caption>Video explicativo de la utilización del programa realizado en MATLAB</caption></figure><para id="eip-224">Puede obtenerse también un programa realizado en <term document="m41078" window="replace">LabVIEW</term> acerca del mismo tema por medio de <link url="Ondiculas_LabVIEW.rar">ESTE VINCULO</link>. La carpeta incluye el .vi y todos los archivos necesarios para su funcionamiento. Igualmente, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 7 contiene un video explicativo acerca del uso del programa.</para><figure id="videolabview"><title>Transformada Ondícula LabVIEW</title><media id="yt-media1" display="block" alt="Ecualizador LabVIEW">
+  <flash id="yt-video1" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/oD7DncU7FpY?fs=1&amp;hl=es_ES" width="900" height="565">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media><caption>Video explicativo de la utilización del programa realizado en LabVIEW</caption></figure>
+      </section>
+
+  </content>
+</document>

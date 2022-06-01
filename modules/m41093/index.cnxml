@@ -1,0 +1,1306 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Compresión de voz por medio de Transformadas</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m41093</md:content-id>
+  <md:title>Compresión de voz por medio de Transformadas</md:title>
+  <md:abstract>Transformada de Fourier, Transformada Coseno y Transformada Ondícula aplicadas a la compresión de señales de voz. Se incluye un programa en MATLAB y otro en LabVIIEW, cada uno aplica estas transformadas y la cuantificación para comprimir señales de voz.</md:abstract>
+  <md:uuid>363a36ba-96d2-419d-83d4-fb92ab97c021</md:uuid>
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="example">
+      <link url="http://cnx.org/content/m41094/latest/" strength="3">Señales </link>
+      <link url="http://cnx.org/content/m41101/latest/" strength="3">Transformada Ondícula </link>
+      <link url="http://cnx.org/content/m41078/latest/" strength="3">LabVIEW</link>
+      <link url="http://cnx.org/content/m41083/latest/" strength="3">MATLAB</link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>
+    <para id="id1811473">Existen diversos métodos para reducir la cantidad de bits que se almacenan o se transmiten a fin de representar una <term document="m41094" window="replace">señal</term> particular, por ejemplo una señal de voz. Uno de los métodos usados consiste en aplicar alguna transformada como la de <term target-id="id1166487790242" window="replace">Fourier</term>, la <term target-id="id1166487211750" window="replace">Transformada Coseno</term> o la <term document="m41101" window="replace">Transformada Ondícula</term> a la señal que se quiere comprimir y reducir los elementos en estos nuevos dominios: magnitud, fase, etc. Por ejemplo, pueden asignarse valores nulos a ciertos elementos de la transformada, normalmente a las que aporten menos información significativa. </para>
+    <para id="id1166473007857">Otra forma de comprimir es <term target-id="id1166501846100" window="replace">cuantificando</term> los elementos en el dominio transformado y luego antitransformar. Una cuantificación usando 8 bits representa una reconstrucción casi exacta de la señal; puede cuantificarse usando menos bits para ciertas zonas de la transformada (o para toda la transformada) y de esta forma se logra comprimir aún más. </para>
+    <para id="id1166476938655">Para comparar la señal original y la señal comprimida se hace uso del error cuadrático medio. El error cuadrático medio entre dos señales w(n), y(n) de K puntos se determina como indica la siguiente expresión:</para>
+    
+    <equation id="eip-958"><m:math>
+        <m:semantics>
+          <m:mrow>
+            <m:mstyle fontsize="12pt">
+              <m:mrow>
+                <m:mrow>
+                  <m:mi>≺</m:mi>
+                  <m:msup>
+                    <m:mi>ε</m:mi>
+                    <m:mstyle fontsize="8pt">
+                      <m:mrow>
+                        <m:mn>2</m:mn>
+                      </m:mrow>
+                    </m:mstyle>
+                  </m:msup>
+                  <m:mrow>
+                    <m:mi>≻</m:mi>
+                    <m:mo stretchy="false">=</m:mo>
+                    <m:mrow>
+                      <m:munder>
+                        <m:mo stretchy="false">∑</m:mo>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>K</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:munder>
+                      <m:mfrac>
+                        <m:msup>
+                          <m:mfenced open="(" close=")">
+                            <m:mrow>
+                              <m:mi>w</m:mi>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>n</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mi>y</m:mi>
+                              </m:mrow>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>n</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mfenced>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>2</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                        <m:mi>K</m:mi>
+                      </m:mfrac>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mrow>
+            </m:mstyle>
+            <m:mrow/>
+          </m:mrow>
+          <m:annotation encoding="StarMath 5.0"> size 12{ ≺ ε rSup { size 8{2} }  ≻ = Sum cSub { size 8{K} }  { {  { left (w \( n \)  - y \( n \)  right ) rSup { size 8{2} } }  over  {K} } } } {}</m:annotation>
+        </m:semantics>
+      </m:math></equation><section id="id1166487790242"><title>Transformada de Fourier </title><para id="id1166471803729">Al aplicar la Transformada de Fourier a una señal en el dominio del tiempo, se observa el comportamiento frecuencial de dicha señal, específicamente, se observan los valores de frecuencia que conforman a la señal. Aplica también para los <term document="m41096" window="replace">sistemas</term>, si se aplica la Transformada de Fourier a la respuesta impulsiva de un sistema, se obtendrá la respuesta en frecuencia del mismo, también denominada Función de Transferencia. Al multiplicar la respuesta en frecuencia del sistema con el comportamiento frecuencial de una señal, se obtendrá el comportamiento frecuencial de la señal de salida. La expresión para la transformada de Fourier es la siguiente:</para>
+      <equation id="id1166467481182"><m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>X</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>f</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∫</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mo stretchy="false">∞</m:mo>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:mi>x</m:mi>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:mo stretchy="false">⋅</m:mo>
+                            <m:msup>
+                              <m:mi>e</m:mi>
+                              <m:mstyle fontsize="10pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mrow>
+                                      <m:mo stretchy="false">−</m:mo>
+                                      <m:mi fontstyle="italic">j2π</m:mi>
+                                    </m:mrow>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>ft</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                    <m:mstyle fontstyle="italic">
+                      <m:mrow>
+                        <m:mtext>dt</m:mtext>
+                      </m:mrow>
+                    </m:mstyle>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{X \( f \) = Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  {x \( t \)  cdot e rSup { size 8{ - j2π ital "ft"} } }  ital "dt"} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1166470621622">Si se tiene el comportamiento frecuencial de una señal, la misma puede recuperarse con una expresión similar:</para>
+      <equation id="id1166469042949"><m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>x</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∫</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mo stretchy="false">∞</m:mo>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:mi>X</m:mi>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>f</m:mi>
+                          <m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:mo stretchy="false">⋅</m:mo>
+                            <m:msup>
+                              <m:mi>e</m:mi>
+                              <m:mstyle fontsize="10pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mi fontstyle="italic">j2π</m:mi>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>ft</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                    <m:mstyle fontstyle="italic">
+                      <m:mrow>
+                        <m:mtext>df</m:mtext>
+                      </m:mrow>
+                    </m:mstyle>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{x \( t \) = Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  {X \( f \)  cdot e rSup { size 8{j2π ital "ft"} } }  ital "df"} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1166470574835">Como ejemplo, se determina la transformada de Fourier del pulso cuadrado de la figura 1. Los valores de amplitud (A) y duración (τ) se dejan expresados:</para>
+      <figure id="id1166470547401"><media id="id1166470547401_media" alt="">
+          <image mime-type="image/png" src="../../media/Imagen 74.png" id="id1166470547401__onlineimage" height="130" width="230"/>
+        </media>
+      <caption>Pulso cuadrado</caption></figure>
+      
+      <para id="id1166491685851">La función solo está definida entre – τ/2 y τ/2, intervalo para el que toma un valor de A, por lo que la expresión para la transformada de Fourier queda de la siguiente forma:</para>
+      <equation id="id4347240"><m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>X</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>f</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∫</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mo stretchy="false">τ/2</m:mo>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mo stretchy="false">τ/2</m:mo>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:mi>A</m:mi>
+                          <m:mo stretchy="false">⋅</m:mo>
+                          <m:msup>
+                            <m:mi>e</m:mi>
+                            <m:mstyle fontsize="10pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">−</m:mo>
+                                    <m:mi fontstyle="italic">j2π</m:mi>
+                                  </m:mrow>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>ft</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>dt</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mi>A</m:mi>
+                        <m:mrow>
+                          <m:mo stretchy="false">−</m:mo>
+                          <m:mn>2jπf</m:mn>
+                        </m:mrow>
+                      </m:mfrac>
+                    </m:mrow>
+                    <m:mfenced open="[" close="]">
+                      <m:mrow>
+                        <m:msup>
+                          <m:mi>e</m:mi>
+                          <m:mstyle fontsize="10pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mi fontstyle="italic">jπfτ</m:mi>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:msup>
+                          <m:mi>e</m:mi>
+                          <m:mstyle fontsize="10pt">
+                            <m:mrow>
+                              <m:mi fontstyle="italic">jπfτ</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                      </m:mrow>
+                    </m:mfenced>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{X \( f \) = Int cSub { size 8{- {τ} wideslash {2}  } }  cSup { size 8{ {τ} wideslash {2} } }  {A cdot e rSup { size 8{ - j2π ital "ft"} } }  ital "dt"= {  {A}  over  { - 2jπf} }  left [e rSup { size 8{ - jπfτ} }  - e rSup { size 8{jπfτ} }  right ]} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1166479731003">Simplificando esta expresión queda:</para>
+      <equation id="id1166477594948">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mfrac>
+                      <m:mi>A</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:mn>2jπf</m:mn>
+                      </m:mrow>
+                    </m:mfrac>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mfenced open="[" close="]">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:mtext>sin</m:mtext>
+                            </m:mrow>
+                            <m:mi fontstyle="italic">πfτ</m:mi>
+                          </m:mrow>
+                        </m:mfenced>
+                        <m:mo stretchy="false">⋅</m:mo>
+                        <m:mn>2j</m:mn>
+                      </m:mrow>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:mi fontstyle="italic">Aτ</m:mi>
+                        <m:mo stretchy="false">⋅</m:mo>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Sinc</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:mrow>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi fontstyle="italic">fτ</m:mi>
+                    <m:mo stretchy="false">)</m:mo>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ {  {A}  over  { - 2jπf} }  left [ - "sin"πfτ right ] cdot 2j=Aτ cdot  ital "Sinc" \( fτ \) } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1166469708180">El espectro bilateral en magnitud y fase para la señal X(f) se muestra en la figura 2; un valor de fase de π o –π representa valores negativos en la función, los mismos aparecen en el espectro de fase en las zonas donde el Sinc es negativo; en el espectro se debe alternar entre π y –π ya que la fase de la transformada de Fourier es una función impar.</para>
+      
+        <figure id="id1166501903343"><media id="id1166501903343_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 77.png" id="id1166501903343__onlineimage" height="194" width="764"/>
+          </media>
+        <caption>Espectro Bilateral en Magnitud (derecha) y en Fase (izquierda)</caption></figure>
+ 
+      
+      <section id="id1166465276094"><title>Propiedades de la Transformada de Fourier </title><para id="id1166471039530">Linealidad: la Transformada de Fourier cumple con los principios de superposición y multiplicación por constante; si X<sub>1</sub>(f) es la transformada de x<sub>1</sub>(t) y X<sub>2</sub>(f) es la transformada de x<sub>2</sub>(t) se cumple que:</para>
+        <equation id="id1166499447462"><m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mi>α</m:mi>
+                        <m:mo stretchy="false">⋅</m:mo>
+                        <m:msub>
+                          <m:mi>x</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>1</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mrow>
+                          <m:mi>β</m:mi>
+                          <m:mo stretchy="false">⋅</m:mo>
+                          <m:msub>
+                            <m:mi>x</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                        </m:mrow>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+        <m:mstyle fontsize="8pt">   
+                   <m:mover accent="false">
+                        <m:mstyle fontsize="20pt">
+                          <m:mrow>
+                            <m:mi>→</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">F</m:mo>            
+                      </m:mover>
+        </m:mstyle>
+                      <m:mrow>
+                        <m:mi>α</m:mi>
+                        <m:mo stretchy="false">⋅</m:mo>
+                        <m:msub>
+                          <m:mi>X</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>1</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>f</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mrow>
+                          <m:mi>β</m:mi>
+                          <m:mo stretchy="false">⋅</m:mo>
+                          <m:msub>
+                            <m:mi>X</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                        </m:mrow>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>f</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{α cdot x rSub { size 8{1} }  \( t \) +β cdot x rSub { size 8{2} }  \( t \)  widevec  { size 8{F} } α cdot X rSub { size 8{1} }  \( f \) +β cdot X rSub { size 8{2} }  \( f \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1166488550386">Traslación en tiempo: si X(f) es la transformada de x(t) se cumple que:</para>
+        <equation id="id1166498798717"><m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mi>x</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mrow>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:msub>
+                          <m:mi>t</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>0</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+         <m:mstyle fontsize="8pt">   
+                   <m:mover accent="false">
+                        <m:mstyle fontsize="20pt">
+                          <m:mrow>
+                            <m:mi>→</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">F</m:mo>            
+                      </m:mover>
+        </m:mstyle>
+                      <m:mi>X</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>f</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">⋅</m:mo>
+                        <m:msup>
+                          <m:mi>e</m:mi>
+                          <m:mstyle fontsize="10pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mi fontstyle="italic">j2πf</m:mi>
+                                </m:mrow>
+                                <m:mo stretchy="false">⋅</m:mo>
+                                <m:msub>
+                                  <m:mi>t</m:mi>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mn>0</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{x \( t - t rSub { size 8{0} }  \)  widevec  { size 8{F} } X \( f \)  cdot e rSup { size 8{ - j2πf cdot t rSub { size 6{0} } } } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1166489884724">Traslación en frecuencia: si X(f) es la transformada de x(t) se cumple que:</para>
+        <equation id="id1166493073282"><m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mi>x</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">⋅</m:mo>
+                        <m:msup>
+                          <m:mi>e</m:mi>
+                          <m:mstyle fontsize="10pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi fontstyle="italic">j2πt</m:mi>
+                                <m:mo stretchy="false">⋅</m:mo>
+                                <m:msub>
+                                  <m:mi>f</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>0</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                      </m:mrow>
+        <m:mstyle fontsize="8pt">   
+                   <m:mover accent="false">
+                        <m:mstyle fontsize="20pt">
+                          <m:mrow>
+
+                            <m:mi>→</m:mi>
+
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">F</m:mo>
+            
+                      </m:mover>
+        </m:mstyle>
+                      <m:mstyle fontsize="12pt">
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mi>X</m:mi>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mrow>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:msub>
+                                <m:mi>f</m:mi>
+                                <m:mn>0</m:mn>
+                              </m:msub>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mstyle fontsize="12pt">
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{x \( t \)  cdot e rSup { size 8{j2πt cdot f rSub { size 6{0} } } }  widevec  {F}  size 12{X \( f - f rSub {0} } size 12{ \) }} {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1166503094622">Esta propiedad se conoce como Teorema de Modulación; en aplicaciones reales, la señal en tiempo se multiplica por la señal senoidal cos(2πf<sub>0</sub>t), la cual es representada por medio de exponenciales, quedando la ecuación de la siguiente forma:</para>
+        <equation id="id1166478377263"><m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mi>x</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">⋅</m:mo>
+                        <m:mfenced open="[" close="]">
+                          <m:mfrac>
+                            <m:mrow>
+                              <m:msup>
+                                <m:mi>e</m:mi>
+                                <m:mstyle fontsize="10pt">
+                                  <m:mrow>
+                                    <m:mrow>
+                                      <m:mi fontstyle="italic">j2πt</m:mi>
+                                      <m:mo stretchy="false">⋅</m:mo>
+                                      <m:msub>
+                                        <m:mi>f</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mn>0</m:mn>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msub>
+                                    </m:mrow>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msup>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:msup>
+                                <m:mi>e</m:mi>
+<m:mstyle fontsize="10pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">−</m:mo>
+                                    <m:mi fontstyle="italic">j2πt</m:mi>
+                                  </m:mrow>
+                                  <m:mo stretchy="false">⋅</m:mo>
+                                  <m:msub>
+                                    <m:mi>f</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>0</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                </m:mrow>
+</m:mstyle>
+                              </m:msup>
+                            </m:mrow>
+                            <m:mstyle fontsize="12pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mfrac>
+                        </m:mfenced>
+                      </m:mrow>
+        <m:mstyle fontsize="8pt">   
+                   <m:mover accent="false">
+                        <m:mstyle fontsize="20pt">
+                          <m:mrow>
+                            <m:mi>→</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">F</m:mo>            
+                      </m:mover>
+        </m:mstyle>
+                      <m:mfrac>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mn>2</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:mfrac>
+                      <m:mfenced open="[" close="]">
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi>X</m:mi>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mrow>
+                                <m:mi>f</m:mi>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:msub>
+                                  <m:mi>f</m:mi>
+                                  <m:mn>0</m:mn>
+                                </m:msub>
+                              </m:mrow>
+                              <m:mstyle fontsize="12pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mrow>
+                                      <m:mo stretchy="false">)</m:mo>
+                                      <m:mo stretchy="false">+</m:mo>
+                                      <m:mi>X</m:mi>
+                                    </m:mrow>
+                                    <m:mo stretchy="false">(</m:mo>
+                                    <m:mrow>
+                                      <m:mi>f</m:mi>
+                                      <m:mo stretchy="false">+</m:mo>
+                                      <m:msub>
+                                        <m:mi>f</m:mi>
+                                        <m:mn>0</m:mn>
+                                      </m:msub>
+                                    </m:mrow>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mstyle fontsize="12pt">
+                                <m:mrow>
+                                  <m:mo stretchy="false">)</m:mo>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:mfenced>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{x \( t \)  cdot  left [ {  {e rSup { size 8{j2πt cdot f rSub { size 6{0} } } } +e rSup { - j2πt cdot f rSub { size 6{0} } } }  over  { size 12{2} } }  right ] widevec  {F}  {  { size 12{1} }  over  { size 12{2} } }  left [ size 12{X \( f - f rSub {0}  size 12{ \) +X \( f+f rSub {0} } size 12{ \) }}  right ]} {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1166488254021">Cambio de escala: si X(f) es la transformada de x(t) se cumple que:</para>
+        <equation id="id1166470387327"><m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mi>x</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi fontstyle="italic">αt</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+        <m:mstyle fontsize="8pt">   
+                   <m:mover accent="false">
+                        <m:mstyle fontsize="20pt">
+                          <m:mrow>
+                            <m:mi>→</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">F</m:mo>            
+                      </m:mover>
+        </m:mstyle>
+                      <m:mfrac>
+                        <m:mn>1</m:mn>
+                        <m:mrow>
+                          <m:mo stretchy="false">∣</m:mo>
+                          <m:mi>α</m:mi>
+                          <m:mo stretchy="false">∣</m:mo>
+                        </m:mrow>
+                      </m:mfrac>
+                      <m:mi>X</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mrow>
+                        <m:mi>f</m:mi>
+                        <m:mo stretchy="false">/</m:mo>
+                        <m:mi>α</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{x \( αt \)  widevec  { size 8{F} }  {  {1}  over  { lline α rline } } X \( f/α \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1166468960235">Teorema de Rayleigh: si X(f) es la transformada de x(t) se cumple que:</para>
+        <equation id="id1166470878499">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Energía</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mrow>
+                          <m:munderover>
+                            <m:mo stretchy="false">∫</m:mo>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mo stretchy="false">∞</m:mo>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mo stretchy="false">∞</m:mo>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:munderover>
+                          <m:mrow>
+                            <m:msup>
+                              <m:mrow>
+                                <m:mo stretchy="false">∣</m:mo>
+                                <m:mrow>
+                                  <m:mi>x</m:mi>
+                                  <m:mo stretchy="false">(</m:mo>
+                                  <m:mi>t</m:mi>
+                                  <m:mo stretchy="false">)</m:mo>
+                                </m:mrow>
+                                <m:mo stretchy="false">∣</m:mo>
+                              </m:mrow>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>dt</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mrow>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∫</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mo stretchy="false">∞</m:mo>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:msup>
+                            <m:mrow>
+                              <m:mo stretchy="false">∣</m:mo>
+                              <m:mrow>
+                                <m:mi>X</m:mi>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mi>f</m:mi>
+                                <m:mo stretchy="false">)</m:mo>
+                              </m:mrow>
+                              <m:mo stretchy="false">∣</m:mo>
+                            </m:mrow>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>df</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "Energía"= Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  { lline x \( t \)  rline  rSup { size 8{2} }  ital "dt"} = Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  { lline X \( f \)  rline  rSup { size 8{2} }  ital "df"} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1166473755065">Transformada de Fourier de la <term document="m41085" window="replace">Convolución</term>: si X<sub>1</sub>(f) es la transformada de x<sub>1</sub>(t) se y X<sub>2</sub>(f) es la transformada de x<sub>2</sub>(t) cumple que:</para>
+        <equation id="id1166477944965"><m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>x</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">∗</m:mo>
+                        <m:msub>
+                          <m:mi>x</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>2</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+        <m:mstyle fontsize="8pt">   
+                   <m:mover accent="false">
+                        <m:mstyle fontsize="20pt">
+                          <m:mrow>
+                            <m:mi>→</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">F</m:mo>            
+                      </m:mover>
+        </m:mstyle>
+                      <m:msub>
+                        <m:mi>X</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>f</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">⋅</m:mo>
+                        <m:msub>
+                          <m:mi>X</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>2</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>f</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{1} }  \( t \)  * x rSub { size 8{2} }  \( t \)  widevec  { size 8{F} } X rSub { size 8{1} }  \( f \)  cdot X rSub { size 8{2} }  \( f \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+      </section>
+      <section id="id1166496070195">
+        <title>Transformada Discreta de Fourier </title>
+        <para id="id1166481857575">La Transformada de Fourier aplica también para señales discretas, con la condición de que las mismas tengan una duración finita. La expresión para la Transformada Discreta de Fourier de una señal discreta x[n] de longitud N es la siguiente:</para>
+        <equation id="id1166474373579"><m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mi>X</m:mi>
+                      <m:mo stretchy="false">[</m:mo>
+                      <m:mi>k</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">]</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mrow>
+                          <m:munderover>
+                            <m:mo stretchy="false">∑</m:mo>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                  <m:mo stretchy="false">=</m:mo>
+                                  <m:mn>0</m:mn>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mi>N</m:mi>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mn>1</m:mn>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:munderover>
+                          <m:mrow>
+                            <m:msub>
+                              <m:mi>x</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:mo stretchy="false">⋅</m:mo>
+                            <m:msup>
+                              <m:mi>e</m:mi>
+                              <m:mstyle fontsize="10pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mrow>
+                                      <m:mo stretchy="false">−</m:mo>
+                                      <m:mi>j</m:mi>
+                                    </m:mrow>
+                                    <m:mfrac>
+                                      <m:mn>2π</m:mn>
+                                      <m:mi>N</m:mi>
+                                    </m:mfrac>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>kn</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{X \[ k \] = Sum cSub { size 8{n=0} }  cSup { size 8{N - 1} }  {x rSub { size 8{n} }  cdot e rSup { size 8{ - j {  {2π}  over  {N} }  ital "kn"} } } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+      </section>
+    </section>
+    <section id="id1166487211750"><title>Transformada Discreta Coseno</title><para id="id1166470047039">La transformada Discreta Coseno (DCT) está relacionada a la Transformada Discreta de Fourier. Se calcula como:</para>
+      <equation id="id1166477318818"><m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mrow>
+                <m:mtable rowspacing="5.0ex">
+                  <m:mtr>
+                    <m:mrow>
+                      <m:mstyle fontsize="12pt">
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mi>X</m:mi>
+                            <m:mo stretchy="false">[</m:mo>
+                            <m:mi>k</m:mi>
+                            <m:mrow>
+                              <m:mo stretchy="false">]</m:mo>
+                              <m:mo stretchy="false">=</m:mo>
+                              <m:mi>A</m:mi>
+                            </m:mrow>
+                            <m:mrow>
+
+
+                                                        <m:munderover>
+                            <m:mo stretchy="false">∑</m:mo>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                  <m:mo stretchy="false">=</m:mo>
+                                  <m:mn>0</m:mn>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mi>N</m:mi>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mn>1</m:mn>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:munderover>
+
+
+                              <m:mrow>
+                                <m:mi>x</m:mi>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mi>n</m:mi>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mtext>cos</m:mtext>
+                                <m:mfenced open="(" close=")">
+                                  <m:mfrac>
+                                    <m:mrow>
+                                      <m:mi fontstyle="italic">πk</m:mi>
+                                      <m:mo stretchy="false">(</m:mo>
+                                      <m:mrow>
+                                        <m:mn>2n</m:mn>
+                                        <m:mo stretchy="false">+</m:mo>
+                                        <m:mn>1</m:mn>
+                                      </m:mrow>
+                                      <m:mo stretchy="false">)</m:mo>
+                                    </m:mrow>
+                                    <m:mn>2N</m:mn>
+                                  </m:mfrac>
+                                </m:mfenced>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mrow/>
+                    </m:mrow>
+                  </m:mtr>
+                  <m:mtr>
+                    <m:mrow>
+
+                      <m:mrow>
+                        <m:mi>A</m:mi>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mrow>
+                          <m:mo stretchy="true">{</m:mo>
+                          <m:mtable>
+                            <m:mtr>
+                              <m:mtd>
+                                <m:mrow>
+                                  <m:mfrac>
+                                    <m:mn>1</m:mn>
+                                    <m:msqrt>
+                                      <m:mi>N</m:mi>
+                                    </m:msqrt>
+                                  </m:mfrac>
+                                  <m:mi/>
+                                  <m:mrow>
+                                    <m:mi>k</m:mi>
+                                    <m:mo stretchy="false">=</m:mo>
+                                    <m:mn>0</m:mn>
+                                  </m:mrow>
+                                  <m:mrow/>
+                                </m:mrow>
+                              </m:mtd>
+                            </m:mtr>
+                            <m:mtr>
+                              <m:mtd>
+                                <m:mrow>
+                                  <m:mfrac>
+                                    <m:mn>2</m:mn>
+                                    <m:msqrt>
+                                      <m:mi>N</m:mi>
+                                    </m:msqrt>
+                                  </m:mfrac>
+                                  <m:mi/>
+                                  <m:mrow>
+                                    <m:mi>k</m:mi>
+                                    <m:mo stretchy="false">=</m:mo>
+                                    <m:mn>1,2</m:mn>
+                                  </m:mrow>
+                                  <m:mtext>.</m:mtext>
+                                  <m:mtext>.</m:mtext>
+                                  <m:mtext>.</m:mtext>
+                                  <m:mrow>
+                                    <m:mi>N</m:mi>
+                                    <m:mo stretchy="false">−</m:mo>
+                                    <m:mn>1</m:mn>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mtd>
+                            </m:mtr>
+                          </m:mtable>
+                        </m:mrow>
+                      </m:mrow>
+                      <m:mi/>
+                      <m:mrow/>
+                    </m:mrow>
+                 </m:mtr>
+                </m:mtable>
+                <m:mrow/>
+              </m:mrow>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{X \[ k \] =A Sum cSub { size 8{n=0} }  cSup { size 8{N - 1} }  {x \( n \) "cos" left ( {  {πk \( 2n+1 \) }  over  {2N} }  right )} }  {} # 
+A= left lbrace  matrix {
+ {  {1}  over  { sqrt {N} } } `~k=0 {} ##
+ {  {2}  over  { sqrt {N} } } ~~k=1,2 "."  "."  "." N - 1
+}  right none ~ {} 
+} } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1166469377636">En la fórmula anterior N es la longitud de x. La ventaja de la DCT es que compacta la información alrededor del origen de coordenadas. Por eso es usada en algunos algoritmos de compresión como el JPEG, debido a la compactación de energía es posible reconstruir una señal usando solo unos pocos coeficientes de la DCT. </para>
+    </section>
+    <section id="id1166501846100"><title>Cuantificación uniforme y no uniforme de señales de voz</title><para id="id1166495751640">Cuando una señal analógica quiere digitalizarse deben realizarse varios procesos entre ellos están el muestreo y la cuantificación. El muestreo consiste en tomar muestras de la señal periódicamente; el tiempo entre muestra y muestra denominado ts. Esto discretiza la señal en el dominio del tiempo. El siguiente proceso es la cuantificación en donde la señal ya muestreada es pasada por un sistema que presenta la siguiente característica:</para>
+
+        <figure id="id1166478424080"><media id="id1166478424080_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 20-bfe0.png" id="id1166478424080__onlineimage" height="298" width="434"/>
+          </media>
+        <caption>Cuantificación uniforme </caption></figure>
+
+      <para id="id8843306">Es decir, se observa cada muestra y se ubica en que rango de voltaje se encuentra; dependiendo de esta se le asigna un voltaje de salida. Es decir, la señal de entrada tiene infinitos valores de voltaje posibles, mientras la señal de salida tiene un número finito de voltajes posibles. Por ejemplo, si se divide el rango de entrada en 256 intervalos y a cada intervalo se le asigna un determinado voltaje de salida, a la salida se tendrán solo 256 voltajes distintos posibles; en este caso particular se necesitarían 8 bits para representarlos. Este tipo de cuantificador se le llama Cuantificador Uniforme.</para>
+      <para id="id1166487680828">Cuando la distribución probabilística de x(t) no es uniforme sino que tiene más bien preferencia por una cierta zona de voltaje, como el caso de las señales de voz, conviene usar cuantificadores no uniformes, es decir uno que tenga pasos más estrechos en aquellas zonas de voltaje más frecuentes y pasos más gruesos en zonas menos probables. Gráficamente: </para>
+
+        <figure id="id1166465790696"><media id="id1166465790696_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 19-1a3a.png" id="id1166465790696__onlineimage" height="166" width="375"/>
+          </media>
+        <caption>Cuantificación no uniforme </caption></figure>
+
+      <para id="id1166471886374">Por ejemplo, el cuantificador mostrado convendría usarlo cuando la señal tiene preferencia de ocurrencia en los voltajes alrededor de cero; En el caso de señales de voz esto es en efecto lo que ocurre. </para>
+      <para id="id5725042">Este tipo de cuantificación se le llama cuantificación no-uniforme y puede ser lograda haciendo pasar la señal por un sistema llamado compansor el cual expande los valores de bajo voltaje y comprime los de alto voltaje y posteriormente pasar esta señal por un cuantificador no-uniforme, tal y como se ilustra a continuación:</para>
+      <figure id="id1166466249705"><media id="id1166466249705_media" alt="">
+          <image mime-type="image/png" src="../../media/Imagen 15-6e64.png" id="id1166466249705__onlineimage" height="134" width="594"/>
+        </media>
+      <caption>Compansor + Cuantificación uniforme = Cuantificación no uniforme </caption></figure>
+      <para id="id1166488876103">Por supuesto que en el receptor hay que proveer de un sistema que haga el efecto inverso al de c(t) vs. x(t) </para>
+    </section>
+    <section id="id1166474368914"><title>Autoevaluación </title><exercise id="eip-760"><label>Ejercicio</label><problem id="eip-615">
+  <para id="eip-489">Si se tiene un sistema que comprime eliminando componentes de la Transformada de Fourier desde las frecuencias altas como si se tratase de un filtrado pasabajos, ¿las voces que se podrán comprimir más son las masculinas o las femeninas? ¿Por qué?</para>
+</problem>
+
+<solution id="eip-976">
+  <para id="eip-790">Si se elimina la misma cantidad de componentes de la Transformada de Fourier desde las frecuencias altas para una voz masculina y una voz femenina, la voz masculina tendrá una mejor calidad con respecto a la original ya que para ésta tienen más relevancia las componentes de menor frecuencia </para>
+</solution>
+</exercise>
+      <exercise id="eip-265"><label>Ejercicio</label><problem id="eip-503">
+  <para id="eip-239">Si una señal cuya Transformada Coseno que se cuantifica originalmente de forma uniforme con 8 bits, se comprime utilizando sólo 7 bits para la cuantificación, ¿de cuánto será la tasa de compresión?</para>
+</problem>
+
+<solution id="eip-251">
+  <para id="eip-565">La cantidad de bits total de la transformada es su longitud N por la cantidad de bits (8 originalmente). La relación entre la longitud de la señal comprimida y la señal original será de 7N/8N=0.875 → 87.5%, por lo que la tasa de compresión es de 12.5%. El resultado de la tasa de compresión es independiente de la transformada que es usada.</para>
+</solution>
+</exercise>
+      <exercise id="eip-79"><label>Ejercicio</label><problem id="eip-69">
+  <para id="eip-777">Si una señal se comprime aplicando la Transformada Ondícula de profundidad 3 y cuantificando dicha transformada originalmente con 8 bits, ¿De cuánto será la tasa de compresión si se elimina el detalle de mayor frecuencia y si se utilizan 4 bits para cuantificar?</para>
+</problem>
+
+<solution id="eip-44">
+  <para id="eip-1">Al eliminar el detalle de mayor frecuencia, la transformada queda con la mitad de la longitud; al cuantificar con 4 bits, la cantidad de bits se reduce a la mitad, quedando la relación comprimida/original: (4N/2)/8N=0.25→ 25%, por lo que la tasa de compresión es de 75%.</para>
+</solution>
+</exercise>
+    
+    </section>
+    <section id="id7889296"><title>Simuladores </title><para id="eip-702"><link url="TransformadasMATLAB.rar">ESTE VINCULO</link> contiene una carpeta con un programa realizado en <term document="m41083" target-id="eip-678" window="replace">MATLAB</term> que comprime señales de voz por medio de la Transformada Ondícula, La Transformada Coseno y la Transformada de Fourier; para esta última, la compresión se hace eliminando componentes desde las altas frecuencias. Con cada transformada se hace cuantificación uniforme. La carpeta incluye el .m y todos los archivos necesarios para su funcionamiento, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 6 contiene un video explicativo acerca del uso del programa.
+</para><figure id="videoMATLAB"><title>Compresión de voz en MATLAB</title><media id="yt-media1" display="block" alt="Mod Cuadratura">
+  <flash id="yt-video1" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/bxoaLAckAK8?fs=1&amp;hl=es_ES" width="900" height="745">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+<caption>Video explicativo de la utilización del programa realizado en MATLAB</caption></figure><para id="eip-450">Puede obtenerse también un programa realizado en <term document="m41078" window="replace">LabVIEW</term> del mismo estilo y acerca del mismo tema por medio de <link url="Transformadas_LabVIEW.rar">ESTE VINCULO</link>. La carpeta incluye el .vi y todos los archivos necesarios para su funcionamiento. Igualmente, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 7 contiene un video explicativo acerca del uso del programa</para><figure id="videoLabVIEW"><title>Compresión de voz en LabVIEW</title><media id="yt-media2" display="block" alt="Mod Cuadratura">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/qLflZpOmD2M?fs=1&amp;hl=es_ES" width="900" height="615">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+<caption>Video explicativo de la utilización del programa realizado en LabVIEW</caption></figure></section>
+  </content>
+</document>

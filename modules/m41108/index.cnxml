@@ -1,0 +1,515 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Ortogonalización Gram-Schmidt</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m41108</md:content-id>
+  <md:title>Ortogonalización Gram-Schmidt</md:title>
+  <md:abstract>Método Gram-Schmidt para cálculo de bases ortogonales por medio de los símbolos de una señal. Se explica también el concepto de constelación en comunicaciones. Se incluyen dos programas en LabVIEW acerca de este tema, uno de los dos hecho por medio de MATLAB Script</md:abstract>
+  <md:uuid>b98a0e37-4408-4e95-bda4-8a782b8d85b0</md:uuid>
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="example">
+      <link url="http://cnx.org/content/m41094/latest/" strength="3">Señales </link>
+      <link url="http://cnx.org/content/m41096/latest/" strength="3">Sistemas </link>
+      <link url="http://cnx.org/content/m41078/latest/" strength="2">LabVIEW</link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>
+    
+    <para id="id1165989773019"><term>El siguiente módulo está hecho en base al módulo </term>
+      <emphasis effect="bold"><term document="m35711" window="replace">ORTOGONALIZACIÓN GRAM-SCHMIDT Y TEORÍA BÁSICA DE LAS CONSTELACIONES</term>, realizado por </emphasis>
+      <emphasis effect="italics">Venuska González y Mariangela Mezoa.</emphasis>
+    </para>
+    <para id="id1165975563137">En matemáticas, el concepto de <emphasis>Ortogonalidad</emphasis> está referido al de <emphasis>Perpendicularidad</emphasis>. Se dice que dos vectores 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mover accent="true"><m:mi>x</m:mi><m:mo stretchy="false">→</m:mo></m:mover></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ { vec  {x}}} {}</m:annotation></m:semantics></m:math> y 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mover accent="true"><m:mi>y</m:mi><m:mo stretchy="false">→</m:mo></m:mover></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ { vec  {y}}} {}</m:annotation></m:semantics></m:math> pertenecientes a cierto espacio vectorial (V) son ortogonales si se cumple que el producto escalar entre ellos es igual a<emphasis> cero</emphasis><emphasis effect="bold">,</emphasis> es decir:</para>
+    <equation id="eip-323"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mover accent="true"><m:mi>x</m:mi><m:mo stretchy="false">→</m:mo></m:mover><m:mo stretchy="false">⋅</m:mo><m:mover accent="true"><m:mi>y</m:mi><m:mo stretchy="false">→</m:mo></m:mover></m:mrow><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ { vec  {x}} cdot  { vec  {y}}=0} {}</m:annotation></m:semantics></m:math> </equation>
+    <para id="id1165980803604">A partir de un conjunto de vectores linealmente independientes se puede construir un nuevo conjunto de vectores <term>ortonormales</term> (Que cumplan con las condiciones de ortogonalidad y norma vectorial). Esto se conoce como el método de <term>Ortogonalización</term><term>Gram-Schmidt (G-S).</term> Pero, ¿cómo aplicar este concepto para un sistema de comunicación digital?</para>
+    <section id="id1165975886018">
+      <title>Ortogonalización Gram-Schmidt </title>
+      <para id="id1165973983533">Supóngase una señal S<sub>i</sub>(t) que representa a un símbolo m<sub>i</sub>. Se estima que esta señal pase por el receptor que está encargado de obtener cada símbolo de la misma. Sin embargo, es evidente que al pasar por el canal, la señal se contaminará debido a la existencia de ruido en el sistema. En una condición ideal, el resultado sería el siguiente:</para>
+      <figure id="id1165987776406"><media id="id1165987776406_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics1-71ed.png" id="id1165987776406__onlineimage" height="83" width="500"/>
+        </media>
+      <caption>Sistema ideal de recepción (sin ruido). Cada símbolo mi de la señal se recibe sin interferencia.</caption></figure>
+      
+      <para id="id1165971116932">Al introducir ruido blanco gaussiano en el <term document="m41096" window="replace">sistema</term>, quedaría como sigue:</para>
+      <figure id="id1165986120256"><media id="id1165986120256_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics2-2f37.png" id="id1165986120256__onlineimage" height="140" width="499"/>
+        </media>
+      <caption>Sistema de recepción con introducción de ruido</caption></figure>
+      
+      <para id="id1165986507760">La segunda situación ocasiona que a la salida del receptor no se obtenga precisamente el símbolo m<sub>i</sub>, sino que se obtenga un <emphasis>estimado</emphasis> del símbolo original.</para>
+      <para id="id1165974481339">Es en este punto en donde entra el concepto de ortogonalización G-S: La señal S<sub>i</sub>(t) puede expresarse en función de un conjunto finito de bases (o vectores) ortonormales (<emphasis>U</emphasis>), de forma tal que cada forma de onda estaría relacionada con un coeficiente que será denominado <emphasis>s</emphasis>. Matemáticamente se tiene que:</para>
+      <equation id="eip-16"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>j</m:mi><m:mo stretchy="false">=</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>ij</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>j</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{S rSub { size 8{i} }  \( t \) = Sum cSub { size 8{j=1} }  cSup { size 8{n} }  {s rSub { size 8{ ital "ij"} }  "." U rSub { size 8{j} }  \( t \) } } {}</m:annotation></m:semantics></m:math> </equation>
+      <para id="id1165992621654">Es decir, a cada símbolo m<sub>i</sub> se le asocia una forma de onda s. desarrollando la fórmula anterior, <emphasis>para todos los símbolos posibles</emphasis>, se obtiene un sistema de ecuaciones como sigue:</para>
+      <equation id="eip-521"><m:math><m:semantics><m:mrow><m:mrow><m:mtable><m:mtr><m:mrow><m:mstyle fontsize="10pt"><m:mrow><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>11</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>12</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>13</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>3</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:mtext>.</m:mtext></m:mrow><m:mtext>.</m:mtext><m:mrow><m:mtext>.</m:mtext><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1n</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow></m:mtr><m:mtr><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>21</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>22</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>23</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>3</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:mtext>.</m:mtext></m:mrow><m:mtext>.</m:mtext><m:mrow><m:mtext>.</m:mtext><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2n</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mrow/></m:mrow></m:mtr><m:mtr><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>3</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>31</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>32</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>33</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>3</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:mtext>.</m:mtext></m:mrow><m:mtext>.</m:mtext><m:mrow><m:mtext>.</m:mtext><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>3n</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mrow/></m:mrow></m:mtr><m:mtr><m:mrow><m:mo stretchy="false">⋮</m:mo><m:mrow/></m:mrow></m:mtr><m:mtr><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>m</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m1</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m2</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m3</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>3</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:mtext>.</m:mtext></m:mrow><m:mtext>.</m:mtext><m:mrow><m:mtext>.</m:mtext><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>mn</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mrow/></m:mrow></m:mtr></m:mtable><m:mrow/></m:mrow></m:mrow><m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{S rSub { size 8{1} }  \( t \) =s rSub { size 8{"11"} }  "." U rSub { size 8{1} }  \( t \) +s rSub { size 8{"12"} }  "." U rSub { size 8{2} }  \( t \) +s rSub { size 8{"13"} }  "." U rSub { size 8{3} }  \( t \) + "."  "."  "." +s rSub { size 8{1n} }  "." U rSub { size 8{n} }  \( t \) }  {} # 
+S rSub { size 8{2} }  \( t \) =s rSub { size 8{"21"} }  "." U rSub { size 8{1} }  \( t \) +s rSub { size 8{"22"} }  "." U rSub { size 8{2} }  \( t \) +s rSub { size 8{"23"} }  "." U rSub { size 8{3} }  \( t \) + "."  "."  "." +s rSub { size 8{2n} }  "." U rSub { size 8{n} }  \( t \)  {} # 
+S rSub { size 8{3} }  \( t \) =s rSub { size 8{"31"} }  "." U rSub { size 8{1} }  \( t \) +s rSub { size 8{"32"} }  "." U rSub { size 8{2} }  \( t \) +s rSub { size 8{"33"} }  "." U rSub { size 8{3} }  \( t \) + "."  "."  "." +s rSub { size 8{3n} }  "." U rSub { size 8{n} }  \( t \)  {} # 
+ dotsvert  {} # 
+S rSub { size 8{m} }  \( t \) =s rSub { size 8{m1} }  "." U rSub { size 8{1} }  \( t \) +s rSub { size 8{m2} }  "." U rSub { size 8{2} }  \( t \) +s rSub { size 8{m3} }  "." U rSub { size 8{3} }  \( t \) + "."  "."  "." +s rSub { size 8{ ital "mn"} }  "." U rSub { size 8{n} }  \( t \)  {} 
+} } {}</m:annotation></m:semantics></m:math> </equation>
+      <para id="id1165977334092">El objetivo cuando se tiene un sistema como el mostrado en la figura 2 es el de obtener el estimado que más se aproxime al valor real. Esto se hace minimizando la energía de la señal de error entre el símbolo original y el estimado:</para>
+      
+      <equation id="eip-590"><m:math><m:semantics><m:mrow><m:mrow><m:mtable><m:mtr><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>j</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:mi>S</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>j</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow></m:mtr><m:mtr><m:mrow><m:mrow><m:mi>j</m:mi><m:mo stretchy="false">=</m:mo><m:mn>1,2,3,</m:mn></m:mrow><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:mi>N</m:mi><m:mrow/></m:mrow></m:mtr></m:mtable><m:mrow/></m:mrow></m:mrow><m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{s rSub { size 8{j} } = Int cSub { size 8{0} }  cSup { size 8{T} }  {S \( t \)  "." U rSub { size 8{j} }  \( t \)  ital "dt"} }  {} # 
+j=1,2,3, "."  "."  "." ,N {} 
+} } {}</m:annotation></m:semantics></m:math></equation><para id="id1165971968795">Visto desde la perspectiva vectorial, el procedimiento será entonces el de obtener una representación de la señal en función de dos vectores en el plano. El estimado del vector original sería entonces la proyección de éste sobre el plano:</para>
+      <figure id="id1165978855906"><media id="id1165978855906_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics3-3cd2.png" id="id1165978855906__onlineimage" height="243" width="550"/>
+        </media>
+      <caption>Ejemplo aplicado a vectores. ŝ(t) es el estimado de cada forma de onda original S(t) y e(t) sería la introducción de ruido en el sistema.</caption></figure>
+      
+      <para id="id1165976127276">A continuación se explica paso a paso la metodología para la obtención de las bases necesarias para representar cada símbolo de una determinada <term document="m41094" target-id="id1800770" window="replace">señales de potencia</term>:</para>
+      <para id="id1165977334672">Se tiene un conjunto de <term document="m41094" target-id="id1800770" window="replace">señales de energía</term>  S<sub>i</sub>(t) con existencia en un intervalo de tiempo [0, T] que se quieren representar por medio de bases U<sub>j</sub>, tal y como se indica en el sistema de ecuaciones 3.</para>
+      <para id="id1165974414127">Las bases deben cumplir con el principio de ortonormalidad mencionado al principio:</para>
+      <equation id="eip-788"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:msubsup><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:msubsup><m:mrow><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>j</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>k</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow><m:mo stretchy="false">=</m:mo><m:mrow><m:mo stretchy="true">{</m:mo><m:mtable><m:mtr><m:mtd><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">→</m:mo><m:mrow><m:mi>j</m:mi><m:mo stretchy="false">=</m:mo><m:mi>k</m:mi></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr><m:mtr><m:mtd><m:mrow><m:mn>0</m:mn><m:mo stretchy="false">→</m:mo><m:mrow><m:mi>j</m:mi><m:mo stretchy="false">≠</m:mo><m:mi>k</m:mi></m:mrow></m:mrow></m:mtd></m:mtr></m:mtable></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ Int rSub { size 8{0} }  rSup { size 8{T} }  {U rSub { size 8{j} }  \( t \)  "." U rSub { size 8{k} }  \( t \)  ital "dt"} = left lbrace  matrix {
+1 rightarrow j=k {} ##
+0 rightarrow j &lt;&gt; k
+}  right none } {}</m:annotation></m:semantics></m:math> </equation>
+      <para id="id1165973196563">Para comenzar se fija s<sub>ij</sub> = 0 exceptuando el primer valor: s<sub>11</sub>:</para>
+      <equation id="eip-591"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>11</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{S rSub { size 8{1} }  \( t \) =s rSub { size 8{"11"} }  "." U rSub { size 8{1} }  \( t \) } {}</m:annotation></m:semantics></m:math></equation>
+      <para id="id1165978826954">Se eleva toda la ecuación al cuadrado y se integra en el intervalo [0,T]:</para>
+      <equation id="eip-474"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msup><m:mfenced open="[" close="]"><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mfenced><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:msup><m:mtext>11</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:msup><m:mn>1</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">=</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:msup><m:mtext>11</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle></m:msub></m:mrow><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ Int cSub { size 8{0} }  cSup { size 8{T} }  { left [S rSub { size 8{1} }  \( t \)  right ] rSup { size 8{2} }  ital "dt"} = Int cSub { size 8{0} }  cSup { size 8{T} }  {s rSub { size 8{"11"}   rSup { size 8{2} } } }  "." U rSub { size 8{1}   rSup { size 8{2} } }  \( t \)  ital "dt"=s rSub { size 8{"11"}   rSup { size 8{2} } }  Int cSub { size 8{0} }  cSup { size 8{T} }  {U rSub { size 8{1} }  \( t \)  "." U rSub { size 8{1} }  \( t \)  ital "dt"} } {}</m:annotation></m:semantics></m:math></equation>
+      <para id="id1165971004226">Por el principio de ortonormalidad, la integral de la derecha es igual a 1, quedando s<sub>11</sub> sólo en función de S<sub>1</sub>(t) por lo que se puede despejar:</para>
+      
+      <equation id="eip-700"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>11</m:mtext></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:msqrt><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>t</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:mo stretchy="false">[</m:mo><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mo stretchy="false">]</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:msqrt></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{s rSub { size 8{"11"} } = sqrt { Int cSub { size 8{0} }  cSup { size 8{t} }  { \[ S rSub { size 8{1} }  \( t \)  \]  rSup { size 8{2} }  ital "dt"} } } {}</m:annotation></m:semantics></m:math> </equation>
+      <para id="id1165979021938">Finalmente:</para>
+      <equation id="eip-695"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mfrac><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>11</m:mtext></m:mrow></m:mstyle></m:msub></m:mfrac></m:mrow><m:mo stretchy="false">=</m:mo><m:mfrac><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow><m:msqrt><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>t</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:mo stretchy="false">[</m:mo><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mo stretchy="false">]</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:msqrt></m:mfrac></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{U rSub { size 8{1} }  \( t \) = {  {S rSub { size 8{1} }  \( t \) }  over  {s rSub { size 8{"11"} } } } = {  {S rSub { size 8{1} }  \( t \) }  over  { sqrt { Int cSub { size 8{0} }  cSup { size 8{t} }  { \[ S rSub { size 8{1} }  \( t \)  \]  rSup { size 8{2} }  ital "dt"} } } } } {}</m:annotation></m:semantics></m:math> </equation>
+      <para id="id1165993494240">Con esto se obtiene la primera base para representar la señal. Para calcular U<sub>2</sub>(t), se debe restar a S<sub>2</sub>(t) su proyección sobre U<sub>1</sub>(t); esto cumpliría con la condición de que la base sea ortogonal.</para>
+      <para id="id1165975701733">Ahora se fijará Sij=0 exceptuando los valores de s<sub>21</sub> y s<sub>22</sub>:</para>
+      <equation id="eip-402"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>21</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>22</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{S rSub { size 8{2} }  \( t \) =s rSub { size 8{"21"} }  "." U rSub { size 8{1} }  \( t \) +s rSub { size 8{"22"} }  "." U rSub { size 8{2} }  \( t \) } {}</m:annotation></m:semantics></m:math> </equation>
+      <para id="id1165975877973">Reordenando esta ecuación queda:</para>
+      <equation id="eip-292"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>22</m:mtext></m:mrow></m:mstyle></m:msub><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">−</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>21</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{s rSub { size 8{"22"} }  "." U rSub { size 8{2} }  \( t \) =S rSub { size 8{2} }  \( t \)  - s rSub { size 8{"21"} }  "." U rSub { size 8{1} }  \( t \) } {}</m:annotation></m:semantics></m:math></equation>
+      <para id="id1165987930510">Multiplicando la ecuación por U<sub>1</sub>(t) e integrándola en el intervalo [0,T] queda:</para>
+      
+      <equation id="eip-226"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">=</m:mo><m:mrow><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>21</m:mtext></m:mrow></m:mstyle></m:msub><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow><m:mo stretchy="false">+</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>22</m:mtext></m:mrow></m:mstyle></m:msub><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ Int cSub { size 8{0} }  cSup { size 8{T} }  {S rSub { size 8{2} }  \( t \)  "." U rSub { size 8{1} }  \( t \)  ital "dt"= Int cSub { size 8{0} }  cSup { size 8{T} }  {s rSub { size 8{"21"} }  "." U rSub { size 8{1} }  \( t \)  "." U rSub { size 8{1} }  \( t \)  ital "dt"} + Int cSub { size 8{0} }  cSup { size 8{T} }  {s rSub { size 8{"22"} }  "." U rSub { size 8{2} }  \( t \)  "." U rSub { size 8{1} }  \( t \)  ital "dt"} } } {}</m:annotation></m:semantics></m:math> </equation><para id="id1165997008871">Se aplica el principio de ortonormalidad quedando: </para>
+      
+      <equation id="eip-692"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>21</m:mtext></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{s rSub { size 8{"21"} } = Int cSub { size 8{0} }  cSup { size 8{T} }  {S rSub { size 8{2} }  \( t \)  "." U rSub { size 8{1} }  \( t \)  ital "dt"} } {}</m:annotation></m:semantics></m:math> </equation><para id="id1165992268346">Al igual que para el paso 1, se eleva toda la ecuación 10 al cuadrado y se integra en el intervalo [0,T], quedando como sigue:</para>
+      
+      <equation id="eip-965"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:msup><m:mtext>22</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle></m:msub><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:mo stretchy="false">(</m:mo><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">−</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>21</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mo stretchy="false">)</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ Int cSub { size 8{0} }  cSup { size 8{T} }  {s rSub { size 8{"22"}   rSup { size 8{2} } } U rSub { size 8{2} }  "." U rSub { size 8{2} }  \( t \) } = Int cSub { size 8{0} }  cSup { size 8{T} }  { \( S rSub { size 8{2} }  \( t \)  - s rSub { size 8{"21"} } U rSub { size 8{1} }  \( t \)  \)  rSup { size 8{2} }  ital "dt"} } {}</m:annotation></m:semantics></m:math> </equation><para id="id1165977227639">Usando nuevamente el principio de ortonormalidad, queda s<sub>22</sub> en función de la señal S<sub>2</sub>(t), el coeficiente s<sub>21</sub> y la base U<sub>1</sub>(t): </para>
+      
+      <equation id="eip-822"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>22</m:mtext></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:msqrt><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msup><m:mfenced open="(" close=")"><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">−</m:mo><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>21</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mfenced><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:msqrt></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{s rSub { size 8{"22"} } = sqrt { Int cSub { size 8{0} }  cSup { size 8{T} }  { left (S rSub { size 8{2} }  \( t \)  - s rSub { size 8{"21"} } U rSub { size 8{1} }  \( t \)  right ) rSup { size 8{2} }  ital "dt"} } } {}</m:annotation></m:semantics></m:math> </equation><para id="id1165972665216">Finalmente, despejando y sustituyendo las ecuaciones 13 y 15 en la ecuación 11:</para>
+      <equation id="eip-703"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">⇒</m:mo><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mfrac><m:mfenced open="[" close="]"><m:mrow><m:msub><m:mi>s</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">−</m:mo><m:mfenced open="(" close=")"><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mfenced></m:mrow><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mfenced><m:msqrt><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msup><m:mfenced open="(" close=")"><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">−</m:mo><m:mfenced open="(" close=")"><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mfenced></m:mrow><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mfenced><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:msqrt></m:mfrac></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ drarrow U rSub { size 8{2} }  \( t \) = {  { left [s rSub { size 8{2} }  \( t \)  -  left ( Int cSub { size 8{0} }  cSup { size 8{T} }  {S rSub { size 8{2} }  \( t \)  "." U rSub { size 8{1} }  \( t \)  ital "dt"}  right )U rSub { size 8{1} }  \( t \)  right ]}  over  { sqrt { Int cSub { size 8{0} }  cSup { size 8{T} }  { left (S rSub { size 8{2} }  \( t \)  -  left ( Int cSub { size 8{0} }  cSup { size 8{T} }  {S rSub { size 8{2} }  \( t \)  "." U rSub { size 8{1} }  \( t \)  ital "dt"}  right )U rSub { size 8{1} }  \( t \)  right ) rSup { size 8{2} }  ital "dt"} } } } } {}</m:annotation></m:semantics></m:math> </equation>
+      <para id="id1165973173746">Se buscarán cuantas bases sean necesarias hasta el punto en el que U<sub>n</sub>=0. Se pudiera resumir este proceso de la siguiente forma: </para>
+      
+      <equation id="eip-231"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mfrac><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow><m:mrow><m:mo stretchy="false">∥</m:mo><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow><m:mo stretchy="false">∥</m:mo></m:mrow></m:mfrac></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{U rSub { size 8{1} }  \( t \) = {  {S rSub { size 8{1} }  \( t \) }  over  { ldline S rSub { size 8{1} }  \( t \)  rdline } } } {}</m:annotation></m:semantics></m:math> </equation><equation id="id1165971407691"><m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msub>
+                      <m:mi>U</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mn>2</m:mn>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mrow>
+                          <m:msub>
+                            <m:mi>S</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mrow>
+                              <m:mo stretchy="false">〈</m:mo>
+                              <m:mrow>
+                                <m:msub>
+                                  <m:mi>S</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mi>t</m:mi>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mi>,</m:mi>
+                                <m:msub>
+                                  <m:mi>U</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>1</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mi>t</m:mi>
+                                <m:mo stretchy="false">)</m:mo>
+                              </m:mrow>
+                              <m:mo stretchy="false">〉</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                          <m:mtext>.</m:mtext>
+                          <m:msub>
+                            <m:mi>U</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>1</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                        <m:mrow>
+                          <m:mo stretchy="false">∥</m:mo>
+                          <m:mrow>
+                            <m:msub>
+                              <m:mi>S</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:mrow>
+                                <m:mo stretchy="false">〈</m:mo>
+                                <m:mrow>
+                                  <m:msub>
+                                    <m:mi>S</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>2</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                  <m:mo stretchy="false">(</m:mo>
+                                  <m:mi>t</m:mi>
+                                  <m:mo stretchy="false">)</m:mo>
+                                  <m:mi>,</m:mi>
+                                  <m:msub>
+                                    <m:mi>U</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>1</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                  <m:mo stretchy="false">(</m:mo>
+                                  <m:mi>t</m:mi>
+                                  <m:mo stretchy="false">)</m:mo>
+                                </m:mrow>
+                                <m:mo stretchy="false">〉</m:mo>
+                              </m:mrow>
+                            </m:mrow>
+                            <m:mtext>.</m:mtext>
+                            <m:msub>
+                              <m:mi>U</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>1</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mo stretchy="false">)</m:mo>
+                          </m:mrow>
+                          <m:mo stretchy="false">∥</m:mo>
+                        </m:mrow>
+                      </m:mfrac>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{U rSub { size 8{2} }  \( t \) = {  {S rSub { size 8{2} }  \( t \)  -  langle S rSub { size 8{2} }  \( t \) ,U rSub { size 8{1} }  \( t \)  rangle  "." U rSub { size 8{1} }  \( t \) }  over  { ldline S rSub { size 8{2} }  \( t \)  -  langle S rSub { size 8{2} }  \( t \) ,U rSub { size 8{1} }  \( t \)  rangle  "." U rSub { size 8{1} }  \( t \)  rdline } } } {}</m:annotation>
+          </m:semantics>
+
+        </m:math>
+      </equation>
+      <equation id="eip-27"><m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msub>
+                      <m:mi>U</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mi>n</m:mi>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mrow>
+                          <m:msub>
+                            <m:mi>S</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mi>n</m:mi>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mrow>
+                              <m:munderover>
+                                <m:mo stretchy="false">∑</m:mo>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mrow>
+                                      <m:mi>m</m:mi>
+                                      <m:mo stretchy="false">=</m:mo>
+                                      <m:mn>1</m:mn>
+                                    </m:mrow>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mrow>
+                                      <m:mi>n</m:mi>
+                                      <m:mo stretchy="false">−</m:mo>
+                                      <m:mn>1</m:mn>
+                                    </m:mrow>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:munderover>
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mo stretchy="false">〈</m:mo>
+                                  <m:mrow>
+                                    <m:msub>
+                                      <m:mi>S</m:mi>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mi>n</m:mi>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msub>
+                                    <m:mo stretchy="false">(</m:mo>
+                                    <m:mi>t</m:mi>
+                                    <m:mo stretchy="false">)</m:mo>
+                                    <m:mi>,</m:mi>
+                                    <m:msub>
+                                      <m:mi>U</m:mi>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mi>m</m:mi>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msub>
+                                    <m:mo stretchy="false">(</m:mo>
+                                    <m:mi>t</m:mi>
+                                    <m:mo stretchy="false">)</m:mo>
+                                  </m:mrow>
+                                  <m:mo stretchy="false">〉</m:mo>
+                                </m:mrow>
+                                <m:mtext>.</m:mtext>
+                                <m:msub>
+                                  <m:mi>U</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mi>m</m:mi>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mi>t</m:mi>
+                                <m:mo stretchy="false">)</m:mo>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mrow>
+                        <m:mrow>
+                          <m:mo stretchy="false">∥</m:mo>
+                          <m:mrow>
+                            <m:msub>
+                              <m:mi>S</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:mrow>
+                                <m:munderover>
+                                  <m:mo stretchy="false">∑</m:mo>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mrow>
+                                        <m:mi>m</m:mi>
+                                        <m:mo stretchy="false">=</m:mo>
+                                        <m:mn>1</m:mn>
+                                      </m:mrow>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mrow>
+                                        <m:mi>n</m:mi>
+                                        <m:mo stretchy="false">−</m:mo>
+                                        <m:mn>1</m:mn>
+                                      </m:mrow>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:munderover>
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">〈</m:mo>
+                                    <m:mrow>
+                                      <m:msub>
+                                        <m:mi>S</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mi>n</m:mi>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msub>
+                                      <m:mo stretchy="false">(</m:mo>
+                                      <m:mi>t</m:mi>
+                                      <m:mo stretchy="false">)</m:mo>
+                                      <m:mi>,</m:mi>
+                                      <m:msub>
+                                        <m:mi>U</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mi>m</m:mi>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msub>
+                                      <m:mo stretchy="false">(</m:mo>
+                                      <m:mi>t</m:mi>
+                                      <m:mo stretchy="false">)</m:mo>
+                                    </m:mrow>
+                                    <m:mo stretchy="false">〉</m:mo>
+                                  </m:mrow>
+                                  <m:mtext>.</m:mtext>
+                                  <m:msub>
+                                    <m:mi>U</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mi>m</m:mi>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                  <m:mo stretchy="false">(</m:mo>
+                                  <m:mi>t</m:mi>
+                                  <m:mo stretchy="false">)</m:mo>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                          <m:mo stretchy="false">∥</m:mo>
+                        </m:mrow>
+                      </m:mfrac>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{U rSub { size 8{n} }  \( t \) = {  {S rSub { size 8{n} }  \( t \)  -  Sum cSub { size 8{m=1} }  cSup { size 8{n - 1} }  { langle S rSub { size 8{n} }  \( t \) ,U rSub { size 8{m} }  \( t \)  rangle  "." U rSub { size 8{m} }  \( t \) } }  over  { ldline S rSub { size 8{n} }  \( t \)  -  Sum cSub { size 8{m=1} }  cSup { size 8{n - 1} }  { langle S rSub { size 8{n} }  \( t \) ,U rSub { size 8{m} }  \( t \)  rangle  "." U rSub { size 8{m} }  \( t \) }  rdline } } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1165978697942">Donde:</para>
+      <equation id="eip-759"><m:math><m:semantics><m:mrow><m:mrow><m:mtable><m:mtr><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">∥</m:mo><m:mi>X</m:mi><m:mo stretchy="false">∥</m:mo></m:mrow><m:mo stretchy="false">=</m:mo><m:msqrt><m:msub><m:mi>E</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>X</m:mi></m:mrow></m:mstyle></m:msub></m:msqrt></m:mrow><m:mo stretchy="false">=</m:mo><m:msqrt><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">+</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mstyle></m:munderover><m:mrow><m:msup><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:msqrt></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow></m:mtr><m:mtr><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">〈</m:mo><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi>,</m:mi><m:mi>y</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow><m:mo stretchy="false">〉</m:mo></m:mrow><m:mo stretchy="false">=</m:mo><m:mrow><m:mo stretchy="false">∫</m:mo><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi>y</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow><m:mrow/></m:mrow></m:mtr></m:mtable><m:mrow/></m:mrow></m:mrow><m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{ ldline X rdline = sqrt {E rSub { size 8{X} } } = sqrt { Int cSub { size 8{ -  infinity } }  cSup { size 8{+ infinity } }  {X rSup { size 8{2} }  \( t \)  ital "dt"} } }  {} # 
+ langle x \( t \) ,y \( t \)  rangle = Int {x \( t \) y \( t \)  ital "dt"}  {} 
+} } {}</m:annotation></m:semantics></m:math></equation>
+      <para id="id1165974493635">Es importante resaltar que si el proceso de ortogonalización se inicia con una señal diferente a la señal S<sub>1</sub>(t), se obtendría un conjunto distinto de bases ortonormales pero igualmente representativa. </para>
+    </section>
+    <section id="id1165974608244">
+      <title>Constelación</title>
+      <para id="id1165975520863">Es la representación gráfica de cada señal S<sub>i</sub>(t) en función de las bases U<sub>i</sub>. Cada punto perteneciente a la constelación corresponde a un símbolo de modulación. </para>
+      <para id="id1165975559031">Se considerarán los ‘ejes’ de la gráfica las bases calculadas a partir de la Ortogonalización, es decir, <emphasis>Uj</emphasis>. El procedimiento es el siguiente: se debe representar con un punto a la(s) forma(s) de onda <emphasis>s</emphasis><emphasis><sub>i</sub></emphasis> sobre el eje de la base. Supónganse dos señales, que identifican una determinada codificación o modulación, y que pueden representarse con una sola base de acuerdo a las siguientes ecuaciones: </para>
+      
+      <equation id="eip-927"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mi>V</m:mi></m:mrow><m:msqrt><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Tb</m:mtext></m:mrow></m:mstyle></m:msqrt><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{S rSub { size 8{1} } =V sqrt { ital "Tb"}  "." U rSub { size 8{1} } } {}</m:annotation></m:semantics></m:math> </equation>
+      <equation id="eip-435"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mrow><m:mo stretchy="false">−</m:mo><m:mi>V</m:mi></m:mrow></m:mrow><m:msqrt><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Tb</m:mtext></m:mrow></m:mstyle></m:msqrt><m:mtext>.</m:mtext><m:msub><m:mi>U</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{S rSub { size 8{2} } = - V sqrt { ital "Tb"}  "." U rSub { size 8{1} } } {}</m:annotation></m:semantics></m:math></equation><para id="id1165975696281">Como sólo se necesita una base para representar estas formas de onda, entonces se tendrá un ‘eje’ que es U<sub>1</sub>:</para>
+      <figure id="id1165972777112"><media id="id1165972777112_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics41.png" id="id1165972777112__onlineimage" height="101" width="493"/>
+        </media>
+      <caption>Ejemplo de constelación.</caption></figure>
+      
+      <para id="id1165974242789">A partir de la constelación se puede obtener un parámetro fundamental que es la <emphasis>Energía</emphasis>. Si se eleva al cuadrado la distancia que existe entre el origen y un punto de la constelación se obtiene la energía de la primera forma de onda S<sub>1</sub>:</para>
+      
+      <equation id="eip-369"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>Es</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mo stretchy="false">=</m:mo><m:msup><m:mi>V</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Tb</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ ital "Es" rSub { size 8{1} } =V rSup { size 8{2} }  ital "Tb"} {}</m:annotation></m:semantics></m:math> </equation><para id="id1165970099206">Para calcular la Energía de S<sub>2 </sub>se hace exactamente el mismo procedimiento. </para>
+      <para id="id1165976843344">La introducción del ruido en el sistema ocasionará una situación como la descrita en la figura 3, es decir, en la constelación el punto correspondiente al símbolo no estará ubicado exactamente en el sitio que se ubicaría si no existiese el ruido. En las comunicaciones digitales se hace uso de un “valor umbral” con el cual el receptor distingue si el símbolo recibido es uno u otro. Este valor umbral es representado gráficamente en la constelación como una línea ubicada en el punto medio entre los puntos de los símbolos sin ruido. </para>
+      
+        <figure id="id1165981002790"><media id="id1165981002790_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics51.png" id="id1165981002790__onlineimage" height="190" width="196"/>
+          </media>
+        <caption>Otro ejemplo de constelación, las líneas azules representan valores de umbral entre puntos cercanos</caption></figure>
+      
+      
+    </section>
+    <section id="id1165973655089">
+      <title>Autoevaluación </title>
+      
+      <exercise id="eip-760"><label>Ejercicio</label><problem id="eip-615">
+  <para id="eip-489">¿Con qué base puede representarse un símbolo con un valor nulo en el intervalo [0, T]? </para>
+</problem>
+
+<solution id="eip-976">
+  <para id="eip-790">Un valor nulo con dicha duración puede ser representado como la multiplicación de cualquier señal con la misma duración por cero, por lo cual se podrá representar con cualquier base, como por ejemplo, la base calculada por medio del otro símbolo. La posición del valor nulo en la constelación siempre será en el “origen”</para>
+</solution>
+</exercise>
+      <exercise id="eip-265"><label>Ejercicio</label><problem id="eip-503">
+  <para id="eip-239">¿Cómo se observa en la constelación que hay un error en la transmisión?</para>
+</problem>
+
+<solution id="eip-251">
+  <para id="eip-565">Hay un error en la transmisión si la representación de un símbolo se observa “más cerca” del punto correspondiente a otro símbolo diferente, es decir, si salta la línea de umbral. </para>
+</solution>
+</exercise>
+      <exercise id="eip-79"><label>Ejercicio</label><problem id="eip-69">
+  <para id="eip-777">En base a la pregunta anterior, ¿Cómo puede reducirse la probabilidad de error?</para>
+</problem>
+
+<solution id="eip-44">
+  <para id="eip-1">La probabilidad de error se reduce “aumentando la distancia” entre los puntos correspondientes a los símbolos, es decir, aumentando la potencia de transmisión (lo que aumenta el valor de V) o disminuyendo la velocidad de transmisión (lo que aumenta el valor de Tb).</para>
+</solution>
+</exercise>
+    </section>
+    <section id="id1165979189144"><title>Simuladores </title><para id="eip-721"><link url="OrtogonalizacionGS_MS.rar">ESTE VINCULO</link> contiene una carpeta con un programa realizado en <term document="m41078" window="replace">LabVIEW</term> pero haciendo uso exclusivamente de "MATLAB Script" que calcula bases ortogonales por medio de Gram-Schmidt; puede obtenerse también un programa similar realizado netamente en LabVIEW por medio de <link url="OrtogonalizacionGS_LabVIEW.rar">ESTE VINCULO</link>; la interfaz de ambos programas es prácticamente igual. Cada carpeta incluye el .vi correspondiente y todos los archivos necesarios para el funcionamiento de cada uno, si se elimina o renombra alguno de estos archivos, podría haber fallas en el funcionamiento del programa. La figura 6 contiene un video explicativo acerca del uso de los programas.</para><figure id="moonlanding-youtube"><title>Ortogonalización Gram-Schmidt</title><media id="yt-media" display="block" alt="Ecualizador MATLAB">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/1MyIYtTuTXk?fs=1&amp;hl=es_ES" width="800" height="585">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media><caption>Video explicativo de la utilización del programa </caption></figure></section>
+  </content>
+</document>

@@ -1,0 +1,201 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Modulaciones AM-DSB-SSB, Repetidoras y Ruido Pasabanda</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m41102</md:content-id>
+  <md:title>Modulaciones AM-DSB-SSB, Repetidoras y Ruido Pasabanda</md:title>
+  <md:abstract>Se explican diversos tipos de modulación en amplitud, se explica el efecto del canal para estos tipos de modulación y se ilustra el uso de repetidoras. Se incluye un programa en MATLAB y otro en LabVIEW, cada uno acerca de un sistema que incluye distintos tipos de modulación, repetidoras intermedias y caracterización del ruido</md:abstract>
+  <md:uuid>225db7fa-59f3-404c-a9f1-3fe051bd6fc7</md:uuid>
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="example">
+      <link url="http://cnx.org/content/m41094/latest/" strength="3">Señales </link>
+      <link url="http://cnx.org/content/m41096/latest/" strength="3">Sistemas </link>
+      <link url="http://cnx.org/content/m36768/latest/" strength="3">Modulación en Cuadratura</link>
+      <link url="http://cnx.org/content/m41083/latest/" strength="2">MATLAB</link>
+      <link url="http://cnx.org/content/m41078/latest/" strength="2">LabVIEW</link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>
+
+      <para id="id7486032">Todo sistema de transmisión tiene un transmisor, un canal y un receptor. Cuando se desea compartir un canal conviene utilizar algún tipo de modulación. El canal tiene ciertos efectos sobre el <term document="m41094" window="replace">mensaje</term> transmitido, el mismo atenúa la señal, añade ruido blanco, entre otros efectos, los cuales se harán más notorios mientras mayor sea la distancia entre transmisor y receptor. Es por esto que en estos <term document="m41096" window="replace">sistemas</term> se hace el uso de Repetidoras, las cuales amplifican y hacen regeneraciones de la señal en puntos intermedios del trayecto, logrando así un mayor alcance para la comunicación. En este módulo se hace referencia a los esquemas de modulación AM (Modulación de Amplitud), DSB (Doble Banda Lateral) y SSB (Banda Lateral Única), se exponen las características del Ruido que afecta a la comunicación en su paso por el canal inalámbrico, y por último se explica el funcionamiento de las Repetidoras Analógicas. </para>
+      <section id="id7949586"><title>Modulación AM, DSB y SSB</title><para id="id7642900">Si se conoce como x(t) al mensaje o señal original, las fórmulas para cada modulación serán las siguientes:</para>
+        <equation id="eip-469"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>AM</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msub><m:mi>A</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">(</m:mo><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">+</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>mx</m:mtext></m:mrow></m:mstyle></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Cos</m:mtext></m:mrow></m:mstyle><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{ ital "AM"} }  \( t \) =A rSub { size 8{c} }  \( 1+ ital "mx" \( t \)  \)  ital "Cos"ω rSub { size 8{c} } t} {}</m:annotation></m:semantics></m:math></equation>
+        <equation id="eip-269"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>DSB</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msub><m:mi>A</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Cos</m:mtext></m:mrow></m:mstyle><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{ ital "DSB"} }  \( t \) =A rSub { size 8{c} } x \( t \)  ital "Cos"ω rSub { size 8{c} } t} {}</m:annotation></m:semantics></m:math></equation>
+        <equation id="eip-372"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>SSB</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow><m:mtext>.</m:mtext><m:msub><m:mn>5A</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Cos</m:mtext></m:mrow></m:mstyle><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub><m:mrow><m:mi>t</m:mi><m:mo stretchy="false">±</m:mo><m:mn>0</m:mn></m:mrow><m:mtext>.</m:mtext><m:msub><m:mn>5A</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub><m:mover accent="true"><m:mi>x</m:mi><m:mo stretchy="false">ˆ</m:mo></m:mover><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Sen</m:mtext></m:mrow></m:mstyle><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{ ital "SSB"} }  \( t \) =0 "." 5A rSub { size 8{c} } x \( t \)  ital "Cos"ω rSub { size 8{c} } t +- 0 "." 5A rSub { size 8{c} }  { hat  {x}} \( t \)  ital "Sen"ω rSub { size 8{c} } t} {}</m:annotation></m:semantics></m:math></equation>
+        <para id="id7749251">En las fórmulas anteriores:</para>
+        <list id="id7628004" list-type="bulleted"><item>m es el índice de modulación, el mismo está comprendido entre 0 y 1.</item>
+          <item>La señal senoidal <emphasis effect="italics">Cos </emphasis>ω<sub>c</sub>t es la portadora.</item>
+          <item><emphasis effect="italics">A</emphasis><emphasis effect="italics">c</emphasis> es la amplitud de la portadora.</item>
+          <item>ω<sub>c</sub> equivale a 2πf<sub>c</sub> donde f<sub>c</sub> es la frecuencia de la portadora. </item>
+          <item><m:math><m:semantics><m:mrow><m:mstyle fontsize="9pt"><m:mrow><m:mrow><m:mover accent="true"><m:mi>x</m:mi><m:mo stretchy="false">ˆ</m:mo></m:mover><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ { hat  {x}} \( t \) } {}</m:annotation></m:semantics></m:math> es la transformada de Hilbert de x(t) la cual representa lo siguiente, en los dominios de tiempo y frecuencia:</item>
+        </list>
+        <equation id="eip-218"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mover accent="true"><m:mi>x</m:mi><m:mo stretchy="false">ˆ</m:mo></m:mover><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:mfrac><m:mn>1</m:mn><m:mi fontstyle="italic">πt</m:mi></m:mfrac><m:mo stretchy="false">∗</m:mo><m:mi>x</m:mi></m:mrow></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ { hat  {x}} \( t \) = {  {1}  over  {πt} } *x \( t \) } {}</m:annotation></m:semantics></m:math></equation>
+        <equation id="eip-796"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mover accent="true"><m:mi>X</m:mi><m:mo stretchy="false">ˆ</m:mo></m:mover><m:mo stretchy="false">(</m:mo><m:mi>f</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:mo stretchy="false">−</m:mo><m:mi>j</m:mi></m:mrow></m:mrow><m:mtext>sgn</m:mtext><m:mo stretchy="false">(</m:mo><m:mi>f</m:mi><m:mo stretchy="false">)</m:mo><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>f</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ { hat  {X}} \( f \) = - j"sgn" \( f \) X \( f \) } {}</m:annotation></m:semantics></m:math></equation>
+        <para id="id7436289">Es decir la transformada de Hilbert puede verse como un desfasador de -90°.</para>
+        <para id="id7756675">Para el mejor entendimiento de cómo sería el comportamiento en frecuencia de este sistema de modulación supóngase que X(f) (<term document="m41093" target-id="id1166487790242" window="replace">representación en frecuencia</term> del mensaje x(t)) luce como se muestra en la figura 1:</para>
+ 
+          <figure id="id7981641"><media id="id7981641_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics1-224a.png" id="id7981641__onlineimage" height="172" width="265"/>
+            </media>
+          <caption>Mensaje original en frecuencia </caption></figure>
+ 
+        
+        <para id="id7990341">Las señales moduladas en AM y DSB (figura 2) tendrían un espectro parecido al del mensaje solo que trasladado alrededor de la frecuencia de portadora f<sub>c</sub>. Además en AM aparece la portadora en f<sub>c</sub> en forma de delta (recordándose que el comportamiento en frecuencia de una señal senoidal luce como una delta).</para>
+        <figure id="id7769698"><media id="id7769698_media" alt="">
+            <image mime-type="image/png" src="../../media/Imagen 88.png" id="id7769698__onlineimage" height="307" width="413"/>
+          </media>
+        <caption>Espectro de modulaciones AM y DSB</caption></figure>
+        
+        
+        
+        
+        <para id="id7368544">En cambio, en SSB, dependiendo del signo elegido en la fórmula temporal de la señal modulada, lucirá en frecuencia de la siguiente forma:</para>
+  
+          <figure id="id6554168"><media id="id6554168_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics2-bb03.png" id="id6554168__onlineimage" height="321" width="456"/>
+            </media>
+          <caption>Espectro de modulaciones SSB</caption></figure>
+
+        
+        <para id="id7357808">Si en la fórmula original se toma el signo (-) se tendrá USSB (Upper Single Side Band) es decir se toma la banda superior del espectro del mensaje original. Si se toma el signo (+) entonces se tendrá LSSB (Lower Single Side Band) es decir se toma la banda inferior.</para>
+        <para id="id6217959">Para rescatar cada uno de los mensajes existen varias técnicas diferentes entre las que se encuentra lo que se conoce como detector síncrono, que no es más que un multiplicador por una sinusoide de frecuencia igual a la de la portadora, seguido de un filtro pasabajos de frecuencia de corte igual a la del mensaje y de un bloqueador de DC. Otra técnica algo más compleja pero más efectiva es el <term document="m41106" window="replace">Receptor Superheterodino</term>, el cual puede o no utilizar el detector coherente.</para>
+      </section>
+      <section id="id7973482"><title>Caracterización del Ruido Pasabanda </title><para id="id7935662">Una vez modulada la señal en el canal se contaminará con ruido blanco, gaussiano y con una Densidad Espectral de Potencia que se modela como constante (0.5<emphasis effect="italics">n</emphasis>) para todo valor de frecuencia. La suma de señal modulada y el ruido blanco gaussiano debe ser pasada por un filtro denominado filtro RF, el cual es de tipo pasabanda que estará centrado en f<sub>c</sub> y tendrá como ancho de banda el doble del mensaje en caso de que la modulación sea AM o DSB, tendrá un ancho de banda igual al mensaje y su frecuencia de corte superior será f<sub>c</sub> en caso de que la modulación sea LSSB, o tendrá un ancho de banda igual al mensaje y una frecuencia de corte inferior igual a f<sub>c</sub> en caso de que la modulación sea USSB. En la figura 4 se muestra la Densidad Espectral de Potencia del ruido pasado por un filtro RF centrado en 2000Hz y con un ancho de banda de 1000Hz:</para>
+ 
+          <figure id="id8022156"><media id="id8022156_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics3-73c5.png" id="id8022156__onlineimage" height="225" width="336"/>
+            </media>
+          <caption>Ruido en frecuencia (filtrado)</caption></figure>
+
+        
+        <para id="id7925222">El ruido suele ser caracterizado también por medio del histograma (figura 5). El histograma es una representación en barras que indica el número de veces que una función tuvo valores en cierta cantidad de intervalos. A cada intervalo le corresponden los valores ocupados por la barra correspondiente. </para>
+        <figure id="id5944706"><media id="id5944706_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics4-ed5c.png" id="id5944706__onlineimage" height="193" width="570"/>
+          </media>
+        <caption>Ruido en tiempo (izquierda) e histograma del ruido (derecha)</caption></figure>
+        
+        <para id="id7786208"> El histograma está centrado y presenta un mayor número de muestras alrededor de un valor que corresponde a la media del ruido (casi 600), por lo que se comprueba que el ruido tiene media 0; se observa también que los valores se repiten un menor número de veces mientras más se alejan de la media, y que la forma dada a la gráfica por este decrecimiento tiene la forma de una campana de Gauss, por lo que se dice que el ruido es gaussiano.</para>
+        <para id="id1164293099099">En la figura 6 se observa el histograma de la señal demodulada pero no pasada por el filtro pasabajos aun:</para>
+
+          <figure id="id7431170"><media id="id7431170_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics5-534e.png" id="id7431170__onlineimage" height="213" width="331"/>
+            </media>
+          <caption>Ruido demodulado sin filtrar </caption></figure>
+ 
+        
+        <para id="id7796010">En este caso el histograma muestra un mayor número de muestras cercanas a 0, esto se debe a que el ruido ha sido multiplicado por una señal senoidal que cíclicamente toma valores cercanos a 0, por lo cual se incrementa la cantidad de veces que el valor del ruido pertenece a dicho intervalo. <link url="pruebaHistograma.vi">Este sencillo programa</link> realizado en <term document="m41078" window="replace">LabVIEW</term> hace una demostración directa de este comportamiento.</para>
+      </section>
+      <section id="id1164294654012">
+        <title>Repetidoras Analógicas </title>
+        <para id="id8003130">En la figura 7 se muestra un esquema que incluye el transmisor, el efecto del canal y la primera etapa del receptor.</para>
+        <figure id="id5644946"><media id="id5644946_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics6-3bc5.png" id="id5644946__onlineimage" height="239" width="504"/>
+          </media>
+        <caption>Transmisor, canal y receptor</caption></figure>
+        
+        <para id="id6282553">Se tiene a la salida del transmisor una señal modulada, que puede ser similar a la mostrada en figuras anteriores, con un ancho de banda W y potencia S<sub>T</sub>. Luego el canal produce una atenuación de potencia L y el filtro pasabanda del receptor una amplificación g<sub>R</sub>. Así, la potencia de señal a la salida de este filtro será: </para>
+        <equation id="eip-189"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>D</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mfrac><m:mrow><m:msub><m:mi>g</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>R</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">⋅</m:mo><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mi>L</m:mi></m:mfrac></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{S rSub { size 8{D} } = {  {g rSub { size 8{R} }  cdot S rSub { size 8{T} } }  over  {L} } } {}</m:annotation></m:semantics></m:math></equation>
+        <para id="id7530811">Esto es asumiendo que el filtro del receptor tiene un ancho de banda apropiado (W) para que pase todo el contenido de señal. Por su parte el ruido sólo se afecta por g<sub>R</sub>. La DEP del ruido de entrada es constante (ruido blanco) y con valor η/2; al pasar por el filtro, la DEP queda confinada entre los valores que limitan en ancho de banda W de tal forma que al integrar la DEP para obtener la potencia del ruido a la salida queda:</para>
+        <equation id="eip-564"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>N</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>D</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mrow><m:mrow><m:msub><m:mi>g</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>R</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">⋅</m:mo><m:mi>η</m:mi></m:mrow><m:mo stretchy="false">⋅</m:mo><m:mi>W</m:mi></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{N rSub { size 8{D} } =g rSub { size 8{R} }  cdot η cdot W} {}</m:annotation></m:semantics></m:math> </equation>
+        <para id="id6947237">Finalmente, se calcula la relación señal a ruido (S/N) a la salida del filtro dividiendo la potencia de la señal entre la potencia del ruido en este punto: </para>
+        <equation id="eip-424"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:msub><m:mfenced open="(" close=")"><m:mfrac><m:mi>S</m:mi><m:mi>N</m:mi></m:mfrac></m:mfenced><m:mstyle fontsize="8pt"><m:mrow><m:mi>D</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mfrac><m:mrow><m:msub><m:mi>g</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>R</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">⋅</m:mo><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mrow><m:mrow><m:mrow><m:mi>L</m:mi><m:mo stretchy="false">⋅</m:mo><m:mi>η</m:mi></m:mrow><m:mo stretchy="false">⋅</m:mo><m:msub><m:mi>g</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>R</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">⋅</m:mo><m:mi>W</m:mi></m:mrow></m:mfrac></m:mrow><m:mo stretchy="false">=</m:mo><m:mfrac><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:msub><m:mrow><m:mrow><m:mi>L</m:mi><m:mo stretchy="false">⋅</m:mo><m:mi>η</m:mi></m:mrow><m:mo stretchy="false">⋅</m:mo><m:mi>W</m:mi></m:mrow></m:mfrac></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ left ( {  {S}  over  {N} }  right ) rSub { size 8{D} } = {  {g rSub { size 8{R} }  cdot S rSub { size 8{T} } }  over  {L cdot η cdot g rSub { size 8{R} }  cdot W} } = {  {S rSub { size 8{T} } }  over  {L cdot η cdot W} } } {}</m:annotation></m:semantics></m:math></equation>
+        <para id="id7335584">Se observa que la relación señal a ruido recibida aumenta cuando la potencia de señal S<sub>T</sub> aumenta, cuando la atenuación L disminuye o cuando La potencia del ruido (η o W) disminuye. Además se nota que la relación señal a ruido, y por ende la calidad de la transmisión:</para>
+        <list id="id7595398" list-type="bulleted">
+          <item>No depende de la ganancia del receptor. </item>
+          <item>Es inversamente proporcional al ancho de banda del filtro. </item>
+          <item>Es inversamente proporcional a la atenuación que produce el canal. </item>
+        </list>
+        <para id="id7617546">Una manera de mejorar la relación señal a ruido es colocando estaciones repetidoras equi-espaciadas en zonas intermedias del trayecto de transmisión. El diagrama de la figura 8 ilustra el uso de estas estaciones para un caso en el que se cuenta con 2 repetidoras intermedias más el receptor; el receptor se cuenta también como una repetidora, ya que el mismo también amplifica la señal de la misma forma que lo hacen las demás: </para>
+        <figure id="id7617925"><media id="id7617925_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics7-dd59.png" id="id7617925__onlineimage" height="188" width="613"/>
+          </media>
+        <caption>Sistema con tres repetidoras (dos repetidoras intermedias + receptor) </caption></figure>
+        
+        <para id="id7914840">Normalmente la ganancia de cada repetidor compensa la pérdida del trayecto (L<sub>k</sub>=g<sub>k</sub>); de esta forma, la potencia de señal se mantiene a la salida del sistema (S<sub>T</sub> = S<sub>D)</sub>. Se asumirá que el ruido que ingresa al sistema en cualquier trayecto es el mismo y que las pérdidas parciales son iguales (L<sub>1</sub>= L<sub>2 </sub>= L<sub>3</sub>)</para>
+        <para id="id8030392">Por su parte, la potencia de ruido a la salida de la primera repetidora será:</para>
+        <equation id="eip-769"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:msub><m:mi>N</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">D1</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mrow><m:mrow><m:msub><m:mi>g</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">⋅</m:mo><m:mi>η</m:mi></m:mrow><m:mo stretchy="false">⋅</m:mo><m:mi>W</m:mi></m:mrow></m:mrow><m:mo stretchy="false">=</m:mo><m:mrow><m:mrow><m:msub><m:mi>L</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">⋅</m:mo><m:mi>η</m:mi></m:mrow><m:mo stretchy="false">⋅</m:mo><m:mi>W</m:mi></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{N rSub { size 8{D1} } =g rSub { size 8{1} }  cdot η cdot W=L rSub { size 8{1} }  cdot η cdot W} {}</m:annotation></m:semantics></m:math> </equation>
+        <para id="id7729843">La potencia de este ruido al final de las m repetidoras queda igual ya que cada pérdida de canal será compensada por la ganancia de cada repetidora. Sin embargo se irán sumando contribuciones idénticas de ruido, tantas como repetidoras existan. Al final para m repetidoras (incluyendo al receptor): </para>
+        <equation id="eip-377"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>N</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>D</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mrow><m:mrow><m:mrow><m:mi>m</m:mi><m:mo stretchy="false">⋅</m:mo><m:msub><m:mi>L</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">⋅</m:mo><m:mi>η</m:mi></m:mrow><m:mo stretchy="false">⋅</m:mo><m:mi>W</m:mi></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{N rSub { size 8{D} } =m cdot L rSub { size 8{1} }  cdot η cdot W} {}</m:annotation></m:semantics></m:math></equation>
+        <para id="id7784990">Finalmente </para>
+        <equation id="eip-588"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mfenced open="(" close=")"><m:mfrac><m:mi>S</m:mi><m:mi>N</m:mi></m:mfrac></m:mfenced><m:mstyle fontsize="8pt"><m:mrow><m:mi>D</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mfrac><m:mrow><m:msub><m:mi>g</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">⋅</m:mo><m:msub><m:mi>S</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>x</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mrow><m:mrow><m:mrow><m:mi>m</m:mi><m:mo stretchy="false">⋅</m:mo><m:msub><m:mi>L</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">⋅</m:mo><m:mi>η</m:mi></m:mrow><m:mo stretchy="false">⋅</m:mo><m:mi>W</m:mi></m:mrow></m:mfrac></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ left ( {  {S}  over  {N} }  right ) rSub { size 8{D} } = {  {g rSub { size 8{T} }  cdot S rSub { size 8{x} } }  over  {m cdot L rSub { size 8{1} }  cdot η cdot W} } } {}</m:annotation></m:semantics></m:math></equation>
+        <para id="id7673187">Para comparar con la relación señal a ruido sin repetidoras se sustituyen en esta ecuación los valores de la ecuación 8 obteniéndose: </para>
+        <equation id="eip-160"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:msub><m:mfenced open="(" close=")"><m:mfrac><m:mi>S</m:mi><m:mi>N</m:mi></m:mfrac></m:mfenced><m:mstyle fontsize="8pt"><m:mrow><m:msub><m:mi>D</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">(</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>con</m:mtext></m:mrow></m:mstyle><m:mtext>Re</m:mtext><m:mi>p</m:mi><m:mtext>.</m:mtext><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mfrac><m:mi>L</m:mi><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>mL</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle></m:mfrac></m:mrow><m:msub><m:mfenced open="(" close=")"><m:mfrac><m:mi>S</m:mi><m:mi>N</m:mi></m:mfrac></m:mfenced><m:mstyle fontsize="8pt"><m:mrow><m:msub><m:mi>D</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">(</m:mo><m:mtext>sinRe</m:mtext><m:mi>p</m:mi><m:mtext>.</m:mtext><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ left ( {  {S}  over  {N} }  right ) rSub { size 8{D}   rSub { size 8{ \(  ital "con""Re"p "."  \) } } } = {  {L}  over  { ital "mL" rSub { size 8{1} } } }  left ( {  {S}  over  {N} }  right ) rSub { size 8{D}   rSub { size 8{ \( "sinRe"p "."  \) } } } } {}</m:annotation></m:semantics></m:math></equation>
+        <para id="id7752209">Interesa también esta comparación en decibelios, para esto se aplica 10Log a ambos lados de la ecuación obteniéndose:</para>
+        <equation id="eip-940"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:msub><m:mfenced open="(" close=")"><m:mfrac><m:mi>S</m:mi><m:mi>N</m:mi></m:mfrac></m:mfenced><m:mstyle fontsize="8pt"><m:mrow><m:msub><m:mi>D</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">(</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>con</m:mtext></m:mrow></m:mstyle><m:mtext>Re</m:mtext><m:mi>p</m:mi><m:mtext>.</m:mtext><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">[</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dB</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mtext>10</m:mtext></m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Log</m:mtext></m:mrow></m:mstyle><m:mrow><m:mfenced open="(" close=")"><m:mfrac><m:mi>L</m:mi><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>mL</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle></m:mfrac></m:mfenced><m:mo stretchy="false">+</m:mo><m:msub><m:mfenced open="(" close=")"><m:mfrac><m:mi>S</m:mi><m:mi>N</m:mi></m:mfrac></m:mfenced><m:mstyle fontsize="8pt"><m:mrow><m:msub><m:mi>D</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">(</m:mo><m:mtext>sinRe</m:mtext><m:mi>p</m:mi><m:mtext>.</m:mtext><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">[</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dB</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ left ( {  {S}  over  {N} }  right ) rSub { size 8{D}   rSub { size 8{ \(  ital "con""Re"p "."  \)  \[  ital "dB" \] } } } ="10" ital "Log" left ( {  {L}  over  { ital "mL" rSub { size 8{1} } } }  right )+ left ( {  {S}  over  {N} }  right ) rSub { size 8{D}   rSub { size 8{ \( "sinRe"p "."  \)  \[  ital "dB" \] } } } } {}</m:annotation></m:semantics></m:math></equation>
+        <para id="id7849389">Para ilustrar esto, considere un sistema basado en un medio inalámbrico con una pérdida total de 60 dB (L=10<sup>60/10</sup>) en lineal, si se coloca una repetidora intermedia, existirán dos trayectos con la mitad de la atenuación, es decir 30dB (L<sub>1</sub>=10<sup>30/10</sup>), el receptor se cuenta como repetidora, por tanto m=2. La ganancia en este caso será de:</para>
+        <equation id="eip-195"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mtext>10</m:mtext><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Log</m:mtext></m:mrow></m:mstyle><m:mrow><m:mfenced open="(" close=")"><m:mfrac><m:msup><m:mtext>10</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mn>6</m:mn></m:mrow></m:mstyle></m:msup><m:mrow><m:mn>2</m:mn><m:mo stretchy="false">⋅</m:mo><m:msup><m:mtext>10</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mn>3</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mfrac></m:mfenced><m:mo stretchy="false">=</m:mo><m:mtext>10</m:mtext></m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Log</m:mtext></m:mrow></m:mstyle><m:mrow><m:mfenced open="(" close=")"><m:mtext>500</m:mtext></m:mfenced><m:mo stretchy="false">=</m:mo><m:mtext>27</m:mtext></m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dB</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{"10" ital "Log" left ( {  {"10" rSup { size 8{6} } }  over  {2 cdot "10" rSup { size 8{3} } } }  right )="10" ital "Log" left ("500" right )="27" ital "dB"} {}</m:annotation></m:semantics></m:math></equation>
+        <para id="id7837599">Esto significa que la relación señal a ruido lineal se multiplica por 500 o que la relación señal a ruido en dB se incrementa en 27dB produciéndose una mejora considerable en la calidad de la transmisión. Si en vez de agregar una sola, se agregan dos repetidoras intermedias, existirán 3 trayectos con una atenuación de 20dB (L<sub>1</sub>=10<sup>20/10</sup>=100), para este caso m es igual a 3 y la ganancia aumentará con respecto al caso anterior:</para>
+        <equation id="eip-580"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mtext>10</m:mtext><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Log</m:mtext></m:mrow></m:mstyle><m:mrow><m:mfenced open="(" close=")"><m:mfrac><m:msup><m:mtext>10</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mn>6</m:mn></m:mrow></m:mstyle></m:msup><m:mrow><m:mn>3</m:mn><m:mo stretchy="false">⋅</m:mo><m:mtext>100</m:mtext></m:mrow></m:mfrac></m:mfenced><m:mo stretchy="false">=</m:mo><m:mtext>10</m:mtext></m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>Log</m:mtext></m:mrow></m:mstyle><m:mrow><m:mfenced open="(" close=")"><m:mrow><m:mtext>3333</m:mtext><m:mtext>.</m:mtext><m:mtext>33</m:mtext></m:mrow></m:mfenced><m:mo stretchy="false">=</m:mo><m:mtext>35</m:mtext></m:mrow><m:mtext>.</m:mtext><m:mtext>23</m:mtext><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dB</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{"10" ital "Log" left ( {  {"10" rSup { size 8{6} } }  over  {3 cdot "100"} }  right )="10" ital "Log" left ("3333" "." "33" right )="35" "." "23" ital "dB"} {}</m:annotation></m:semantics></m:math></equation>
+        <para id="id7701363">Para toda transmisión existe un número M máximo de repetidoras, esto significa que la ganancia aportada por M+1 repetidoras es menor que la ganancia aportada por M repetidoras, para este número se cumple que: (M+1)L<sub>1[M+1]</sub> &gt;M L<sub>1[M]</sub></para>
+      </section>
+      <section id="id7576766">
+        <title>Autoevaluación</title>
+        
+        <exercise id="eip-426"><label>Ejercicio</label>
+<problem id="eip-954">
+  <para id="eip-55">¿Puede recuperarse una señal SSB con el filtro pasabanda correspondiente al de una señal DSB a la misma frecuencia?</para>
+</problem>
+
+<solution id="eip-460">
+  <para id="eip-353">Puede recuperarse, pero debe tenerse en cuenta que esto empobrece la calidad del sistema, ya que la relación señal a ruido es inversamente proporcional al ancho de banda del filtro, el cual se está duplicando innecesariamente en este caso.</para>
+</solution>
+</exercise><exercise id="eip-22"><label>Ejercicio</label><problem id="eip-704">
+  <para id="eip-561">Observado lo ocurrido con los valores cercanos a 0 en el histograma de la figura 6, ¿cómo varia este resultado con respecto a la frecuencia de portadora?</para>
+</problem>
+
+<solution id="eip-280">
+  <para id="eip-155">En el mundo continuo, si la frecuencia de portadora aumenta, habrá un mayor número de pasos por 0 en el ruido multiplicado por la portadora, por lo que la barra central en el histograma será mucho mayor y las demás barras disminuirán de tamaño. En el mundo discreto (el caso de MATLAB y LabVIEW) la barra central será mayor si la relación entre la frecuencia de muestreo y la frecuencia de modulación es un numero racional o entero.</para>
+</solution>
+</exercise><exercise id="eip-990"><label>Ejercicio</label><problem id="eip-916">
+  <para id="eip-987">Una relación S/N a la salida del filtro pasabanda mayor para una señal AM que para una señal DSB, ambas con una misma amplitud de portadora indica una mayor calidad de la modulación AM, ¿Verdadero o Falso?</para>
+</problem>
+
+<solution id="eip-389">
+  <para id="eip-187">Falso, la señal AM tiene una mayor relación S/N debido a que la portadora está presente, y la misma no forma parte del mensaje.</para>
+</solution>
+</exercise><exercise id="eip-804"><label>Ejercicio</label><problem id="eip-317">
+  <para id="eip-501">Si la ganancia de cada repetidora fuese mayor que la pérdida por trayecto en vez de ser igual, ¿cómo cambiaría la relación señal a ruido?</para>
+</problem>
+
+<solution id="eip-371">
+  <para id="eip-299">La relación S/N permanecería igual, ya que la ganancia de la repetidora amplifica tanto a la señal como al ruido.</para>
+</solution>
+</exercise><exercise id="eip-73"><label>Ejercicio</label><problem id="eip-631">
+  <para id="eip-716">Entre una señal SSB y una señal DSB transmitidas a la misma potencia, ¿Cuál tiene mayor inmunidad al ruido a la salida del filtro pasabanda?</para>
+</problem>
+
+<solution id="eip-286">
+  <para id="eip-986">Si se transmite una señal SSB con la misma potencia con la que se transmite una señal DSB, la primera tendrá una mayor inmunidad al ruido a la salida del filtro pasabanda, ya que se mantiene la potencia de la señal pero la potencia del ruido se reduce a la mitad al reducirse el ancho de banda. Especificando un poco más, la S/N se multiplica por dos o lo que es lo mismo, la S/N<sub>[dB]</sub> se incrementa en 3dB. (Para duplicar la potencia de transmisión, la amplitud de la portadora debe ser multiplicada por 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mrow><m:msqrt><m:mn>2</m:mn></m:msqrt><m:mo stretchy="false">≈</m:mo><m:mn>1</m:mn></m:mrow><m:mtext>.</m:mtext><m:mtext>41</m:mtext></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ sqrt {2}  approx 1 "." "41"} {}</m:annotation></m:semantics></m:math>)</para>
+</solution>
+</exercise>
+        
+        
+        
+        
+      </section>
+      <section id="id7864063"><title>Simuladores </title><para id="id7938040"><link url="SistemaAMMATLAB.rar">ESTE VINCULO</link> contiene una carpeta con un programa realizado en <term document="m41083" target-id="eip-678" window="replace">MATLAB</term> que simula un Sistema AM-DSB-SSB con Repetidoras. La carpeta incluye el .m y todos los archivos necesarios para su funcionamiento, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 9 contiene un video explicativo acerca del uso del programa.</para>
+
+<figure id="VideoMATLAB"><title>Sistema de Transmisión en MATLAB</title><media id="yt-media" display="block" alt="Ecualizador MATLAB">
+  <flash id="yt-video" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/jhiX7k4Nkcg?fs=1&amp;hl=es_ES" width="900" height="745">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+<caption>Video explicativo de la utilización del programa realizado en MATLAB</caption></figure>
+<para id="eip-665">Puede obtenerse también un programa realizado en <term document="m41078" window="replace">LabVIEW</term> acerca del mismo tema por medio de <link url="SistemaAM_LabVIEW.rar">ESTE VINCULO</link>. La carpeta incluye el .vi y todos los archivos necesarios para su funcionamiento. Igualmente, si se elimina o renombra alguno de estos archivos, el programa podría no funcionar correctamente. La figura 10 contiene un video explicativo acerca del uso del programa.</para><figure id="VideoLV"><title>Sistema de Transmisión en LabVIEW</title><media id="yt-media2" display="block" alt="Ecualizador MATLAB">
+  <flash id="yt-video2" mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/vrkpjK-8WJU?fs=1&amp;hl=es_ES" width="900" height="745">
+   <param name="allowscriptaccess" value="always"/>
+   <param name="allowsfullscreen" value="true"/>
+  </flash>
+ </media>
+<caption>Video explicativo de la utilización del programa realizado en LabVIEW</caption></figure>
+      
+      </section>
+
+  </content>
+</document>

@@ -1,0 +1,684 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Procesos Aleatorios</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m41097</md:content-id>
+  <md:title>Procesos Aleatorios</md:title>
+  <md:abstract>Concepto de proceso aleatorio, procesos estacionarios y ergódicos.</md:abstract>
+  <md:uuid>e3f8443a-3791-4d40-85b9-fc515bf8b81a</md:uuid>
+</metadata>
+<featured-links>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit below.
+       Changes to the links section in the source will not be saved. -->
+    <link-group type="example">
+      <link url="http://cnx.org/content/m41094/latest/" strength="3">Señales </link>
+    </link-group>
+  <!-- WARNING! The 'featured-links' section is read only. Do not edit above.
+       Changes to the links section in the source will not be saved. -->
+</featured-links>
+<content>
+    <para id="id1171626733672">Un Proceso Aleatorio se define como el conjunto de <term document="m41094" target-id="id8857645" window="replace">señales</term> provenientes de realizar un determinado experimento o de un evento de la naturaleza. La naturaleza aleatoria del experimento proviene del desconocimiento de cuál de las señales se obtendrá al realizar el experimento. Para caracterizar los Procesos Aleatorios se definen diversas variables aleatorias como la secuencia de valores de las diversas señales evaluadas en tiempos específicos. Así se puede hablar de x(t1), x(t2), etc. Procesos Aleatorios pueden ser continuos o discretos. Los casos especiales para Procesos Aleatorios mayormente utilizados en el ámbito de las comunicaciones son los <emphasis effect="italics">Procesos Estacionarios </emphasis>y los <emphasis effect="italics">Procesos Ergódicos.</emphasis></para>
+    <section id="id1171629227960">
+      <title>Función de Densidad de Probabilidades </title>
+      <para id="id1171628822768">La Función de Densidad de Probabilidades es una función que, al integrarse entre un límite inferior (L1) y un límite superior (L2), indica la probabilidad de que la variable aleatoria tome valores entre L1 y L2; el área total definida por la función de densidad de probabilidades es igual a 1. Existen varios tipos de distribución, como uniforme, gaussiana, exponencial, entre otras. La figura 1 muestra la función de densidad de probabilidades para una distribución gaussiana y una distribución uniforme respectivamente, el área pintada en azul claro representa el valor de la probabilidad de que la variable tome valores entre L1 y L2:</para>
+      <figure id="id1603748"><media id="id1603748_media" alt="">
+          <image mime-type="image/png" src="../../media/Imagen 78.png" id="id1603748__onlineimage" height="168" width="613"/>
+        </media>
+      <caption>Función de Densidad de Probabilidades Gaussiana y Uniforme</caption></figure>
+      
+      <para id="id1171627058587">El concepto de función de densidad de probabilidades puede generalizarse a más de una variable, convirtiéndose en una función n-dimensional denominada Función de Densidad de Probabilidades Conjunta. </para>
+    </section>
+    <section id="id1171627033623">
+      <title>Procesos Estacionarios</title>
+      <para id="id1171626777910">Si la función de densidad de probabilidades aplicada a una señal aleatoria en cierto instante es igual si la misma se desplaza cualquier valor de tiempo, se dice que representa un proceso estacionario de primer orden, resumiendo:</para>
+      <equation id="id1171637976255">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mstyle fontstyle="italic">
+                      <m:mrow>
+                        <m:mtext>fdp</m:mtext>
+                      </m:mrow>
+                    </m:mstyle>
+                    <m:mrow>
+                      <m:mfenced open="(" close=")">
+                        <m:mrow>
+                          <m:mi>x</m:mi>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                      </m:mfenced>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>fdp</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:mrow>
+                    <m:mfenced open="(" close=")">
+                      <m:mrow>
+                        <m:mi>x</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mrow>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mi>τ</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                      </m:mrow>
+                    </m:mfenced>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ ital "fdp" left (x \( t \)  right )= ital "fdp" left (x \( t+τ \)  right )} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1171629108606">Tomándose en cuenta dos variables aleatorias de un mismo proceso: x(t<sub>1</sub>) y x(t<sub>2</sub>), si la función de densidad de probabilidades conjunta aplicada a ambas variables aleatorias es igual si para un desplazamiento de tiempo cualquiera, se dice que el proceso es estacionario de segundo orden:</para>
+      <equation id="id1171631608319">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mstyle fontstyle="italic">
+                      <m:mrow>
+                        <m:mtext>fdp</m:mtext>
+                      </m:mrow>
+                    </m:mstyle>
+                    <m:mrow>
+                      <m:mfenced open="(" close=")">
+                        <m:mrow>
+                          <m:msub>
+                            <m:mi>x</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>1</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mi>,</m:mi>
+                          <m:msub>
+                            <m:mi>x</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                      </m:mfenced>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>fdp</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:mrow>
+                    <m:mfenced open="(" close=")">
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>x</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>1</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mrow>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mi>τ</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mi>,</m:mi>
+                        <m:msub>
+                          <m:mi>x</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>2</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mrow>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mi>τ</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                      </m:mrow>
+                    </m:mfenced>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ ital "fdp" left (x rSub { size 8{1} }  \( t \) ,x rSub { size 8{2} }  \( t \)  right )= ital "fdp" left (x rSub { size 8{1} }  \( t+τ \) ,x rSub { size 8{2} }  \( t+τ \)  right )} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1171631847496">En general, se dice que un proceso es estacionario de orden N si se cumple que:</para>
+      <equation id="id1171628650633">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mstyle fontstyle="italic">
+                      <m:mrow>
+                        <m:mtext>fdp</m:mtext>
+                      </m:mrow>
+                    </m:mstyle>
+                    <m:mrow>
+                      <m:mfenced open="(" close=")">
+                        <m:mrow>
+                          <m:msub>
+                            <m:mi>x</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>1</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mi>,</m:mi>
+                          <m:msub>
+                            <m:mi>x</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mtext>.</m:mtext>
+                          <m:mtext>.</m:mtext>
+                          <m:mtext>.</m:mtext>
+                          <m:msub>
+                            <m:mi>x</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mi>N</m:mi>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                      </m:mfenced>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>fdp</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:mrow>
+                    <m:mfenced open="(" close=")">
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>x</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>1</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mrow>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mi>τ</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mi>,</m:mi>
+                        <m:msub>
+                          <m:mi>x</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>2</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mrow>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mi>τ</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mtext>.</m:mtext>
+                        <m:mtext>.</m:mtext>
+                        <m:mtext>.</m:mtext>
+                        <m:msub>
+                          <m:mi>x</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>N</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mrow>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mi>τ</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                      </m:mrow>
+                    </m:mfenced>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ ital "fdp" left (x rSub { size 8{1} }  \( t \) ,x rSub { size 8{2} }  \( t \)  "."  "."  "." x rSub { size 8{N} }  \( t \)  right )= ital "fdp" left (x rSub { size 8{1} }  \( t+τ \) ,x rSub { size 8{2} }  \( t+τ \)  "."  "."  "." x rSub { size 8{N} }  \( t+τ \)  right )} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1171627134038">Cualquier proceso estacionario de cierto orden, será estacionario en órdenes inferiores.</para>
+    </section>
+    <section id="id2060061"><title>Procesos Ergódicos </title><para id="id1171632327444">Un proceso aleatorio es ergódico respecto al primer momento si el promedio estadístico (o valor esperado E[x(t)]) y el promedio temporal (&lt;x(t)&gt;) coinciden; resumiendo:</para>
+      <equation id="id1171628720172">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∫</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mo stretchy="false">∞</m:mo>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:mi>x</m:mi>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>fdp</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mfenced open="(" close=")">
+                            <m:mrow>
+                              <m:mi>x</m:mi>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mfenced>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>dx</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                      </m:mrow>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:munder>
+                        <m:mtext>lim</m:mtext>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi>T</m:mi>
+                              <m:mo stretchy="false">→</m:mo>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:munder>
+                    </m:mrow>
+                    <m:mfrac>
+                      <m:mn>1</m:mn>
+                      <m:mi>T</m:mi>
+                    </m:mfrac>
+                    <m:mrow>
+                      <m:munder>
+                        <m:mo stretchy="false">∫</m:mo>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>T</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:munder>
+                      <m:mrow>
+                        <m:mi>x</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mi>d</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  {x \( t \)  ital "fdp" left (x \( t \)  right ) ital "dx" \( t \) } = {"lim"}  cSub { size 8{T rightarrow  infinity } }  {  {1}  over  {T} }  Int cSub { size 8{T} }  {x \( t \) d \( t \) } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1171628982450">Generalizando, se define la ergodicidad en orden N:</para>
+      <equation id="id1171635601088">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∫</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mo stretchy="false">∞</m:mo>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:msup>
+                            <m:mi>x</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mi>N</m:mi>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>fdp</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mfenced open="(" close=")">
+                            <m:mrow>
+                              <m:mi>x</m:mi>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mfenced>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>dx</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                      </m:mrow>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:munder>
+                        <m:mtext>lim</m:mtext>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi>T</m:mi>
+                              <m:mo stretchy="false">→</m:mo>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:munder>
+                    </m:mrow>
+                    <m:mfrac>
+                      <m:mn>1</m:mn>
+                      <m:mi>T</m:mi>
+                    </m:mfrac>
+                    <m:mrow>
+                      <m:munder>
+                        <m:mo stretchy="false">∫</m:mo>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>T</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:munder>
+                      <m:mrow>
+                        <m:msup>
+                          <m:mi>x</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>N</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mi>d</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  {x rSup { size 8{N} }  \( t \)  ital "fdp" left (x \( t \)  right ) ital "dx" \( t \) } = {"lim"}  cSub { size 8{T rightarrow  infinity } }  {  {1}  over  {T} }  Int cSub { size 8{T} }  {x rSup { size 8{N} }  \( t \) d \( t \) } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1171628951557">Cualquier proceso ergódico de cierto orden, es estacionario en ese mismo orden, además será ergódico en órdenes inferiores. Para procesos ergódicos de segundo orden se cumple que:</para>
+      <list id="id1171628644461" list-type="bulleted">
+        <item>El nivel DC de la señal es igual al 1er momento: 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">〈</m:mo><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow><m:mo stretchy="false">〉</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ langle x \( t \)  rangle } {}</m:annotation></m:semantics></m:math></item>
+        <item>La potencia promedio total de la señal es igual al 2do momento: 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">〈</m:mo><m:mrow><m:msup><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow><m:mo stretchy="false">〉</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ langle x rSup { size 8{2} }  \( t \)  rangle } {}</m:annotation></m:semantics></m:math></item>
+        <item>La potencia AC de la señal se conoce como varianza: 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">〈</m:mo><m:mrow><m:msup><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow><m:mo stretchy="false">〉</m:mo></m:mrow><m:mo stretchy="false">−</m:mo><m:msup><m:mrow><m:mo stretchy="false">〈</m:mo><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow><m:mo stretchy="false">〉</m:mo></m:mrow><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ langle x rSup { size 8{2} }  \( t \)  rangle  -  langle x \( t \)  rangle  rSup { size 8{2} } } {}</m:annotation></m:semantics></m:math></item>
+      </list>
+    </section>
+    <section id="id1171629102460">
+      <title>Autocorrelación </title>
+      <para id="id1171628123650">La Autocorrelación es una función que indica la relación que tiene el valor que toma una señal en un momento específico con sus vecinos temporales. El concepto de Autocorrelación se aplica para señales determinísticas y aleatorias aunque para estas últimas es una herramienta insustituible si el Proceso es Ergódico; la expresión para la misma corresponde con el valor esperado de la multiplicación de la señal en un tiempo t<sub>1</sub> por la misma señal en un tiempo t<sub>2</sub>:</para>
+      <equation id="id1171643791756">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mo stretchy="false">ℜ</m:mo>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>x</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>E</m:mi>
+                    </m:mrow>
+                    <m:mrow>
+                      <m:mfenced open="[" close="]">
+                        <m:mrow>
+                          <m:mi>x</m:mi>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:msub>
+                            <m:mi>t</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>1</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mi>x</m:mi>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:msub>
+                            <m:mi>t</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                      </m:mfenced>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>E</m:mi>
+                    </m:mrow>
+                    <m:mfenced open="[" close="]">
+                      <m:mrow>
+                        <m:mi>x</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mi>x</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mrow>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mi>τ</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                      </m:mrow>
+                    </m:mfenced>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ Re  rSub { size 8{x} } =E left [x \( t rSub { size 8{1} }  \) x \( t rSub { size 8{2} }  \)  right ]=E left [x \( t \) x \( t+τ \)  right ]} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1171629083854">La variable τ de la función de autocorrelación hace referencia a la diferencia entre los instantes de tiempo involucrados t1 y t2. Si el proceso es ergódico, puede sustituirse la expresión para el valor esperado por la expresión para el promedio temporal como indica la ecuación 4, quedando así una expresión determinística: </para>
+      <equation id="id1171628169927">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msub>
+                      <m:mo stretchy="false">ℜ</m:mo>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mi>x</m:mi>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>τ</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:munder>
+                        <m:mtext>lim</m:mtext>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi>T</m:mi>
+                              <m:mo stretchy="false">→</m:mo>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:munder>
+                    </m:mrow>
+                    <m:mfrac>
+                      <m:mn>1</m:mn>
+                      <m:mi>T</m:mi>
+                    </m:mfrac>
+                    <m:mrow>
+                      <m:munder>
+                        <m:mo stretchy="false">∫</m:mo>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>T</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:munder>
+                      <m:mrow>
+                        <m:mi>x</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mi>x</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mrow>
+                          <m:mi>t</m:mi>
+                          <m:mo stretchy="false">−</m:mo>
+                          <m:mi>τ</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mi>d</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ Re  rSub { size 8{x} }  \( τ \) = {"lim"}  cSub { size 8{T rightarrow  infinity } }  {  {1}  over  {T} }  Int cSub { size 8{T} }  {x \( t \) x \( t - τ \) d \( t \) } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+    </section>
+    <section id="id1171626168993">
+      <title>Densidad Espectral de Potencia (DEP):</title>
+      <para id="id1171626720772">La DEP de una señal indica cómo está distribuida la potencia de la señal en función de la frecuencia. Para Procesos Ergódicos corresponde con la <term document="m41093" target-id="id1166487790242" window="replace">Transformada de Fourier</term> de la función de autocorrelación y su área coincide con la potencia promedio total de la señal, y coincide a su vez la autocorrelación en τ=0.</para>
+    </section>
+  </content>
+</document>
