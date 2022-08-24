@@ -1,12 +1,13 @@
-<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="es">
+<?xml version="1.0"?>
+<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="es" authors="Jos&#xE9; Miguel Hobaica Alvarado">
   <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
     <md:content-id>col11361</md:content-id>
-    <md:title>Señales y Sistemas en MATLAB y LabVIEW</md:title>
+    <md:title>Se&#xF1;ales y Sistemas en MATLAB y LabVIEW</md:title>
     <md:language>es</md:language>
     <md:license url="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License</md:license>
     <md:uuid>de9f41d4-b3b1-4842-aa1f-19b7d30e5c81</md:uuid>
-<md:slug>senales-y-sistemas-en-matlab-y-labview</md:slug>
-</metadata>
+    <md:slug>senales-y-sistemas-en-matlab-y-labview</md:slug>
+  </metadata>
   <col:content>
     <col:module document="m41078"/>
     <col:module document="m41083"/>
